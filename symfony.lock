@@ -266,6 +266,9 @@
     "symfony/string": {
         "version": "v5.2.8"
     },
+    "symfony/translation-contracts": {
+        "version": "v2.4.0"
+    },
     "symfony/var-dumper": {
         "version": "v5.2.8"
     },
