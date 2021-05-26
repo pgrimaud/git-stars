@@ -34,7 +34,9 @@ class LanguageController extends AbstractController
         $start = ($page - 1) * 2;
 
         $userLanguages = $userLanguageRepository->findUserByLanguage($language, $start);
-//        dd($userLanguages);
+
+        $totalLanguagePages = $userLanguageRepository->totalLanguagePages($language);
+//        dd($tlp);
         return $this->render('language/show.html.twig', [
             'language' => $language,
             'userLanguages' => $userLanguages,

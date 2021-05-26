@@ -32,8 +32,17 @@ class UserLanguageRepository extends ServiceEntityRepository
             ->setFirstResult($start)
             ->setMaxResults(25)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
+    }
+
+    public function totalLanguagePages(Language $language): int
+    {
+        return $this->createQueryBuilder('ul')
+            ->select('count(ul) as total')
+            ->andWhere('ul.language = :language')
+            ->setParameter('language', $language)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     public function findLanguageByUsers(User $user)
@@ -45,8 +54,7 @@ class UserLanguageRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->orderBy('ul.stars', 'DESC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     // /**
