@@ -21,7 +21,7 @@ class LanguageFixtures extends Fixture
         $data = json_decode($json, true);
 
         foreach ($data as $key => $githubLang) {
-            $slug = str_replace(['+', '#', '*'], ['-plus', '-sharp', '-star'], $key);
+            $slug = str_replace(['+ERB', '+', '#', '*'], ['-plus-ERB', '-plus', '-sharp', '-star'], $key);
             $slug = $this->slugger->slug($slug)->lower();
 
             $language = new Language();
