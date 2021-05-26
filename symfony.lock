@@ -1,4 +1,7 @@
 {
+    "clue/stream-filter": {
+        "version": "v1.5.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
     },
@@ -100,6 +103,22 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "guzzlehttp/promises": {
+        "version": "1.4.1"
+    },
+    "hwi/oauth-bundle": {
+        "version": "0.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.6",
+            "ref": "20cacc9b2da49d96ea55c8a8dd31324c5be88bc9"
+        },
+        "files": [
+            "config/packages/hwi_oauth.yaml",
+            "config/routes/hwi_oauth_routing.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.3.0"
     },
@@ -115,6 +134,54 @@
     "nikic/php-parser": {
         "version": "v4.10.5"
     },
+    "nyholm/psr7": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "0cd4d2d0e7f646fda75f9944f747a56e6ed13d4c"
+        },
+        "files": [
+            "config/packages/nyholm_psr7.yaml"
+        ]
+    },
+    "php-http/client-common": {
+        "version": "2.3.0"
+    },
+    "php-http/discovery": {
+        "version": "1.13.0"
+    },
+    "php-http/httplug": {
+        "version": "2.2.0"
+    },
+    "php-http/httplug-bundle": {
+        "version": "1.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.6",
+            "ref": "87b3d491d593d2c6e3b90bf0689ac69a188bfa5f"
+        },
+        "files": [
+            "config/packages/httplug.yaml"
+        ]
+    },
+    "php-http/logger-plugin": {
+        "version": "1.2.1"
+    },
+    "php-http/message": {
+        "version": "1.11.1"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
+    },
+    "php-http/promise": {
+        "version": "1.1.0"
+    },
+    "php-http/stopwatch-plugin": {
+        "version": "1.4.0"
+    },
     "psr/cache": {
         "version": "2.0.0"
     },
@@ -123,6 +190,15 @@
     },
     "psr/event-dispatcher": {
         "version": "1.0.0"
+    },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
+    "psr/http-factory": {
+        "version": "1.0.1"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
     },
     "psr/log": {
         "version": "1.1.4"
@@ -202,6 +278,9 @@
             ".env"
         ]
     },
+    "symfony/form": {
+        "version": "v5.3.0-rc1"
+    },
     "symfony/framework-bundle": {
         "version": "5.2",
         "recipe": {
@@ -221,6 +300,9 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/http-client": {
+        "version": "v5.3.0-rc1"
     },
     "symfony/http-client-contracts": {
         "version": "v2.4.0"
@@ -258,10 +340,19 @@
             "config/packages/test/monolog.yaml"
         ]
     },
+    "symfony/options-resolver": {
+        "version": "v5.2.4"
+    },
     "symfony/orm-pack": {
         "version": "v2.1.0"
     },
+    "symfony/password-hasher": {
+        "version": "v5.3.0-rc1"
+    },
     "symfony/polyfill-intl-grapheme": {
+        "version": "v1.22.1"
+    },
+    "symfony/polyfill-intl-icu": {
         "version": "v1.22.1"
     },
     "symfony/polyfill-intl-normalizer": {
@@ -278,6 +369,12 @@
     },
     "symfony/profiler-pack": {
         "version": "v1.0.5"
+    },
+    "symfony/property-access": {
+        "version": "v5.3.0-rc1"
+    },
+    "symfony/property-info": {
+        "version": "v5.2.8"
     },
     "symfony/proxy-manager-bridge": {
         "version": "v5.2.9"
@@ -296,6 +393,30 @@
             "config/routes.yaml"
         ]
     },
+    "symfony/security-bundle": {
+        "version": "5.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.1",
+            "ref": "0a4bae19389d3b9cba1ca0102e3b2bccea724603"
+        },
+        "files": [
+            "config/packages/security.yaml"
+        ]
+    },
+    "symfony/security-core": {
+        "version": "v5.3.0-rc1"
+    },
+    "symfony/security-csrf": {
+        "version": "v5.3.0-rc1"
+    },
+    "symfony/security-guard": {
+        "version": "v5.2.8"
+    },
+    "symfony/security-http": {
+        "version": "v5.2.9"
+    },
     "symfony/service-contracts": {
         "version": "v2.4.0"
     },
@@ -304,6 +425,9 @@
     },
     "symfony/string": {
         "version": "v5.2.8"
+    },
+    "symfony/templating": {
+        "version": "v5.2.4"
     },
     "symfony/translation-contracts": {
         "version": "v2.4.0"
