@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+        {% block body %}
+            <a href="{{ path('languages_index') }}">Return</a>
+            <h1>{{ username }}</h1>
+
+            <ol>
+                {% for userLanguage in userLanguages %}
+                    <li>{{ userLanguage.name }} | {{ userLanguage.stars }} stars</li>
+                {% endfor %}
+            </ol>
+
+        {% endblock %}
+

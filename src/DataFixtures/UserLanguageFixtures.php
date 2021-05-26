@@ -20,7 +20,7 @@ class UserLanguageFixtures extends Fixture
 
             $languagesTemp = $languages;
 
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 150; $i++) {
                 $userLang = new UserLanguage();
                 $userLang->setUser($user);
 
