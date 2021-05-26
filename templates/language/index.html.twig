@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+        {% block body %}
+            {% for language in languages %}
+
+                <a href="{{ path('languages_show', {'slug' : language.slug}) }}">{{ language.name }}</a>
+                <br>
+            {% endfor %}
+        {% endblock %}
+
