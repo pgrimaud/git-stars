@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -31,11 +33,21 @@ class User implements UserInterface
     private string $accessToken;
 
     /**
-     * @ORM\Column(type="bigint")
+     * @ORM\Column(type="bigint", unique=true)
      */
     private int $githubId;
 
     private array $data;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserLanguage::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $userLanguages;
+
+    public function __construct()
+    {
+        $this->userLanguages = new ArrayCollection();
+    }
 
     public function getRoles(): array
     {
@@ -111,5 +123,35 @@ class User implements UserInterface
     public function getUserIdentifier(): ?string
     {
         return $this->getUsername();
+    }
+
+    /**
+     * @return Collection|UserLanguage[]
+     */
+    public function getUserLanguages(): Collection
+    {
+        return $this->userLanguages;
+    }
+
+    public function addUserLanguage(UserLanguage $userLanguage): self
+    {
+        if (!$this->userLanguages->contains($userLanguage)) {
+            $this->userLanguages[] = $userLanguage;
+            $userLanguage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLanguage(UserLanguage $userLanguage): self
+    {
+        if ($this->userLanguages->removeElement($userLanguage)) {
+            // set the owning side to null (unless already changed)
+            if ($userLanguage->getUser() === $this) {
+                $userLanguage->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
