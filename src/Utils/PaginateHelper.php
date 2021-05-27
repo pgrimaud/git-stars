@@ -13,8 +13,7 @@ class PaginateHelper
 
         $totalPages = ceil($maxResults / $nbPerPage);
 
-
-        if ($currentPage == 1) {
+        if (1 == $currentPage) {
             $hasPrevious  = false;
             $nextPage     = $currentPage + 1;
             $nextPagePlus = $currentPage + 2;
@@ -26,8 +25,7 @@ class PaginateHelper
                 'resPerPage'   => $nbPerPage,
                 'totalPages'   => $totalPages,
             ];
-
-        } else if ($currentPage == $totalPages) {
+        } elseif ($currentPage == $totalPages) {
             $hasNext          = false;
             $previousPage     = $currentPage - 1;
             $previousPagePlus = $currentPage - 2;
@@ -39,7 +37,6 @@ class PaginateHelper
                 'resPerPage'       => $nbPerPage,
                 'totalPages'       => $totalPages,
             ];
-
         } else {
             $previousPage = $currentPage - 1;
             $nextPage     = $currentPage + 1;
@@ -52,6 +49,5 @@ class PaginateHelper
                 'totalPages'  => $totalPages,
             ];
         }
-
     }
 }

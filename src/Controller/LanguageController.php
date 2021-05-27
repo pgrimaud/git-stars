@@ -7,11 +7,11 @@ namespace App\Controller;
 use App\Entity\Language;
 use App\Repository\LanguageRepository;
 use App\Repository\UserLanguageRepository;
+use App\Utils\PaginateHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Utils\PaginateHelper;
 
 class LanguageController extends AbstractController
 {
@@ -46,6 +46,7 @@ class LanguageController extends AbstractController
 
         $paginate = PaginateHelper::create($page, $totalLanguagePages);
         dd($totalLanguagePages, $paginate);
+
         return $this->render('language/show.html.twig', [
             'language'      => $language,
             'userLanguages' => $userLanguages,
