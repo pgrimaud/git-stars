@@ -19,6 +19,8 @@ class PaginateHelper
             $nextPagePlus = $currentPage + 2;
 
             return [
+                'hasPrevious'  => $hasPrevious,
+                'hasNext'      => $hasNext,
                 'currentPage'  => $currentPage,
                 'nextPage'     => $nextPage,
                 'nextPagePlus' => $nextPagePlus,
@@ -31,6 +33,8 @@ class PaginateHelper
             $previousPagePlus = $currentPage - 2;
 
             return [
+                'hasPrevious'      => $hasPrevious,
+                'hasNext'          => $hasNext,
                 'currentPage'      => $currentPage,
                 'previousPage'     => $previousPage,
                 'previousPagePlus' => $previousPagePlus,
@@ -42,6 +46,8 @@ class PaginateHelper
             $nextPage     = $currentPage + 1;
 
             return [
+                'hasPrevious' => $hasPrevious,
+                'hasNext'     => $hasNext,
                 'currentPage' => $currentPage,
                 'previous'    => $previousPage,
                 'nextPage'    => $nextPage,

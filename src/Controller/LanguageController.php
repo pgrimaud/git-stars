@@ -50,6 +50,7 @@ class LanguageController extends AbstractController
         return $this->render('language/show.html.twig', [
             'language'      => $language,
             'userLanguages' => $userLanguages,
+            'paginate'      => $paginate,
         ]);
     }
 }
