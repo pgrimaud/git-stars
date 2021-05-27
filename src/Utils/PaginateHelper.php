@@ -17,11 +17,11 @@ class PaginateHelper
         };
 
         return [
-            'current'   => $currentPage,
-            'total'     => $totalPages,
-            'hasNext'   => $currentPage < $totalPages,
-            'hasBefore' => $currentPage > 1,
-            'range'     => $range,
+            'current'     => $currentPage,
+            'total'       => $totalPages,
+            'hasNext'     => $currentPage < $totalPages,
+            'hasPrevious' => $currentPage > 1,
+            'range'       => $range,
         ];
     }
 }

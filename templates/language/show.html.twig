@@ -10,5 +10,12 @@
             {% endfor %}
             </ol>
 
+            {% include 'partials/paginate.html.twig' with {
+                'paginate': paginate,
+                'route': 'languages_show',
+                'route_parameters': {
+                    'slug' : language.slug
+                }
+            }  %}
         {% endblock %}
 
