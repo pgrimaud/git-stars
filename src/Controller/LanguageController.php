@@ -43,9 +43,9 @@ class LanguageController extends AbstractController
         $userLanguages = $userLanguageRepository->findUserByLanguage($language, $start);
 
         $totalLanguagePages = $userLanguageRepository->totalLanguagePages($language);
+        // @todo check if current page is inferior total pages
 
         $paginate = PaginateHelper::create($page, $totalLanguagePages);
-        dd($totalLanguagePages, $paginate);
 
         return $this->render('language/show.html.twig', [
             'language'      => $language,
