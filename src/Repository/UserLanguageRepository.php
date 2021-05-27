@@ -21,7 +21,7 @@ class UserLanguageRepository extends ServiceEntityRepository
         parent::__construct($registry, UserLanguage::class);
     }
 
-    public function findUserByLanguage(Language $language, int $start)
+    public function findUserByLanguage(Language $language, int $start): array
     {
         return $this->createQueryBuilder('ul')
             ->select('ul.stars', 'u.username')
@@ -45,7 +45,7 @@ class UserLanguageRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function findLanguageByUsers(User $user)
+    public function findLanguageByUsers(User $user): array
     {
         return $this->createQueryBuilder('ul')
             ->select('ul.stars', 'l.name', 'l.color')
@@ -56,33 +56,4 @@ class UserLanguageRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-    // /**
-    //  * @return UserLanguage[] Returns an array of UserLanguage objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?UserLanguage
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

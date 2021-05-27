@@ -6,7 +6,7 @@ namespace App\Utils;
 
 class PaginateHelper
 {
-    public static function create(int $currentPage, int $maxResults, int $nbPerPage = 25)
+    public static function create(int $currentPage, int $maxResults, int $nbPerPage = 25): void
     {
     }
 }

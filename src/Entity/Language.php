@@ -39,7 +39,7 @@ class Language
     /**
      * @ORM\OneToMany(targetEntity=UserLanguage::class, mappedBy="language", orphanRemoval=true)
      */
-    private ArrayCollection $userLanguages;
+    private Collection $userLanguages;
 
     public function __construct()
     {

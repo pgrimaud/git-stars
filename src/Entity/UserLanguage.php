@@ -20,24 +20,24 @@ class UserLanguage
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userLanguages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="userLanguages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $language;
+    private Language $language;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $stars;
+    private int $stars;
 
     public function getId(): ?int
     {
