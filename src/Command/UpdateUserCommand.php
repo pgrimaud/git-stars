@@ -64,7 +64,7 @@ class UpdateUserCommand extends Command
         $stars = [];
 
         foreach ($repositories as $repo) {
-            if (null !== $repo['language']) {
+            if ($repo['language'] !== null) {
                 if (!isset($stars[$repo['language']])) {
                     $stars[$repo['language']] = $repo['stargazers_count'];
                 } else {

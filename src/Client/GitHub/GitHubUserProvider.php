@@ -60,6 +60,6 @@ class GitHubUserProvider extends OAuthUserProvider
 
     public function supportsClass($class): bool
     {
-        return 'App\\Entity\\User' === $class;
+        return $class === 'App\\Entity\\User';
     }
 }

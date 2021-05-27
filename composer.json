@@ -106,7 +106,7 @@
             },
             "pre-commit": [
                 "./vendor/bin/php-cs-fixer fix",
-                "git add $(git status --porcelain | grep .php | cut -c 3- | tr '\\n' ' ')",
+                "sleep 1 && git add $(git status --porcelain | grep .php | cut -c 3- | tr '\\n' ' ')",
                 "./vendor/bin/phpstan analyse src --level=max"
             ]
         }
