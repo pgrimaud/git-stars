@@ -16,7 +16,7 @@ class LanguageController extends AbstractController
     {
     }
 
-    #[Route('/languages', name: 'languages_index')]
+    #[Route('/languages', name: 'languages_index', methods: ['GET'])]
     public function index(): Response
     {
         $languages = $this->languageRepository->findAll();
@@ -26,8 +26,8 @@ class LanguageController extends AbstractController
         ]);
     }
 
-    #[Route('/languages/{slug}/{page}', name: 'languages_show')]
-    public function show(string $slug, int $page = 1, UserLanguageRepository $userLanguageRepository): Response
+    #[Route('/languages/{slug}/{page}', name: 'languages_show', methods: ['GET'])]
+    public function show(UserLanguageRepository $userLanguageRepository, string $slug, int $page = 1): Response
     {
         $language = $this->languageRepository->findOneBy(['slug' => $slug]);
 
@@ -38,7 +38,7 @@ class LanguageController extends AbstractController
         $totalLanguagePages = $userLanguageRepository->totalLanguagePages($language);
 //        dd($tlp);
         return $this->render('language/show.html.twig', [
-            'language' => $language,
+            'language'      => $language,
             'userLanguages' => $userLanguages,
         ]);
     }

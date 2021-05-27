@@ -14,7 +14,7 @@ class UserController extends AbstractController
     {
     }
 
-    #[Route('/user', name: 'user_index')]
+    #[Route('/user', name: 'user_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('user/index.html.twig', [
@@ -22,8 +22,8 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/{username}', name: 'user_show')]
-    public function show(string $username, UserLanguageRepository $userLanguageRepository): Response
+    #[Route('/user/{username}', name: 'user_show', methods: ['GET'])]
+    public function show(UserLanguageRepository $userLanguageRepository, string $username): Response
     {
         $user = $this->userRepository->findOneBy(['username' => $username]);
         $userLanguages = $userLanguageRepository->findLanguageByUsers($user);
