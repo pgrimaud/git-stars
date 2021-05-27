@@ -1,4 +1,15 @@
 {
+    "name": "pgrimaud/git-stars",
+    "authors": [
+        {
+            "name": "Pierre Grimaud",
+            "email": "grimaud.pierre@gmail.com"
+        },
+        {
+            "name": "Julien Cousin-Alliot",
+            "email": "Nisouc@outlook.com"
+        }
+    ],
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
@@ -38,6 +49,7 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fakerphp/faker": "^1.14",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "symfony/maker-bundle": "^1.31"
     },
     "config": {

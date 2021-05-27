@@ -13,7 +13,7 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 500; ++$i) {
             $user = new User();
             $user->setUsername($faker->userName);
             $user->setAccessToken($faker->shuffleString('sf6zc6ez4vc165vc468re4sdc168ez4c65'));

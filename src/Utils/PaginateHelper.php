@@ -8,6 +8,5 @@ class PaginateHelper
 {
     public static function create(int $currentPage, int $maxResults, int $nbPerPage = 25)
     {
-
     }
 }

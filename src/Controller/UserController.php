@@ -25,11 +25,11 @@ class UserController extends AbstractController
     #[Route('/user/{username}', name: 'user_show', methods: ['GET'])]
     public function show(UserLanguageRepository $userLanguageRepository, string $username): Response
     {
-        $user = $this->userRepository->findOneBy(['username' => $username]);
+        $user          = $this->userRepository->findOneBy(['username' => $username]);
         $userLanguages = $userLanguageRepository->findLanguageByUsers($user);
 //        dd($userLanguages);
         return $this->render('user/show.html.twig', [
-            'username' => $username,
+            'username'      => $username,
             'userLanguages' => $userLanguages,
         ]);
     }
