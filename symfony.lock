@@ -143,6 +143,18 @@
             "config/routes/hwi_oauth_routing.yaml"
         ]
     },
+    "knplabs/github-api": {
+        "version": "2.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.6",
+            "ref": "a7d5781e4a8e84f1c238c43e4c9bb806f01d8a3f"
+        },
+        "files": [
+            "config/packages/github_api.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.3.0"
     },
@@ -173,6 +185,9 @@
     "php-cs-fixer/diff": {
         "version": "v2.0.2"
     },
+    "php-http/cache-plugin": {
+        "version": "1.7.2"
+    },
     "php-http/client-common": {
         "version": "2.3.0"
     },
@@ -202,6 +217,9 @@
     },
     "php-http/message-factory": {
         "version": "v1.0.2"
+    },
+    "php-http/multipart-stream-builder": {
+        "version": "1.2.0"
     },
     "php-http/promise": {
         "version": "1.1.0"
