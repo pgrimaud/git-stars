@@ -1,6 +1,4 @@
-{{ dump(paginate) }}
-
-<marquee>
+<div>
     <div style="display: flex; align-items: center; justify-content: center">
         {% if paginate.hasPrevious %}
             <a href="{{ path(route, route_parameters|merge({'page': paginate.current - 1})) }}"><</a>
@@ -19,6 +17,6 @@
             <a href="{{ path(route, route_parameters|merge({'page': paginate.current + 1})) }}">></a>
         {% endif %}
     </div>
-</marquee>
+</div>
 
 
