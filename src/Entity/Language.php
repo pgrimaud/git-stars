@@ -19,27 +19,27 @@ class Language
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $slug;
+    private string $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $color;
+    private string $color;
 
     /**
      * @ORM\OneToMany(targetEntity=UserLanguage::class, mappedBy="language", orphanRemoval=true)
      */
-    private $userLanguages;
+    private Collection $userLanguages;
 
     public function __construct()
     {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Language;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class LanguageFixtures extends Fixture
@@ -17,7 +17,7 @@ class LanguageFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $json = file_get_contents('https://raw.githubusercontent.com/ozh/github-colors/master/colors.json');
+        $json = (string) file_get_contents('https://raw.githubusercontent.com/ozh/github-colors/master/colors.json');
         $data = json_decode($json, true);
 
         foreach ($data as $key => $githubLang) {

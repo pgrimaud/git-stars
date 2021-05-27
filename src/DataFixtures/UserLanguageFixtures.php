@@ -10,17 +10,16 @@ use Doctrine\Persistence\ObjectManager;
 
 class UserLanguageFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $users = $manager->getRepository(User::class)->findAll();
 
         $languages = $manager->getRepository(Language::class)->findAll();
 
         foreach ($users as $user) {
-
             $languagesTemp = $languages;
 
-            for ($i = 0; $i < 150; $i++) {
+            for ($i = 0; $i < 150; ++$i) {
                 $userLang = new UserLanguage();
                 $userLang->setUser($user);
 

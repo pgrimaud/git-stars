@@ -1,4 +1,15 @@
 {
+    "name": "pgrimaud/git-stars",
+    "authors": [
+        {
+            "name": "Pierre Grimaud",
+            "email": "grimaud.pierre@gmail.com"
+        },
+        {
+            "name": "Julien Cousin-Alliot",
+            "email": "Nisouc@outlook.com"
+        }
+    ],
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
@@ -36,8 +47,11 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fakerphp/faker": "^1.14",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^0.12.88",
         "symfony/maker-bundle": "^1.31"
     },
     "config": {
@@ -81,6 +95,15 @@
         "symfony": {
             "allow-contrib": false,
             "require": "5.3.*"
+        },
+        "hooks": {
+            "config" : {
+                "stop-on-failure": ["pre-commit"]
+            },
+            "pre-commit": [
+                "./vendor/bin/php-cs-fixer fix",
+                "./vendor/bin/phpstan analyse src --level=max"
+            ]
         }
     }
 }

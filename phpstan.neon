@@ -1,0 +1,5 @@
+parameters:
+    excludes_analyse:
+        - 'src/Client/GitHub/GitHubUserProvider.php'
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
