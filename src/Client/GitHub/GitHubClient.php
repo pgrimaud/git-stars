@@ -5,15 +5,24 @@ declare(strict_types=1);
 namespace App\Client\GitHub;
 
 use Github\Client;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class GitHubClient
 {
-    public static function get(UserInterface $user, ?Client $client = null): Client
-    {
-        $client ??= new Client();
-        $client->authenticate($user->getAccessToken(), null, Client::AUTH_ACCESS_TOKEN);
+    private Client $client;
 
-        return $client;
+    public function __construct(string $generalAccessToken)
+    {
+        $this->client = new Client();
+        $this->client->authenticate($generalAccessToken, null, Client::AUTH_ACCESS_TOKEN);
+    }
+
+    public function getUserById(int $githubId): array
+    {
+        return $this->client->api('user')->showById($githubId);
+    }
+
+    public function getRepositoriesByUsername(string $username): array
+    {
+        return $this->client->api('user')->repositories($username);
     }
 }

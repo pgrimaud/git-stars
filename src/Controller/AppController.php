@@ -12,11 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class AppController extends AbstractController
 {
     #[Route('/', name: 'app_index', methods: ['GET'])]
-    public function index(): Response
+    public function index(GitHubClient $gc): Response
     {
-        //$githubClient = GitHubClient::get($this->getUser());
-        //dd($githubClient->api('user')->repositories('nispeon'));
-
         return $this->render('app/index.html.twig');
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Command;
 
+use App\Client\GitHub\GitHubClient;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Github\Client;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,7 +19,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class UpdateUserCommand extends Command
 {
-    public function __construct(string $name = null, private EntityManagerInterface $manager, private UserRepository $userRepository)
+    public function __construct(
+        string $name = null,
+        private EntityManagerInterface $manager,
+        private UserRepository $userRepository,
+        private GitHubClient $gitHubClient
+    )
     {
         parent::__construct($name);
     }
@@ -34,8 +39,7 @@ class UpdateUserCommand extends Command
         $io       = new SymfonyStyle($input, $output);
         $githubId = $input->getArgument('id');
 
-        $client     = new Client();
-        $githubUser = $client->api('user')->showById($githubId);
+        $githubUser = $this->gitHubClient->getUserById(intval($githubId));
 
         $user = $this->userRepository->findOneBy(['githubId' => $githubUser['id']]);
 
@@ -56,7 +60,7 @@ class UpdateUserCommand extends Command
             $this->manager->flush();
         }
 
-        $repositories = $client->api('user')->repositories($user->getUsername());
+        $repositories = $this->gitHubClient->getRepositoriesByUsername($user->getUsername());
 
         $stars = [];
 
@@ -69,6 +73,7 @@ class UpdateUserCommand extends Command
                 }
             }
         }
+
         dd($stars);
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
