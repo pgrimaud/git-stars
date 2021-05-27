@@ -42,7 +42,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=UserLanguage::class, mappedBy="user", orphanRemoval=true)
      */
-    private $userLanguages;
+    private Collection $userLanguages;
 
     public function __construct()
     {
@@ -110,7 +110,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setData(array $data = [])
+    public function setData(array $data = []): void
     {
         $this->data = $data;
     }

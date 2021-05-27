@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserLanguageRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -25,7 +27,12 @@ class UserController extends AbstractController
     #[Route('/user/{username}', name: 'user_show', methods: ['GET'])]
     public function show(UserLanguageRepository $userLanguageRepository, string $username): Response
     {
-        $user          = $this->userRepository->findOneBy(['username' => $username]);
+        $user = $this->userRepository->findOneBy(['username' => $username]);
+
+        if (!$user instanceof User) {
+            throw new NotFoundHttpException('User not found');
+        }
+
         $userLanguages = $userLanguageRepository->findLanguageByUsers($user);
 //        dd($userLanguages);
         return $this->render('user/show.html.twig', [

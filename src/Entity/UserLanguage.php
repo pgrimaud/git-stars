@@ -26,13 +26,13 @@ class UserLanguage
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userLanguages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private User $user;
+    private ?User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="userLanguages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private Language $language;
+    private ?Language $language;
 
     /**
      * @ORM\Column(type="integer")
