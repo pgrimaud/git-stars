@@ -24,8 +24,7 @@ class UpdateUserCommand extends Command
         private EntityManagerInterface $manager,
         private UserRepository $userRepository,
         private GitHubClient $gitHubClient
-    )
-    {
+    ) {
         parent::__construct($name);
     }
 
@@ -65,7 +64,7 @@ class UpdateUserCommand extends Command
         $stars = [];
 
         foreach ($repositories as $repo) {
-            if ($repo['language'] !== null) {
+            if (null !== $repo['language']) {
                 if (!isset($stars[$repo['language']])) {
                     $stars[$repo['language']] = $repo['stargazers_count'];
                 } else {
