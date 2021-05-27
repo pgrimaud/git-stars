@@ -47,6 +47,7 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fakerphp/faker": "^1.14",
         "friendsofphp/php-cs-fixer": "^3.0",
@@ -93,6 +94,11 @@
         "symfony": {
             "allow-contrib": false,
             "require": "5.3.*"
+        },
+        "hooks": {
+            "pre-commit": [
+                "./vendor/bin/php-cs-fixer fix"
+            ]
         }
     }
 }
