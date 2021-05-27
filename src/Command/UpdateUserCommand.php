@@ -2,6 +2,10 @@
 
 namespace App\Command;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Github\Client;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,6 +19,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class UpdateUserCommand extends Command
 {
+    public function __construct(string $name = null, private EntityManagerInterface $manager, private UserRepository $userRepository)
+    {
+        parent::__construct($name);
+    }
+
     protected function configure(): void
     {
         $this->addArgument('id', InputArgument::REQUIRED, 'GitHub Id');
@@ -24,6 +33,43 @@ class UpdateUserCommand extends Command
     {
         $io       = new SymfonyStyle($input, $output);
         $githubId = $input->getArgument('id');
+
+        $client     = new Client();
+        $githubUser = $client->api('user')->showById($githubId);
+
+        $user = $this->userRepository->findOneBy(['githubId' => $githubUser['id']]);
+
+        if (!$user instanceof User) {
+            $user = new User();
+            $user->setGithubId($githubUser['id']);
+            $user->setAccessToken('');
+            $user->setUsername($githubUser['login']);
+
+            $this->manager->persist($user);
+            $this->manager->flush();
+        } elseif ($user->getUsername() !== $githubUser['login']) {
+            // Update username if it changed since last update
+            // @TODO Create a 301 Redirection
+            $user->setUsername($githubUser['login']);
+
+            $this->manager->persist($user);
+            $this->manager->flush();
+        }
+
+        $repositories = $client->api('user')->repositories($user->getUsername());
+
+        $stars = [];
+
+        foreach ($repositories as $repo) {
+            if ($repo['language'] !== null) {
+                if (!isset($stars[$repo['language']])) {
+                    $stars[$repo['language']] = $repo['stargazers_count'];
+                } else {
+                    $stars[$repo['language']] += $repo['stargazers_count'];
+                }
+            }
+        }
+        dd($stars);
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 

@@ -11,5 +11,10 @@ return (new PhpCsFixer\Config())
         'concat_space'            => ['spacing' => 'one'],
         'phpdoc_var_without_name' => false,
         'binary_operator_spaces'  => ['default' => 'align_single_space_minimal'],
+        'yoda_style'              => [
+            'equal'            => false,
+            'identical'        => false,
+            'less_and_greater' => false,
+        ],
     ])
     ->setFinder($finder);
