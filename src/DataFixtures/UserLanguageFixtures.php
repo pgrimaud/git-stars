@@ -6,9 +6,10 @@ use App\Entity\Language;
 use App\Entity\User;
 use App\Entity\UserLanguage;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class UserLanguageFixtures extends Fixture
+class UserLanguageFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -34,5 +35,10 @@ class UserLanguageFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['full'];
     }
 }

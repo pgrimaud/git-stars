@@ -6,7 +6,7 @@
 
             <ol>
             {% for userLanguage in userLanguages %}
-                <li>{{ userLanguage.username }} | {{ userLanguage.stars }} stars</li>
+                <li><a href="{{ path('user_show', {'username' : userLanguage.username}) }}">{{ userLanguage.username }}</a> | {{ userLanguage.stars }} stars</li>
             {% endfor %}
             </ol>
 

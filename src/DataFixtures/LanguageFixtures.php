@@ -6,10 +6,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Language;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class LanguageFixtures extends Fixture
+class LanguageFixtures extends Fixture implements FixtureGroupInterface
 {
     public function __construct(private SluggerInterface $slugger)
     {
@@ -33,5 +34,10 @@ class LanguageFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['full', 'partial'];
     }
 }
