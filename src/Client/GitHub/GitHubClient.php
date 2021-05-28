@@ -29,4 +29,9 @@ class GitHubClient
 
         return $paginator->fetchAll($userApi, 'repositories', [$username]);
     }
+
+    public function checkApiKey(): array
+    {
+        return $this->client->api('rate_limit')->getResources();
+    }
 }

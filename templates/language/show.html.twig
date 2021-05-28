@@ -4,11 +4,14 @@
             <a href="{{ path('languages_index') }}">Return</a>
             <h1>{{ language.name }}</h1>
 
-            <ol>
+            <ul>
             {% for userLanguage in userLanguages %}
-                <li><a href="{{ path('user_show', {'username' : userLanguage.username}) }}">{{ userLanguage.username }}</a> | {{ userLanguage.stars }} stars</li>
+                <li>
+                    <img src="https://avatars.githubusercontent.com/u/{{ userLanguage.githubId }}?v=4" width="100px"/>
+                    {{ loop.index + 25 * (paginate.current - 1) }} - <a href="{{ path('user_show', {'username' : userLanguage.username}) }}">{{ userLanguage.username }}</a> | {{ userLanguage.stars }} stars
+                </li>
             {% endfor %}
-            </ol>
+            </ul>
 
             {% include 'partials/paginate.html.twig' with {
                 'paginate': paginate,

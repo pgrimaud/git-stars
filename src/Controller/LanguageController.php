@@ -41,7 +41,7 @@ class LanguageController extends AbstractController
         $totalLanguageUsers = $userLanguageRepository->totalLanguagePages($language);
 
         $paginate = PaginateHelper::create($page, $totalLanguageUsers);
-//        dd($totalLanguageUsers);
+
         if ($page > $paginate['total'] || $page <= 0) {
             throw new NotFoundHttpException('Page not found');
         }
