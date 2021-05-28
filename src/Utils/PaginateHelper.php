@@ -11,9 +11,9 @@ class PaginateHelper
         $totalPages = (int) ceil($maxResults / $nbPerPage);
 
         $range = match (true) {
-            ($currentPage === 1)           => range(1, 3),
-            ($currentPage === $totalPages) => range($currentPage - 2, $currentPage),
-            default                        => range($currentPage - 1, $currentPage + 1),
+            ($currentPage === 1 || $currentPage === 2) => range(1, 3),
+            ($currentPage === $totalPages)             => range($currentPage - 2, $currentPage),
+            default                                    => range($currentPage - 1, $currentPage + 1),
         };
 
         return [

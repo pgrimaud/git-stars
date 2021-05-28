@@ -20,4 +20,15 @@ class LanguageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Language::class);
     }
+
+    public function findAllByStars(): array
+    {
+        return $this->createQueryBuilder('l')
+            ->select('l')
+            ->join('l.userLanguages', 'ul')
+            ->groupBy('l.name')
+            ->orderBy('sum(ul.stars)', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

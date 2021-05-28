@@ -22,7 +22,7 @@ class LanguageController extends AbstractController
     #[Route('/languages', name: 'languages_index', methods: ['GET'])]
     public function index(): Response
     {
-        $languages = $this->languageRepository->findAll();
+        $languages = $this->languageRepository->findAllByStars();
 
         return $this->render('language/index.html.twig', [
             'languages' => $languages,
@@ -38,14 +38,17 @@ class LanguageController extends AbstractController
             throw new NotFoundHttpException('Language not found');
         }
 
-        $start = ($page - 1) * 2;
+        $totalLanguageUsers = $userLanguageRepository->totalLanguagePages($language);
+
+        $paginate = PaginateHelper::create($page, $totalLanguageUsers);
+//        dd($totalLanguageUsers);
+        if ($page > $paginate['total'] || $page <= 0) {
+            throw new NotFoundHttpException('Page not found');
+        }
+
+        $start = ($page - 1) * 25;
 
         $userLanguages = $userLanguageRepository->findUserByLanguage($language, $start);
-
-        $totalLanguagePages = $userLanguageRepository->totalLanguagePages($language);
-        // @todo check if current page is inferior total pages
-
-        $paginate = PaginateHelper::create($page, $totalLanguagePages);
 
         return $this->render('language/show.html.twig', [
             'language'      => $language,
