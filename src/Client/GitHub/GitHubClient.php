@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Client\GitHub;
 
 use Github\Client;
+use Github\ResultPager;
 
 class GitHubClient
 {
@@ -21,8 +22,13 @@ class GitHubClient
         return $this->client->api('user')->showById($githubId);
     }
 
-    public function getRepositoriesByUsername(string $username): array
+    public function getAllRepositoriesByUsername(string $username): array
     {
-        return $this->client->api('user')->repositories($username);
+        $userApi = $this->client->api('user');
+
+        $paginator  = new ResultPager($this->client);
+        $parameters = [$username];
+
+        return $paginator->fetchAll($userApi, 'repositories', $parameters);
     }
 }

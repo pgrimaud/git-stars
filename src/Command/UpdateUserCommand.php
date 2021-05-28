@@ -59,7 +59,7 @@ class UpdateUserCommand extends Command
             $this->manager->flush();
         }
 
-        $repositories = $this->gitHubClient->getRepositoriesByUsername($user->getUsername());
+        $repositories = $this->gitHubClient->getAllRepositoriesByUsername($user->getUsername());
 
         $stars = [];
 
