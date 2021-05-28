@@ -9,3 +9,10 @@ services:
             - '3306:3306'
         environment:
             MYSQL_ROOT_PASSWORD: root
+    rabbitmq:
+        container_name: 'git-stars_rabbitmq'
+        hostname: 'git-stars_rabbitmq'
+        image: 'rabbitmq:3.8-management-alpine'
+        ports:
+            - '15672:15672'
+            - '5672:5672'

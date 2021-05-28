@@ -24,11 +24,9 @@ class GitHubClient
 
     public function getAllRepositoriesByUsername(string $username): array
     {
-        $userApi = $this->client->api('user');
+        $userApi   = $this->client->api('user');
+        $paginator = new ResultPager($this->client);
 
-        $paginator  = new ResultPager($this->client);
-        $parameters = [$username];
-
-        return $paginator->fetchAll($userApi, 'repositories', $parameters);
+        return $paginator->fetchAll($userApi, 'repositories', [$username]);
     }
 }

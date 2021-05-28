@@ -2,13 +2,19 @@
 
         {% block body %}
             <a href="{{ path('languages_index') }}">Return</a>
-            <h1>{{ username }}</h1>
+            <h1>
+                <a href="https://github.com/{{ user.username }}">
+                    {{ user.username }}
+                </a>
+            </h1>
+
+            <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4"/>
 
             <ol>
                 {% for userLanguage in userLanguages %}
                     <li>{{ userLanguage.name }} | {{ userLanguage.stars }} stars</li>
                 {% endfor %}
             </ol>
-
+            <a href="{{ path('user_update', {'id': user.githubId}) }}">Update user</a>
         {% endblock %}
 

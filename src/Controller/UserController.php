@@ -36,7 +36,7 @@ class UserController extends AbstractController
         $userLanguages = $userLanguageRepository->findLanguageByUsers($user);
 //        dd($userLanguages);
         return $this->render('user/show.html.twig', [
-            'username'      => $username,
+            'user'          => $user,
             'userLanguages' => $userLanguages,
         ]);
     }
