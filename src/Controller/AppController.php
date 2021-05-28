@@ -15,11 +15,11 @@ class AppController extends AbstractController
     #[Route('/', name: 'app_index', methods: ['GET'])]
     public function index(MessageBusInterface $bus): Response
     {
-        for ($i = 1; $i < 1000; ++$i) {
-            $bus->dispatch(
-                new UpdateUser($i)
-            );
-        }
+//        for ($i = 1; $i < 1000; ++$i) {
+//            $bus->dispatch(
+//                new UpdateUser($i)
+//            );
+//        }
 
         return $this->render('app/index.html.twig');
     }
