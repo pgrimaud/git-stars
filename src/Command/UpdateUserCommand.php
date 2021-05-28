@@ -3,7 +3,10 @@
 namespace App\Command;
 
 use App\Client\GitHub\GitHubClient;
+use App\Entity\Language;
 use App\Entity\User;
+use App\Entity\UserLanguage;
+use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -12,6 +15,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[AsCommand(
     name: 'app:update-user',
@@ -20,10 +24,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class UpdateUserCommand extends Command
 {
     public function __construct(
-        string $name = null,
         private EntityManagerInterface $manager,
         private UserRepository $userRepository,
-        private GitHubClient $gitHubClient
+        private LanguageRepository $languageRepository,
+        private GitHubClient $gitHubClient,
+        private SluggerInterface $slugger,
+        string $name = null
     ) {
         parent::__construct($name);
     }
@@ -73,9 +79,46 @@ class UpdateUserCommand extends Command
             }
         }
 
-        dd($stars);
+//        dd($user->getUserLanguages());
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        foreach ($stars as $key => $star) {
+            $githubLanguage = (string) $key;
+
+            $exist = false;
+            foreach ($user->getUserLanguages() as $lang) {
+                $langName = $lang->getLanguage()->getName();
+                if ($githubLanguage === $langName) {
+                    $lang->setStars($star);
+
+                    $this->manager->persist($lang);
+                    $this->manager->flush();
+
+                    $exist = true;
+                    break;
+                }
+            }
+
+            if (!$exist) {
+                $language = $this->languageRepository->findOneBy(['name' => $githubLanguage]);
+
+                if (!$language instanceof Language) {
+                    $language = new Language();
+                    $language->setName($githubLanguage);
+                    $language->setSlug($this->slugger->slug($githubLanguage)->lower());
+                    $language->setColor(Language::DEFAULT_COLOR);
+                }
+
+                $userLanguage = new UserLanguage();
+                $userLanguage->setUser($user);
+                $userLanguage->setStars($star);
+                $userLanguage->setLanguage($language);
+
+                $this->manager->persist($userLanguage);
+                $this->manager->flush();
+            }
+        }
+
+        $io->success('User ' . $user->getUsername() . ' was added/updated on the database!');
 
         return Command::SUCCESS;
     }

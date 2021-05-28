@@ -27,7 +27,7 @@ class LanguageFixtures extends Fixture
             $language = new Language();
             $language->setName($key);
             $language->setSlug($slug->toString());
-            $language->setColor(strtolower($githubLang['color'] ?? '#fffff'));
+            $language->setColor(strtolower($githubLang['color'] ?? Language::DEFAULT_COLOR));
 
             $manager->persist($language);
         }

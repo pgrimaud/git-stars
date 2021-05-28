@@ -29,10 +29,10 @@ class UserLanguage
     private ?User $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="userLanguages")
+     * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="userLanguages", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Language $language;
+    private Language $language;
 
     /**
      * @ORM\Column(type="integer")
@@ -56,12 +56,12 @@ class UserLanguage
         return $this;
     }
 
-    public function getLanguage(): ?Language
+    public function getLanguage(): Language
     {
         return $this->language;
     }
 
-    public function setLanguage(?Language $language): self
+    public function setLanguage(Language $language): self
     {
         $this->language = $language;
 

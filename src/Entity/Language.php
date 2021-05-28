@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Language
 {
+    public const DEFAULT_COLOR = '#ffffff';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -100,18 +102,6 @@ class Language
         if (!$this->userLanguages->contains($userLanguage)) {
             $this->userLanguages[] = $userLanguage;
             $userLanguage->setLanguage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserLanguage(UserLanguage $userLanguage): self
-    {
-        if ($this->userLanguages->removeElement($userLanguage)) {
-            // set the owning side to null (unless already changed)
-            if ($userLanguage->getLanguage() === $this) {
-                $userLanguage->setLanguage(null);
-            }
         }
 
         return $this;
