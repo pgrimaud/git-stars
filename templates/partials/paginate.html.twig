@@ -1,21 +1,34 @@
 <div>
-    <div style="display: flex; align-items: center; justify-content: center">
+    <div class="pagination">
+        <ul class="justify-content-center">
         {% if paginate.hasPrevious %}
-            <a href="{{ path(route, route_parameters|merge({'page': paginate.current - 1})) }}"><</a>
-            <a href="">1</a>
-            <p> ... </p>
+            <li><a href="{{ path(route, route_parameters|merge({'page': paginate.current - 1})) }}"><</a></li>
+            {%  if paginate.current != 2  %}
+                <li><a href="{{ path(route, route_parameters|merge({'page': 1})) }}">1</a></li>
+
+                {% if paginate.current != 3 %}
+                    <li><p> ... </p></li>
+                {% endif %}
+            {% endif %}
 
         {% endif %}
 
         {% for page in paginate.range %}
-            <a href="">{{ page }}</a>
+            <li class="{% if page == paginate.current %}active{% endif %}"><a href="{{ path(route, route_parameters|merge({'page': page})) }}">{{ page }}</a></li>
         {% endfor %}
 
         {% if paginate.hasNext %}
-            <p> ... </p>
-            <a href="">{{ paginate.total }}</a>
-            <a href="{{ path(route, route_parameters|merge({'page': paginate.current + 1})) }}">></a>
+            {%  if paginate.current != paginate.total - 1  %}
+                {% if paginate.current != paginate.total - 2 %}
+                    <li><p> ... </p></li>
+                {% endif %}
+
+                <li><a href="{{ path(route, route_parameters|merge({'page': paginate.total })) }}">{{ paginate.total }}</a></li>
+
+            {% endif %}
+            <li><a href="{{ path(route, route_parameters|merge({'page': paginate.current + 1})) }}">></a></li>
         {% endif %}
+        </ul>
     </div>
 </div>
 
