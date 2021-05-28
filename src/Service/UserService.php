@@ -53,26 +53,31 @@ class UserService
 
         $repositories = $this->gitHubClient->getAllRepositoriesByUsername($user->getUsername());
 
-        $stars = [];
+        $apiLanguages = [];
 
         foreach ($repositories as $repo) {
             if ($repo['language'] !== null && $repo['stargazers_count'] > 0) {
-                if (!isset($stars[$repo['language']])) {
-                    $stars[$repo['language']] = $repo['stargazers_count'];
+                if (!isset($apiLanguages[$repo['language']])) {
+                    $apiLanguages[$repo['language']] = [
+                        'repos' => 1,
+                        'stars' => $repo['stargazers_count'],
+                    ];
                 } else {
-                    $stars[$repo['language']] += $repo['stargazers_count'];
+                    $apiLanguages[$repo['language']]['stars'] += $repo['stargazers_count'];
+                    ++$apiLanguages[$repo['language']]['repos'];
                 }
             }
         }
 
-        foreach ($stars as $key => $star) {
+        foreach ($apiLanguages as $key => $apiLanguage) {
             $githubLanguage = (string) $key;
 
             $exist = false;
             foreach ($user->getUserLanguages() as $lang) {
                 $langName = $lang->getLanguage()->getName();
                 if ($githubLanguage === $langName) {
-                    $lang->setStars($star);
+                    $lang->setStars($apiLanguage['stars']);
+                    $lang->setRepositories($apiLanguage['repos']);
 
                     $this->manager->persist($lang);
                     $this->manager->flush();
@@ -92,12 +97,13 @@ class UserService
                     $language->setColor(Language::DEFAULT_COLOR);
                 }
 
-                $userLanguage = new UserLanguage();
-                $userLanguage->setUser($user);
-                $userLanguage->setStars($star);
-                $userLanguage->setLanguage($language);
+                $newUserLanguage = new UserLanguage();
+                $newUserLanguage->setStars($apiLanguage['stars']);
+                $newUserLanguage->setRepositories($apiLanguage['repos']);
+                $newUserLanguage->setLanguage($language);
+                $newUserLanguage->setUser($user);
 
-                $this->manager->persist($userLanguage);
+                $this->manager->persist($newUserLanguage);
                 $this->manager->flush();
             }
         }

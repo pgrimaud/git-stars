@@ -39,6 +39,11 @@ class UserLanguage
      */
     private int $stars;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private int $repositories;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +81,18 @@ class UserLanguage
     public function setStars(int $stars): self
     {
         $this->stars = $stars;
+
+        return $this;
+    }
+
+    public function getRepositories(): ?int
+    {
+        return $this->repositories;
+    }
+
+    public function setRepositories(int $repositories): self
+    {
+        $this->repositories = $repositories;
 
         return $this;
     }

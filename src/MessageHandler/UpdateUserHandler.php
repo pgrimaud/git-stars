@@ -21,6 +21,6 @@ class UpdateUserHandler implements MessageHandlerInterface
 
     public function __invoke(UpdateUser $updateUser): void
     {
-        $this->userService->update(intval($updateUser->getId()));
+        $this->userService->update($updateUser->getId());
     }
 }
