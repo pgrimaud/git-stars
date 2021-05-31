@@ -13,7 +13,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
     name: 'app:fetch-user',
-    description: 'Add a short description for your command',
+    description: 'Fetch 5000 new users from github',
 )]
 class FetchUserCommand extends Command
 {

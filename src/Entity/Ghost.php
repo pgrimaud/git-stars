@@ -20,7 +20,7 @@ class Ghost
     /**
      * @ORM\Column(type="integer")
      */
-    private $github_id;
+    private $githubId;
 
     public function getId(): ?int
     {
@@ -29,12 +29,12 @@ class Ghost
 
     public function getGithubId(): ?int
     {
-        return $this->github_id;
+        return $this->githubId;
     }
 
-    public function setGithubId(int $github_id): self
+    public function setGithubId(int $githubId): self
     {
-        $this->github_id = $github_id;
+        $this->githubId = $githubId;
 
         return $this;
     }

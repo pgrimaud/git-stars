@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Client\GitHub\GitHubClient;
+use App\Entity\Ghost;
 use App\Entity\Language;
 use App\Entity\User;
 use App\Entity\UserLanguage;
+use App\Repository\GhostRepository;
 use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,6 +21,7 @@ class UserService
         private EntityManagerInterface $manager,
         private UserRepository $userRepository,
         private LanguageRepository $languageRepository,
+        private GhostRepository $ghostRepository,
         private GitHubClient $gitHubClient,
         private SluggerInterface $slugger,
     ) {
@@ -29,6 +32,15 @@ class UserService
         try {
             $githubUser = $this->gitHubClient->getUserById($githubId);
         } catch (\Exception $e) {
+            if ($e->getCode() === 404) {
+                $newGhost = new Ghost();
+
+                $newGhost->setGithubId($githubId);
+
+                $this->manager->persist($newGhost);
+                $this->manager->flush();
+            }
+
             return null;
         }
 

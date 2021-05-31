@@ -4,8 +4,6 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -37,10 +35,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    /**
-     * @throws NonUniqueResultException
-     * @throws NoResultException
-     */
     public function getHighestGithubId(): int
     {
         $user = $this->createQueryBuilder('u')
@@ -50,5 +44,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult();
 
         return !$user ? 0 : $user->getGitHubId();
+    }
+
+    public function getOldestNonUpdatedUsers(int $limit, \DateTime $dateTime): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.updated < :dateTime')
+            ->setParameter('dateTime', $dateTime)
+            ->orderBy('u.updated', 'ASC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
     }
 }
