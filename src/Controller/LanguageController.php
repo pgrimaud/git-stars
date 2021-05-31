@@ -29,7 +29,7 @@ class LanguageController extends AbstractController
         ]);
     }
 
-    #[Route('/languages/{slug}/{page}', name: 'languages_show', methods: ['GET'])]
+    #[Route('/languages/{slug}/{page}', name: 'languages_show', requirements: ['slug' => '[a-z0-9\-]+'], methods: ['GET'])]
     public function show(UserLanguageRepository $userLanguageRepository, string $slug, int $page = 1): Response
     {
         $language = $this->languageRepository->findOneBy(['slug' => $slug]);

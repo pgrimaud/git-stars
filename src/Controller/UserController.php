@@ -24,7 +24,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/{username}', name: 'user_show', methods: ['GET'])]
+    #[Route('/user/{username}', name: 'user_show', requirements: ['username' => '[a-zA-Z0-9\-]+'], methods: ['GET'])]
     public function show(UserLanguageRepository $userLanguageRepository, string $username): Response
     {
         $user = $this->userRepository->findOneBy(['username' => $username]);
@@ -32,11 +32,9 @@ class UserController extends AbstractController
         if (!$user instanceof User) {
             throw new NotFoundHttpException('User not found');
         }
-        $test = $this->userRepository->getHighestGithubId();
-        dd($test);
 
         $userLanguages = $userLanguageRepository->findLanguageByUsers($user);
-//        dd($userLanguages);
+
         return $this->render('user/show.html.twig', [
             'user'          => $user,
             'userLanguages' => $userLanguages,
