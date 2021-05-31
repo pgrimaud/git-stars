@@ -43,11 +43,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function getHighestGithubId(): int
     {
-        return $this->createQueryBuilder('u')
-            ->select('u.githubId')
+        $user = $this->createQueryBuilder('u')
             ->orderBy('u.githubId', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getOneOrNullResult();
+
+        return !$user ? 0 : $user->getGitHubId();
     }
 }

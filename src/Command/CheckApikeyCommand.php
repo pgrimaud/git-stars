@@ -20,10 +20,6 @@ class CheckApikeyCommand extends Command
         parent::__construct($name);
     }
 
-    protected function configure(): void
-    {
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
