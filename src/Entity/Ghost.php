@@ -15,12 +15,12 @@ class Ghost
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $githubId;
+    private int $githubId;
 
     public function getId(): ?int
     {
