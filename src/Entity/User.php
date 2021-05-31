@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -43,6 +44,32 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=UserLanguage::class, mappedBy="user", orphanRemoval=true)
      */
     private Collection $userLanguages;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $name;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $organization;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    protected $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    protected $updated;
 
     public function __construct()
     {
@@ -153,5 +180,49 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getOrganization(): ?bool
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(bool $organization): self
+    {
+        $this->organization = $organization;
+
+        return $this;
+    }
+
+    public function getCreated(): \DateTime
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTime $created): void
+    {
+        $this->created = $created;
+    }
+
+    public function getUpdated(): \DateTime
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTime $updated): void
+    {
+        $this->updated = $updated;
     }
 }

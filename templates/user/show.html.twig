@@ -3,8 +3,9 @@
         {% block body %}
             <a href="{{ path('languages_index') }}">Return</a>
             <h1>
+                {{ user.name }}
                 <a href="https://github.com/{{ user.username }}">
-                    {{ user.username }}
+                    @{{ user.username }}
                 </a>
             </h1>
 

@@ -1,4 +1,7 @@
 {
+    "behat/transliterator": {
+        "version": "v1.3.0"
+    },
     "brainmaestro/composer-git-hooks": {
         "version": "v2.8.5"
     },
@@ -127,6 +130,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "gedmo/doctrine-extensions": {
+        "version": "v3.0.5"
+    },
     "guzzlehttp/promises": {
         "version": "1.4.1"
     },
@@ -250,6 +256,18 @@
     },
     "psr/log": {
         "version": "1.1.4"
+    },
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.2",
+            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
+        },
+        "files": [
+            "config/packages/stof_doctrine_extensions.yaml"
+        ]
     },
     "symfony/amqp-messenger": {
         "version": "v5.3.0-rc1"

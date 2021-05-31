@@ -3,10 +3,9 @@
         <ul class="justify-content-center">
         {% if paginate.hasPrevious %}
             <li><a href="{{ path(route, route_parameters|merge({'page': paginate.current - 1})) }}"><</a></li>
-            {%  if paginate.current != 2  %}
+            {%  if paginate.current >= 3  %}
                 <li><a href="{{ path(route, route_parameters|merge({'page': 1})) }}">1</a></li>
-
-                {% if paginate.current != 3 %}
+                {% if paginate.current >= 4 %}
                     <li><p> ... </p></li>
                 {% endif %}
             {% endif %}
@@ -18,7 +17,7 @@
         {% endfor %}
 
         {% if paginate.hasNext %}
-            {%  if paginate.current != paginate.total - 1  %}
+            {%  if paginate.current < paginate.total - 1  %}
                 {% if paginate.current != paginate.total - 2 %}
                     <li><p> ... </p></li>
                 {% endif %}
