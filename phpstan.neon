@@ -1,5 +1,6 @@
 parameters:
     excludes_analyse:
         - 'src/Client/GitHub/*'
+        - 'src/Entity/Ghost.php'
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false

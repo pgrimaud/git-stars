@@ -32,6 +32,8 @@ class UserController extends AbstractController
         if (!$user instanceof User) {
             throw new NotFoundHttpException('User not found');
         }
+        $test = $this->userRepository->getHighestGithubId();
+        dd($test);
 
         $userLanguages = $userLanguageRepository->findLanguageByUsers($user);
 //        dd($userLanguages);
