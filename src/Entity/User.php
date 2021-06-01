@@ -85,6 +85,11 @@ class User implements UserInterface
      */
     private ?Country $country;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $location;
+
     public function __construct()
     {
         $this->userLanguages = new ArrayCollection();
@@ -272,6 +277,18 @@ class User implements UserInterface
     public function setCountry(?Country $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }
