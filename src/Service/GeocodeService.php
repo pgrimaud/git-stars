@@ -39,11 +39,14 @@ class GeocodeService
         if (!$existingLocation instanceof Location) {
             $result = $this->geocodeClient->findLocation($location);
 
-            if (!isset($result['standard'])) {
+            if (isset($result['suggestion']['region']) && $result['suggestion']['region'] !== []) {
                 $suggestion = $result['suggestion']['region'];
                 $iso        = new ISO3166();
                 $apiCountry = $iso->alpha2($suggestion)['name'];
                 $apiCity    = null;
+            } elseif (!isset($result['standard'])) {
+                $apiCity    = null;
+                $apiCountry = null;
             } else {
                 $apiCountry = $result['standard']['countryname'];
                 $apiCity    = $result['standard']['city'];
