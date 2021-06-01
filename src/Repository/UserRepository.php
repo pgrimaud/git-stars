@@ -56,4 +56,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getResult();
     }
+
+    public function totalPages(): int
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(distinct(u.id)) as total')
+            ->join('u.userLanguages', 'ul')
+            ->andWhere('ul.stars > 0')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findSomeUsers(int $start): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u', 'ul.stars')
+            ->join('u.userLanguages', 'ul')
+            ->groupBy('u.id')
+            ->orderBy('ul.stars', 'DESC')
+            ->setFirstResult($start)
+            ->setMaxResults(25)
+            ->getQuery()
+            ->getResult();
+    }
 }

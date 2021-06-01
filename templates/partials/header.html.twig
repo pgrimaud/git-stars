@@ -5,18 +5,23 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a href="{{ path('app_index') }}" class="active">Home</a></li>
+                <li><a href="{{ path('app_index') }}"
+                            {% if app.request.get('_route') == 'app_index' %}
+                                class="active"
+                            {% endif %}>Home</a></li>
 
-                <li class="dropdown">
-                    <a href="{{ path('languages_index') }}">
+                <li>
+                    <a href="{{ path('languages_index') }}"
+                            {% if app.request.get('_route') == 'languages_index' %}
+                                class="active"
+                            {% endif %}>
                         <span>Top languages</span> <i class="bi bi-chevron-down"></i>
                     </a>
-                    <ul>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="team.html">Team</a></li>
-                        <li><a href="testimonials.html">Testimonials</a></li>
-                    </ul>
                 </li>
+                <li><a href="{{ path('user_index') }}"
+                            {% if app.request.get('_route') == 'user_index' %}
+                                class="active"
+                            {% endif %}>Top users</a></li>
                 <li>
                     {% if app.user %}
                         <a href="{{ path('security_logout')}}" class="getstarted">

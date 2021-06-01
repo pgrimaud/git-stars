@@ -9,7 +9,6 @@ use App\Entity\Ghost;
 use App\Entity\Language;
 use App\Entity\User;
 use App\Entity\UserLanguage;
-use App\Repository\GhostRepository;
 use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +20,6 @@ class UserService
         private EntityManagerInterface $manager,
         private UserRepository $userRepository,
         private LanguageRepository $languageRepository,
-        private GhostRepository $ghostRepository,
         private GitHubClient $gitHubClient,
         private SluggerInterface $slugger,
     ) {
@@ -62,6 +60,7 @@ class UserService
             $user->setUsername($githubUser['login']);
             $user->setName((string) $githubUser['name']);
             $user->setOrganization($githubUser['type'] !== 'User');
+            $user->setStatus($user::STATUS_IDLE);
 
             $this->manager->persist($user);
             $this->manager->flush();

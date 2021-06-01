@@ -16,6 +16,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    public const STATUS_IDLE        = 'idle';
+    public const STATUS_IN_PROGRESS = 'inProgress';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -56,20 +59,21 @@ class User implements UserInterface
     private bool $organization;
 
     /**
-     * @var \DateTime
-     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    protected $created;
+    protected \DateTime $created;
 
     /**
-     * @var \DateTime
-     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
-    protected $updated;
+    protected \DateTime $updated;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $status = self::STATUS_IDLE;
 
     public function __construct()
     {
@@ -224,5 +228,17 @@ class User implements UserInterface
     public function setUpdated(\DateTime $updated): void
     {
         $this->updated = $updated;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }
