@@ -75,6 +75,16 @@ class User implements UserInterface
      */
     private string $status = self::STATUS_IDLE;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=City::class, inversedBy="users")
+     */
+    private ?City $city;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="users")
+     */
+    private ?Country $country;
+
     public function __construct()
     {
         $this->userLanguages = new ArrayCollection();
@@ -238,6 +248,30 @@ class User implements UserInterface
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }
