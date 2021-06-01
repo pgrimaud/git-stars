@@ -16,7 +16,3 @@ services:
         ports:
             - '15672:15672'
             - '5672:5672'
-    supervisor:
-        container_name: 'git-stars_supervisor'
-        hostname: 'git-stars_supervisor'
-        build: docker/supervisor
