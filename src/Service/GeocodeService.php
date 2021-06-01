@@ -27,8 +27,7 @@ class GeocodeService
         private CountryRepository $countryRepository,
         private SluggerInterface $slugger,
         private UserRepository $userRepository
-    )
-    {
+    ) {
     }
 
     public function update(int $githubId, string $location): void
