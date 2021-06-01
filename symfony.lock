@@ -133,8 +133,14 @@
     "gedmo/doctrine-extensions": {
         "version": "v3.0.5"
     },
+    "guzzlehttp/guzzle": {
+        "version": "7.3.0"
+    },
     "guzzlehttp/promises": {
         "version": "1.4.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.8.2"
     },
     "hwi/oauth-bundle": {
         "version": "0.6",
@@ -256,6 +262,9 @@
     },
     "psr/log": {
         "version": "1.1.4"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
