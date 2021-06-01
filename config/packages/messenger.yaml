@@ -5,11 +5,17 @@ framework:
 
         transports:
             users:
-                dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
+                dsn: "%env(MESSENGER_TRANSPORT_DSN_USERS)%"
                 options:
                     queues:
                         users: ~
+            locations:
+                dsn: "%env(MESSENGER_TRANSPORT_DSN_LOCATIONS)%"
+                options:
+                    queues:
+                        locations: ~
 
         routing:
             # Route your messages to the transports
             'App\Message\UpdateUser': users
+            'App\Message\GetLocation': locations
