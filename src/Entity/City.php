@@ -30,7 +30,7 @@ class City
     private string $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="City")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="city")
      */
     private Collection $users;
 
