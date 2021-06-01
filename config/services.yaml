@@ -36,4 +36,3 @@ services:
     App\Client\Geocode\GeocodeClient:
         arguments:
             - '%env(GEOCODE_API_KEY)%'
-            - 'GuzzleHttp\Client'

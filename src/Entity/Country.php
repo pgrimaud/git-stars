@@ -34,9 +34,15 @@ class Country
      */
     private Collection $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="country")
+     */
+    private Collection $locations;
+
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->users     = new ArrayCollection();
+        $this->locations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +98,36 @@ class Country
             // set the owning side to null (unless already changed)
             if ($user->getCountry() === $this) {
                 $user->setCountry(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->setCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->removeElement($location)) {
+            // set the owning side to null (unless already changed)
+            if ($location->getCountry() === $this) {
+                $location->setCountry(null);
             }
         }
 

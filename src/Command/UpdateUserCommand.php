@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use App\Client\GitHub\GitHubClient;
 use App\Service\UserService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -19,7 +18,6 @@ class UpdateUserCommand extends Command
 {
     public function __construct(
         private UserService $userService,
-        private GitHubClient $gitHubClient,
         string $name = null
     ) {
         parent::__construct($name);

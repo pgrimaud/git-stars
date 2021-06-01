@@ -9,9 +9,11 @@ use App\Entity\Ghost;
 use App\Entity\Language;
 use App\Entity\User;
 use App\Entity\UserLanguage;
+use App\Message\GetLocation;
 use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserService
@@ -22,6 +24,7 @@ class UserService
         private LanguageRepository $languageRepository,
         private GitHubClient $gitHubClient,
         private SluggerInterface $slugger,
+        private MessageBusInterface $messageBus
     ) {
     }
 
@@ -51,9 +54,6 @@ class UserService
             $user->setUsername($githubUser['login']);
             $user->setName((string) $githubUser['name']);
             $user->setOrganization($githubUser['type'] !== 'User');
-
-            $this->manager->persist($user);
-            $this->manager->flush();
         } elseif ($user->getUsername() !== $githubUser['login']) {
             // Update username if it changed since last update
             // @TODO Create a 301 Redirection
@@ -61,10 +61,18 @@ class UserService
             $user->setName((string) $githubUser['name']);
             $user->setOrganization($githubUser['type'] !== 'User');
             $user->setStatus($user::STATUS_IDLE);
-
-            $this->manager->persist($user);
-            $this->manager->flush();
         }
+
+        // check if location changed
+        if ($user->getLocation() !== $githubUser['location']) {
+            $this->messageBus->dispatch(
+                new GetLocation($user->getGithubId(), $githubUser['location'])
+            );
+        }
+        $user->setLocation($githubUser['location']);
+
+        $this->manager->persist($user);
+        $this->manager->flush();
 
         $repositories = $this->gitHubClient->getAllRepositoriesByUsername($user->getUsername());
 

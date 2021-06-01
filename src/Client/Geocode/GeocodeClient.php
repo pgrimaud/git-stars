@@ -10,8 +10,11 @@ class GeocodeClient
 {
     public const API_ENDPOINT = 'https://geocode.xyz';
 
-    public function __construct(private string $apiKey, private Client $client)
+    private Client $client;
+
+    public function __construct(private string $apiKey)
     {
+        $this->client = new Client();
     }
 
     public function findLocation(string $location): array

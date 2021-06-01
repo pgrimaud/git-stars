@@ -176,6 +176,9 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.2.0"
     },
+    "league/iso3166": {
+        "version": "3.0.0"
+    },
     "monolog/monolog": {
         "version": "2.2.0"
     },
