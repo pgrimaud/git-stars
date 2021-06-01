@@ -98,7 +98,7 @@ class UserService
             $exist = false;
             foreach ($user->getUserLanguages() as $lang) {
                 $langName = $lang->getLanguage()->getName();
-                if ($githubLanguage === $langName) {
+                if (strtolower($githubLanguage) === strtolower($langName)) {
                     $lang->setStars($apiLanguage['stars']);
                     $lang->setRepositories($apiLanguage['repos']);
 

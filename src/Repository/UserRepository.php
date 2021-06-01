@@ -70,10 +70,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findSomeUsers(int $start): array
     {
         return $this->createQueryBuilder('u')
-            ->select('u', 'ul.stars')
+            ->select('u', 'SUM(ul.stars) as stars')
             ->join('u.userLanguages', 'ul')
             ->groupBy('u.id')
-            ->orderBy('ul.stars', 'DESC')
+            ->orderBy('stars', 'DESC')
             ->setFirstResult($start)
             ->setMaxResults(25)
             ->getQuery()
