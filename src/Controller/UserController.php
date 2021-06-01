@@ -17,7 +17,7 @@ class UserController extends AbstractController
     {
     }
 
-    #[Route('/user/{page}', name: 'user_index', methods: ['GET'])]
+    #[Route('/users/{page}', name: 'user_index', methods: ['GET'])]
     public function index(int $page = 1): Response
     {
         $totalUsers = $this->userRepository->totalPages();
