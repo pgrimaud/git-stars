@@ -45,6 +45,7 @@ class GitHubUserProvider extends OAuthUserProvider
             $user->setGithubId($response->getData()['id']);
             $user->setLocation('');
             $user->setOrganization($response->getData()['type'] !== 'User');
+            $user->setStatus(User::STATUS_IDLE);
         }
 
         $user->setAccessToken($response->getAccessToken());

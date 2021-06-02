@@ -28,7 +28,7 @@
                             Logout
                         </a>
                     {% else %}
-                        <a href="{{ hwi_oauth_login_url('github') }}" class="getstarted">
+                        <a href="{{ hwi_oauth_login_url('github') }}?_destination={{ app.request.pathinfo}}" class="getstarted">
                             <i class="fab fa-github"></i> Login
                         </a>
                     {% endif %}

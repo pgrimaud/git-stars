@@ -60,7 +60,14 @@ class UserController extends AbstractController
     public function update(MessageBusInterface $bus, string $username): Response
     {
         if (!$this->getUser()) {
-            return $this->redirectToRoute('hwi_oauth_service_redirect', ['service' => 'github']);
+            $route = $this->generateUrl('hwi_oauth_service_redirect', [
+                'service'      => 'github',
+                '_destination' => $this->generateUrl('user_update', [
+                    'username' => $username,
+                ]),
+            ]);
+
+            return $this->redirect($route);
         } else {
             $user = $this->userRepository->findOneBy(['username' => $username]);
 
