@@ -28,8 +28,12 @@ class UserService
     ) {
     }
 
-    public function update(int $githubId): ?User
+    public function update(int $githubId, ?string $accessToken = null): ?User
     {
+        if ($accessToken) {
+            $this->gitHubClient->auth($accessToken);
+        }
+
         try {
             $githubUser = $this->gitHubClient->getUserById($githubId);
         } catch (\Exception $e) {
@@ -52,15 +56,10 @@ class UserService
             $user->setGithubId($githubUser['id']);
             $user->setAccessToken('');
             $user->setUsername($githubUser['login']);
-            $user->setName((string) $githubUser['name']);
-            $user->setOrganization($githubUser['type'] !== 'User');
         } elseif ($user->getUsername() !== $githubUser['login']) {
             // Update username if it changed since last update
             // @TODO Create a 301 Redirection
             $user->setUsername($githubUser['login']);
-            $user->setName((string) $githubUser['name']);
-            $user->setOrganization($githubUser['type'] !== 'User');
-            $user->setStatus($user::STATUS_IDLE);
         }
 
         // check if location changed
@@ -69,7 +68,10 @@ class UserService
                 new GetLocation($user->getGithubId(), $githubUser['location'])
             );
         }
+
         $user->setLocation($githubUser['location']);
+        $user->setName((string) $githubUser['name']);
+        $user->setOrganization($githubUser['type'] !== 'User');
 
         $this->manager->persist($user);
         $this->manager->flush();

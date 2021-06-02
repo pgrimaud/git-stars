@@ -5,16 +5,20 @@ declare(strict_types=1);
 namespace App\Client\GitHub;
 
 use App\Entity\User;
+use App\Message\ManualUpdateUser;
 use Doctrine\ORM\EntityManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class GitHubUserProvider extends OAuthUserProvider
 {
-    public function __construct(private EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private MessageBusInterface $messageBus
+    ) {
     }
 
     public function loadUserByUsername($username, array $data = []): User
@@ -45,6 +49,11 @@ class GitHubUserProvider extends OAuthUserProvider
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
+
+        // update user on connection
+        $this->messageBus->dispatch(
+            new ManualUpdateUser($user->getGithubId(), $user->getAccessToken())
+        );
 
         return $this->loadUserByUsername($response->getNickname(), $response->getData());
     }

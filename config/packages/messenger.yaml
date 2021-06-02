@@ -5,17 +5,22 @@ framework:
 
         transports:
             users:
-                dsn: "%env(MESSENGER_TRANSPORT_DSN_USERS)%"
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%users"
                 options:
                     queues:
                         users: ~
             locations:
-                dsn: "%env(MESSENGER_TRANSPORT_DSN_LOCATIONS)%"
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%locations"
                 options:
                     queues:
                         locations: ~
-
+            priority-users:
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%priority-users"
+                options:
+                    priority-users:
+                        priority-users: ~
         routing:
             # Route your messages to the transports
             'App\Message\UpdateUser': users
             'App\Message\GetLocation': locations
+            'App\Message\ManualUpdateUser': priority-users

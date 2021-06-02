@@ -14,7 +14,7 @@ class GitHubClient
     public function __construct(string $generalAccessToken)
     {
         $this->client = new Client();
-        $this->client->authenticate($generalAccessToken, null, Client::AUTH_ACCESS_TOKEN);
+        $this->auth($generalAccessToken);
     }
 
     public function getUserById(int $githubId): array
@@ -38,5 +38,10 @@ class GitHubClient
     public function checkApiKey(): array
     {
         return $this->client->api('rate_limit')->getResources();
+    }
+
+    public function auth(string $accessToken)
+    {
+        $this->client->authenticate($accessToken, null, Client::AUTH_ACCESS_TOKEN);
     }
 }
