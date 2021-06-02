@@ -133,6 +133,10 @@ class UserService
             }
         }
 
+        $user->setStatus(User::STATUS_IDLE);
+        $this->manager->persist($user);
+        $this->manager->flush();
+
         return $user;
     }
 }

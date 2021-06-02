@@ -11,7 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:check-apikey',
-    description: 'Add a short description for your command',
+    description: 'Check api key rate limits',
 )]
 class CheckApikeyCommand extends Command
 {

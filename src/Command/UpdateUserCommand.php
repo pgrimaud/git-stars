@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Client\GitHub\GitHubClient;
+use App\Entity\User;
 use App\Service\UserService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -45,7 +46,7 @@ class UpdateUserCommand extends Command
 
         $user = $this->userService->update($githubId);
 
-        if ($user) {
+        if ($user instanceof User) {
             $io->success('User ' . $user->getUsername() . ' was added/updated on the database!');
         } else {
             $io->warning('User with Github id ' . $githubId . ' was not found!');
