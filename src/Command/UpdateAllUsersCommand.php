@@ -49,7 +49,6 @@ class UpdateAllUsersCommand extends Command
         $date = new \DateTime('- ' . $days . ' days');
 
         $users = $this->userRepository->getOldestNonUpdatedUsers(5000, $date);
-//        dd($users);
         if (!$users) {
             $io->error('No user has last been updated over ' . $days . ' day(s) ago');
 

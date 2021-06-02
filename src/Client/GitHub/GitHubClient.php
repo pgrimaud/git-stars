@@ -22,6 +22,11 @@ class GitHubClient
         return $this->client->api('user')->showById($githubId);
     }
 
+    public function getUserByUsername(string $username): array
+    {
+        return $this->client->api('user')->show($username);
+    }
+
     public function getAllRepositoriesByUsername(string $username): array
     {
         $userApi   = $this->client->api('user');
