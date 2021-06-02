@@ -2,4 +2,13 @@
 
 {% block body %}
 
+    {% if search_error %}
+    <div style="background-color: rgba(249,13,17,0.54)">
+        <p>{{ search_error }}</p>
+    </div>
+    {% endif %}
+
+    {{ form_start(search_form) }}
+    {{ form_end(search_form) }}
+
 {% endblock %}
