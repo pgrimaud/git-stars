@@ -41,7 +41,10 @@ class GitHubUserProvider extends OAuthUserProvider
         if (!$user instanceof User) {
             $user = new User();
             $user->setUsername($response->getData()['login']);
+            $user->setName($response->getData()['name']);
             $user->setGithubId($response->getData()['id']);
+            $user->setLocation('');
+            $user->setOrganization($response->getData()['type'] !== 'User');
         }
 
         $user->setAccessToken($response->getAccessToken());

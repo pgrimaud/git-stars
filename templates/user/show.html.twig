@@ -11,6 +11,12 @@
 
             <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4"/>
 
+            {% if user.status == 'idle' %}
+                <a href="{{ path('user_update', {'username': user.username}) }}">Refresh user</a>
+            {% else %}
+                <p>User is updating. <br>Please wait.</p>
+            {% endif %}
+
             <ol>
                 {% for userLanguage in userLanguages %}
                     <li>{{ userLanguage.name }} | {{ userLanguage.stars }} stars</li>

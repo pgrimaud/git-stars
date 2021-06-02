@@ -16,8 +16,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-    public const STATUS_IDLE        = 'idle';
-    public const STATUS_IN_PROGRESS = 'inProgress';
+    public const STATUS_IDLE    = 'idle';
+    public const STATUS_RUNNING = 'running';
 
     /**
      * @ORM\Id

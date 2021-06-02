@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Message\ManualUpdateUser;
 use App\Repository\UserLanguageRepository;
 use App\Repository\UserRepository;
 use App\Utils\PaginateHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -53,4 +55,37 @@ class UserController extends AbstractController
             'userLanguages' => $userLanguages,
         ]);
     }
+
+    #[Route('/user/{username}/update', name: 'user_update', requirements: ['username' => '[a-zA-Z0-9\-\_]+'], methods: ['GET'])]
+    public function update(MessageBusInterface $bus, string $username): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('hwi_oauth_service_redirect', ['service' => 'github']);
+        } else {
+            $user = $this->userRepository->findOneBy(['username' => $username]);
+
+            if (!$user instanceof User) {
+                throw new NotFoundHttpException('User not found');
+            }
+
+            if ($user->getStatus() === User::STATUS_IDLE) {
+                $user->setStatus($user::STATUS_RUNNING);
+                $this->getDoctrine()->getManager()->persist($user);
+                $this->getDoctrine()->getManager()->flush();
+
+                $bus->dispatch(
+                    // @phpstan-ignore-next-line
+                    new ManualUpdateUser($user->getGithubId(), $this->getUser()->getAccessToken())
+                );
+            }
+        }
+
+        return $this->redirectToRoute('user_show', ['username' => $user->getUsername()]);
+    }
+
+//    #[Route('/user/{username}/status', name: 'user_update', requirements: ['username' => '[a-zA-Z0-9\-\_]+'], methods: ['GET'])]
+//    public function status(MessageBusInterface $bus, string $username): Response
+//    {
+//
+//    }
 }
