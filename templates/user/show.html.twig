@@ -13,6 +13,7 @@
 
     {% if user.status == 'idle' %}
         <a href="{{ path('user_update', {'username': user.username}) }}">Refresh user</a>
+        <p>Last updated : {{ user.updated|date('h:iA, M jS Y') }}</p>
     {% else %}
         <p>User is updating. <br>Please wait.</p>
     {% endif %}
