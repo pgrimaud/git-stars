@@ -1,26 +1,44 @@
 {% extends 'base.html.twig' %}
 
-        {% block body %}
-            <a href="{{ path('user_index') }}">Return</a>
-            <h1>
-                {{ user.name }}
-                <a href="https://github.com/{{ user.username }}">
-                    @{{ user.username }}
-                </a>
-            </h1>
+{% block body %}
+    <a href="{{ path('user_index') }}">Return</a>
+    <h1>
+        {{ user.name }}
+        <a href="https://github.com/{{ user.username }}">
+            @{{ user.username }}
+        </a>
+    </h1>
 
-            <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4"/>
+    <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4"/>
 
-            {% if user.status == 'idle' %}
-                <a href="{{ path('user_update', {'username': user.username}) }}">Refresh user</a>
-            {% else %}
-                <p>User is updating. <br>Please wait.</p>
-            {% endif %}
+    {% if user.status == 'idle' %}
+        <a href="{{ path('user_update', {'username': user.username}) }}">Refresh user</a>
+    {% else %}
+        <p>User is updating. <br>Please wait.</p>
+    {% endif %}
 
-            <ol>
-                {% for userLanguage in userLanguages %}
-                    <li>{{ userLanguage.name }} | {{ userLanguage.stars }} stars</li>
-                {% endfor %}
-            </ol>
-        {% endblock %}
+    <ol>
+        {% for userLanguage in userLanguages %}
+            <li>{{ userLanguage.name }} | {{ userLanguage.stars }} stars</li>
+        {% endfor %}
+    </ol>
+{% endblock %}
 
+{% block javascripts %}
+    {% if user.status == 'running' %}
+    <script>
+        function getStatus() {
+            fetch('{{ path('user_status', {'username': user.username}) }}')
+            .then(function (response) {
+                return response.json()
+                .then(function (json) {
+                    if (json.status === 'idle') {
+                        window.location.reload()
+                    }
+                });
+            });
+        }
+        setInterval(getStatus, 5000)
+    </script>
+    {% endif %}
+{% endblock %}

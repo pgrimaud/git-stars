@@ -74,7 +74,7 @@ class UserController extends AbstractController
                 $this->getDoctrine()->getManager()->flush();
 
                 $bus->dispatch(
-                    // @phpstan-ignore-next-line
+                // @phpstan-ignore-next-line
                     new ManualUpdateUser($user->getGithubId(), $this->getUser()->getAccessToken())
                 );
             }
@@ -83,9 +83,17 @@ class UserController extends AbstractController
         return $this->redirectToRoute('user_show', ['username' => $user->getUsername()]);
     }
 
-//    #[Route('/user/{username}/status', name: 'user_update', requirements: ['username' => '[a-zA-Z0-9\-\_]+'], methods: ['GET'])]
-//    public function status(MessageBusInterface $bus, string $username): Response
-//    {
-//
-//    }
+    #[Route('/user/{username}/status', name: 'user_status', requirements: ['username' => '[a-zA-Z0-9\-\_]+'], methods: ['GET'])]
+    public function status(string $username): Response
+    {
+        $user = $this->userRepository->findOneBy(['username' => $username]);
+
+        if (!$user instanceof User) {
+            throw new NotFoundHttpException('User not found');
+        }
+
+        return $this->json([
+            'status' => $user->getStatus(),
+        ]);
+    }
 }
