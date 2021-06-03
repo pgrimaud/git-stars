@@ -1791,21 +1791,25 @@ section {
   margin-bottom: 30px;
 }
 
-.blog .sidebar .search-form form {
+.search-form form {
   background: #fff;
   border: 1px solid #ddd;
-  padding: 3px 10px;
   position: relative;
 }
 
-.blog .sidebar .search-form form input[type="text"] {
-  border: 0;
-  padding: 4px;
+.search-form form input[type="text"] {
+  border: 1px solid #ddd;
+  padding: 3px 10px;
   border-radius: 4px;
-  width: calc(100% - 40px);
+  width: 100%;
+  height: 100%;
 }
 
-.blog .sidebar .search-form form button {
+.search-form form input[type="text"]:focus {
+  outline: none;
+}
+
+.search-form form button {
   position: absolute;
   top: 0;
   right: 0;
@@ -1822,11 +1826,11 @@ section {
   line-height: 0;
 }
 
-.blog .sidebar .search-form form button i {
+.search-form form button i {
   line-height: 0;
 }
 
-.blog .sidebar .search-form form button:hover {
+.search-form form button:hover {
   background: #de323c;
 }
 
