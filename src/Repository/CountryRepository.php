@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Country;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -12,39 +11,29 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Country[]    findAll()
  * @method Country[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CountryRepository extends ServiceEntityRepository
+class CountryRepository extends AbstractBaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Country::class);
     }
 
-    // /**
-    //  * @return Country[] Returns an array of Country objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllCountries(): array
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $cacheKey = $this->getCacheAdapter()->getItem('all-countries');
 
-    /*
-    public function findOneBySomeField($value): ?Country
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if ($cacheKey->isHit()) {
+            $countries = $cacheKey->get();
+        } else {
+            $countries = $this->findBy([], [
+                'name' => 'ASC',
+            ]);
+            $cacheKey->set($countries);
+            $cacheKey->expiresAfter(120);
+
+            $this->getCacheAdapter()->save($cacheKey);
+        }
+
+        return $countries;
     }
-    */
 }

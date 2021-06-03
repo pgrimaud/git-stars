@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Language;
 use App\Entity\User;
 use App\Entity\UserLanguage;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method UserLanguage[]    findAll()
  * @method UserLanguage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserLanguageRepository extends ServiceEntityRepository
+class UserLanguageRepository extends AbstractBaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

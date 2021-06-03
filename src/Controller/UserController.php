@@ -44,9 +44,7 @@ class UserController extends AbstractController
 
         $users = $this->userRepository->findSomeUsers($start, $country);
 
-        $countries = $countryRepository->findBy([], [
-            'name' => 'ASC',
-        ]);
+        $countries = $countryRepository->findAllCountries();
 
         return $this->render('user/index.html.twig', [
             'users'     => $users,

@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Location;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -12,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Location[]    findAll()
  * @method Location[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LocationRepository extends ServiceEntityRepository
+class LocationRepository extends AbstractBaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

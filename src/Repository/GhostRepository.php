@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Ghost;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -12,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Ghost[]    findAll()
  * @method Ghost[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GhostRepository extends ServiceEntityRepository
+class GhostRepository extends AbstractBaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
