@@ -4,7 +4,7 @@
     <a href="{{ path('user_index') }}">Return</a>
     <h1>
         {{ user.name }}
-        <a href="https://github.com/{{ user.username }}">
+        <a href="https://github.com/{{ user.username }}" target="_blank">
             @{{ user.username }}
         </a>
         {% if user.organization %}<i class="fas fa-building"></i>{% endif %}

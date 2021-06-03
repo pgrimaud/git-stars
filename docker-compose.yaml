@@ -16,3 +16,9 @@ services:
         ports:
             - '15672:15672'
             - '5672:5672'
+    redis:
+        container_name: 'git-stars_redis'
+        hostname: 'git-stars_redis'
+        image: 'redis:6.2'
+        ports:
+            - '6379:6379'
