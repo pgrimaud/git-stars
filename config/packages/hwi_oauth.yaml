@@ -10,6 +10,6 @@ hwi_oauth:
             type:          github
             client_id:     '%env(GITHUB_CLIENT_ID)%'
             client_secret: '%env(GITHUB_CLIENT_SECRET)%'
-            scope:         'user:email,public_repo'
+            scope:         'user:email'
             options:
                 csrf: true
