@@ -24,7 +24,7 @@ class UserLanguageRepository extends ServiceEntityRepository
     public function findUserByLanguage(Language $language, int $start): array
     {
         return $this->createQueryBuilder('ul')
-            ->select('ul.stars', 'u.username', 'u.githubId')
+            ->select('ul.stars', 'u.username', 'u.githubId', 'u.name', 'u.organization')
             ->join('ul.user', 'u')
             ->andWhere('ul.language = :language')
             ->setParameter('language', $language)

@@ -1,24 +1,25 @@
 {% extends 'base.html.twig' %}
 
-        {% block body %}
-            <a href="{{ path('languages_index') }}">Return</a>
-            <h1>{{ language.name }}</h1>
+{% block title %}{{ language.name }}{% endblock %}
 
-            <ul>
-            {% for userLanguage in userLanguages %}
-                <li>
-                    <img src="https://avatars.githubusercontent.com/u/{{ userLanguage.githubId }}?v=4" width="100px"/>
-                    {{ loop.index + 25 * (paginate.current - 1) }} - <a href="{{ path('user_show', {'username' : userLanguage.username}) }}">{{ userLanguage.username }}</a> | {{ userLanguage.stars }} stars
-                </li>
-            {% endfor %}
-            </ul>
-
-            {% include 'partials/paginate.html.twig' with {
-                'paginate': paginate,
-                'route': 'languages_show',
-                'route_parameters': {
-                    'slug' : language.slug
-                }
-            }  %}
-        {% endblock %}
+{% block body %}
+    <a href="{{ path('languages_index') }}">Return</a>
+    <h1>{{ language.name }}</h1>
+    <section id="team" class="team">
+        <div class="container">
+            <div class="row">
+                {% for userLanguage in userLanguages %}
+                    {% include 'partials/user-card.html.twig' with {'user' : userLanguage, 'stars': userLanguage.stars} %}
+                {% endfor %}
+                {% include 'partials/paginate.html.twig' with {
+                    'paginate': paginate,
+                    'route': 'languages_show',
+                    'route_parameters': {
+                        'slug' : language.slug
+                    }
+                }  %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
 

@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
-        {% block body %}
+{% block body %}
+<section id="team" class="team">
+    <div class="container">
+        <div class="row">
             {% for user in users %}
-
-                {{ loop.index + 25 * (paginate.current - 1) }} - <a href="{{ path('user_show', {'username' : user[0].username}) }}">{{ user[0].username }}</a> | {{ user.stars }} stars
-                <br>
+                {% include 'partials/user-card.html.twig' with {'user' : user[0], 'stars': user.stars} %}
             {% endfor %}
-
             {% include 'partials/paginate.html.twig' with {
                 'paginate': paginate,
                 'route': 'user_index',
                 'route_parameters': {
                 }
             }  %}
-        {% endblock %}
+        </div>
+    </div>
+</section>
+{% endblock %}
 

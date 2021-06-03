@@ -898,14 +898,6 @@ section {
   border-radius: 4px;
 }
 
-.team .member .pic img {
-  transition: ease-in-out 0.3s;
-}
-
-.team .member:hover img {
-  transform: scale(1.1);
-}
-
 .team .member .member-info {
   padding-left: 30px;
 }
@@ -1739,35 +1731,44 @@ section {
   background-color: #606f7e;
 }
 
-.pagination {
+.pagination-git {
   color: #8795a4;
 }
 
-.pagination ul {
+.pagination-git ul {
   display: flex;
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-.pagination li {
+.pagination-git li {
   margin: 0 5px;
   transition: 0.3s;
 }
 
-.pagination li a {
+.pagination-git li > * {
+  height: 100%;
+}
+
+.pagination-git li a {
   color: #556270;
   padding: 7px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
-.pagination li.active, .pagination li:hover {
+.pagination-git li.active, .pagination-git li:hover {
   background: #d9232d;
 }
 
-.pagination li.active a, .pagination li:hover a {
+.pagination-git li.no-bg:hover {
+  background: none !important;
+}
+
+.pagination-git li.active a, .pagination-git li:hover a {
   color: #fff;
 }
 
