@@ -2088,3 +2088,7 @@ section {
 #footer .credits a:hover {
   color: white;
 }
+
+.progress-bar-git{
+  background-color: var(--main-color) !important;
+}

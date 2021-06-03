@@ -11,7 +11,7 @@
                     {{ language.name }}
                 </a>
             </h4>
-            <span>Total: {{ stars }}</span>
+            <span>Total: {{ stars|number_format(0, '.', ' ') }}</span>
             <p>Rank: tbd / {{ stars|number_format(0, '.', ' ') }} <i class="fas fa-star"></i></p>
             <div class="social">
                 <a href="{{ path('languages_show', {'page': '1', 'slug': language.slug}) }}" title="See user ranking for this language"><i class="fas fa-arrow-alt-circle-right"></i></a>
