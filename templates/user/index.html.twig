@@ -3,6 +3,25 @@
 {% block body %}
 <section id="team" class="team">
     <div class="container">
+        <div class="section-title">
+            <h2>Top users</h2>
+            <p>{% if country %}{{ country.name }}{% else %}Worldwide{% endif %}</p>
+            {% if country %}<a href="{{ path('user_index') }}">Back to global ranking</a>{% endif %}
+        </div>
+
+        <form action="#" method="post" class="mb-4">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <select class="form-select country-selector">
+                        <option value="">Wordwide</option>
+                        {% for countryL in countries %}
+                        <option {% if country and country.slug == countryL.slug%}selected{% endif%} value="{{ countryL.slug }}">{{ countryL.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </form>
+
         <div class="row">
             {% for user in users %}
                 {% include 'partials/user-card.html.twig' with {'user' : user[0], 'stars': user.stars} %}
@@ -16,5 +35,17 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        document.querySelector('.country-selector').addEventListener('change', function () {
+            if(this.value !== ''){
+                window.location.href = `{{ path('user_index') }}?country=${this.value}`
+            } else {
+                window.location.href = `{{ path('user_index') }}`
+            }
+        })
+    </script>
 {% endblock %}
 

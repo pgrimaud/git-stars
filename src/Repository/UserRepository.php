@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Country;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -57,24 +58,36 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
-    public function totalPages(): int
+    public function totalPages(?Country $country): int
     {
-        return $this->createQueryBuilder('u')
-            ->select('count(distinct(u.id)) as total')
-            ->join('u.userLanguages', 'ul')
-            ->andWhere('ul.stars > 0')
-            ->getQuery()
+        $query = $this->createQueryBuilder('u')
+                      ->select('count(distinct(u.id)) as total')
+                      ->join('u.userLanguages', 'ul')
+                      ->andWhere('ul.stars > 0');
+
+        if ($country) {
+            $query->andWhere('u.country = :country')
+                  ->setParameter('country', $country);
+        }
+
+        return $query->getQuery()
             ->getSingleScalarResult();
     }
 
-    public function findSomeUsers(int $start): array
+    public function findSomeUsers(int $start, ?Country $country): array
     {
-        return $this->createQueryBuilder('u')
-            ->select('u', 'SUM(ul.stars) as stars')
-            ->join('u.userLanguages', 'ul')
-            ->groupBy('u.id')
-            ->orderBy('stars', 'DESC')
-            ->setFirstResult($start)
+        $query = $this->createQueryBuilder('u')
+                      ->select('u', 'SUM(ul.stars) as stars')
+                      ->join('u.userLanguages', 'ul')
+                      ->groupBy('u.id')
+                      ->orderBy('stars', 'DESC');
+
+        if ($country) {
+            $query->andWhere('u.country = :country')
+                ->setParameter('country', $country);
+        }
+
+        return $query->setFirstResult($start)
             ->setMaxResults(25)
             ->getQuery()
             ->getResult();

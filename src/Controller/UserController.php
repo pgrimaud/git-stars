@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Message\ManualUpdateUser;
+use App\Repository\CountryRepository;
 use App\Repository\UserLanguageRepository;
 use App\Repository\UserRepository;
 use App\Utils\PaginateHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -20,10 +22,19 @@ class UserController extends AbstractController
     }
 
     #[Route('/users/{page}', name: 'user_index', methods: ['GET'])]
-    public function index(int $page = 1): Response
+    public function index(Request $request, CountryRepository $countryRepository, int $page = 1): Response
     {
-        $totalUsers = $this->userRepository->totalPages();
-        $paginate   = PaginateHelper::create($page, $totalUsers);
+        if ($countryParam = $request->get('country')) {
+            $country = $countryRepository->findOneBy([
+                'slug' => $countryParam,
+            ]);
+        } else {
+            $country = null;
+        }
+
+        $totalUsers = $this->userRepository->totalPages($country);
+
+        $paginate = PaginateHelper::create($page, $totalUsers);
 
         if ($page > $paginate['total'] || $page <= 0) {
             throw new NotFoundHttpException('Page not found');
@@ -31,11 +42,17 @@ class UserController extends AbstractController
 
         $start = ($page - 1) * 25;
 
-        $users = $this->userRepository->findSomeUsers($start);
+        $users = $this->userRepository->findSomeUsers($start, $country);
+
+        $countries = $countryRepository->findBy([], [
+            'name' => 'ASC',
+        ]);
 
         return $this->render('user/index.html.twig', [
-            'users'    => $users,
-            'paginate' => $paginate,
+            'users'     => $users,
+            'paginate'  => $paginate,
+            'countries' => $countries,
+            'country'   => $country,
         ]);
     }
 
