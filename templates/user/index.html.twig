@@ -13,9 +13,9 @@
             <div class="row">
                 <div class="col-md-12 form-group">
                     <select class="form-select country-selector">
-                        <option value="">Wordwide</option>
+                        <option value="">Worldwide</option>
                         {% for countryL in countries %}
-                        <option {% if country and country.slug == countryL.slug%}selected{% endif%} value="{{ countryL.slug }}">{{ countryL.name }}</option>
+                            <option {% if country and country.slug == countryL.slug%}selected{% endif %} value="{{ countryL.slug }}">{{ countryL.name }}</option>
                         {% endfor %}
                     </select>
                 </div>

@@ -1,0 +1,21 @@
+<div class="col-lg-12">
+    <div class="member d-flex align-items-start">
+        <div class="pic">
+            <a href="{{ path('languages_show', {'slug' : language.slug}) }}">
+                <img src="" class="img-fluid" alt="">
+            </a>
+        </div>
+        <div class="member-info">
+            <h4>
+                <a href="{{ path('languages_show', {'slug' : language.slug}) }}">
+                    {{ language.name }}
+                </a>
+            </h4>
+            <span>Total: {{ stars }}</span>
+            <p>Rank: tbd / {{ stars|number_format(0, '.', ' ') }} <i class="fas fa-star"></i></p>
+            <div class="social">
+                <a href="{{ path('languages_show', {'page': '1', 'slug': language.slug}) }}" title="See user ranking for this language"><i class="fas fa-arrow-alt-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
