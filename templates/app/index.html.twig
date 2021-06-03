@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="container">
+        {% if search_error %}
+            <div class="alert alert-danger">
+            <p>{{ search_error }}</p>
+            </div>
+        {% endif %}
 
-    {% if search_error %}
-    <div style="background-color: rgba(249,13,17,0.54)">
-        <p>{{ search_error }}</p>
+        <div class="row justify-content-center">
+            <div class="search-form col-6">
+                <h3 class="sidebar-title">Search a user</h3>
+                {{ form_start(search_form) }}
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                {{ form_end(search_form) }}
+            </div>
+        </div>
     </div>
-    {% endif %}
-
-    {{ form_start(search_form) }}
-    {{ form_end(search_form) }}
-
 {% endblock %}
