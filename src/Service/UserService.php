@@ -65,7 +65,7 @@ class UserService
         // check if location changed
         if ($user->getLocation() !== $githubUser['location']) {
             $this->messageBus->dispatch(
-                new GetLocation($user->getGithubId(), $githubUser['location'])
+                new GetLocation($user->getGithubId(), (string) $githubUser['location'])
             );
         }
 

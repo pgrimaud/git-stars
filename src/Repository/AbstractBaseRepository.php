@@ -5,19 +5,18 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Sentry\SentryBundle\Tracing\Cache\TraceableCacheAdapter;
-use Symfony\Component\Cache\Adapter\TraceableAdapter;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 abstract class AbstractBaseRepository extends ServiceEntityRepository
 {
-    private TraceableCacheAdapter | TraceableAdapter $cacheAdapter;
+    private AdapterInterface $cacheAdapter;
 
-    public function setAdapter(TraceableCacheAdapter | TraceableAdapter $adapter): void
+    public function setAdapter(AdapterInterface $adapter): void
     {
         $this->cacheAdapter = $adapter;
     }
 
-    public function getCacheAdapter(): TraceableCacheAdapter | TraceableAdapter
+    public function getCacheAdapter(): AdapterInterface
     {
         return $this->cacheAdapter;
     }
