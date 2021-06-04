@@ -3,26 +3,27 @@
 {% block title %}{{ language.name }}{% endblock %}
 
 {% block body %}
+<section id="team" class="team">
     <div class="container">
-        <a href="{{ path('languages_index') }}"><i class="fas fa-arrow-alt-circle-left"></i> Go to languages</a>
-        <h1>{{ language.name }}</h1>
-        <section id="team" class="team">
-            <div class="container">
-                <div class="row">
-                    {% for userLanguage in userLanguages %}
-                        {% include 'partials/user-card.html.twig' with {'user' : userLanguage, 'stars': userLanguage.stars} %}
-                    {% endfor %}
-                    {% include 'partials/paginate.html.twig' with {
-                        'paginate': paginate,
-                        'route': 'languages_show',
-                        'route_parameters': {
-                            'slug' : language.slug
-                        }
-                    }  %}
-                </div>
-            </div>
-        </section>
-    </div>
+        <div class="section-title">
+            <h2>Top users by languages</h2>
+            <p>{{ language.name }}</p>
+            <a href="{{ path('languages_index') }}"><i class="fas fa-arrow-alt-circle-left"></i> Back to languages list</a>
+        </div>
 
+        <div class="row">
+            {% for userLanguage in userLanguages %}
+                {% include 'partials/user-card.html.twig' with {'user' : userLanguage, 'stars': userLanguage.stars} %}
+            {% endfor %}
+            {% include 'partials/paginate.html.twig' with {
+                'paginate': paginate,
+                'route': 'languages_show',
+                'route_parameters': {
+                    'slug' : language.slug
+                }
+            }  %}
+        </div>
+    </div>
+</section>
 {% endblock %}
 

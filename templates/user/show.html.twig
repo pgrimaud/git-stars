@@ -36,7 +36,7 @@
 
 {% block javascripts %}
     {% if user.status == 'running' %}
-    <script>
+    <script type="text/javascript">
         function getStatus() {
             fetch('{{ path('user_status', {'username': user.username}) }}')
             .then(function (response) {
@@ -45,8 +45,8 @@
                     if (json.status === 'idle') {
                         window.location.reload()
                     }
-                });
-            });
+                })
+            })
         }
         setInterval(getStatus, 5000)
     </script>

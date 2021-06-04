@@ -8,16 +8,22 @@ use App\Entity\User;
 use App\Form\Model\Search;
 use App\Form\SearchType;
 use App\Repository\UserRepository;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AppController extends AbstractController
 {
     #[Route('/', name: 'app_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, UserRepository $userRepository): Response
-    {
+    public function index(
+        Request $request,
+        UserRepository $userRepository,
+        UserService $userService,
+        MessageBusInterface $bus
+    ): Response {
         $searchError = null;
 
         $search = new Search();
@@ -26,11 +32,26 @@ class AppController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $search = $form->getData()->username;
+            $search = strip_tags($form->getData()->username);
             $user   = $userRepository->findOneBy(['username' => $search]);
 
             if (!$user instanceof User) {
-                $searchError = 'User ' . $search . ' was not found';
+                if (!$this->getUser()) {
+                    $loginLink   = $this->generateUrl('hwi_oauth_service_redirect', ['service' => 'github']);
+                    $searchError = 'User ' . $search .
+                        ' was not found in Git Stars. Please <a href="' . $loginLink . '">login</a> to import it.';
+                } else {
+                    // @phpstan-ignore-next-line
+                    $newUser = $userService->partialFetchUser($search, $this->getUser()->getAccessToken());
+
+                    if ($newUser instanceof User) {
+                        return $this->redirectToRoute('user_show', [
+                            'username' => $newUser->getUsername(),
+                        ]);
+                    } else {
+                        $searchError = 'User ' . $search . ' was not found in GitHub';
+                    }
+                }
             } else {
                 return $this->redirectToRoute('user_show', [
                     'username' => $search,

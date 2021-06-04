@@ -1,21 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<section id="team" class="team">
     <div class="container">
-        {% if search_error %}
-            <div class="alert alert-danger">
-            <p>{{ search_error }}</p>
-            </div>
-        {% endif %}
+        <div class="section-title">
+            <h2>Welcome on Git Stars! ✌️</h2>
+            <p>Search user?</p>
+        </div>
 
         <div class="row justify-content-center">
-            <div class="search-form col-6">
-                <h3 class="sidebar-title">Search a user</h3>
+            <div class="col-12">
                 {{ form_start(search_form) }}
-                    <button type="submit"><i class="fas fa-search"></i></button>
+                    <div class="input-group mb-3">
+                        {{ form_widget(search_form.username, {'attr' : {'class' : 'form-control'}}) }}
+                        <button type="submit" class="btn-git"><i class="fas fa-search"></i></button>
+                    </div>
                 {{ form_end(search_form) }}
             </div>
         </div>
+
+        {% if search_error %}
+            <div class="alert alert alert-warning mt-2">
+                {{ search_error | raw }}
+            </div>
+        {% endif %}
+
     </div>
+</section>
 
 {% endblock %}

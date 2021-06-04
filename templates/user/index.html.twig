@@ -6,7 +6,7 @@
         <div class="section-title">
             <h2>Top users</h2>
             <p>{% if country %}{{ country.name }}{% else %}Worldwide{% endif %}</p>
-            {% if country %}<a href="{{ path('user_index') }}">Back to global ranking</a>{% endif %}
+            {% if country %}<a href="{{ path('user_index') }}"><i class="fas fa-arrow-alt-circle-left"></i> Back to global ranking</a>{% endif %}
         </div>
 
         <form action="#" method="post" class="mb-4">

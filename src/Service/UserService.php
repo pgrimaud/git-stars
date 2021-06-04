@@ -10,6 +10,7 @@ use App\Entity\Language;
 use App\Entity\User;
 use App\Entity\UserLanguage;
 use App\Message\GetLocation;
+use App\Message\ManualUpdateUser;
 use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,6 +27,35 @@ class UserService
         private SluggerInterface $slugger,
         private MessageBusInterface $messageBus
     ) {
+    }
+
+    public function partialFetchUser(string $username, string $accessToken): ?User
+    {
+        $this->gitHubClient->auth($accessToken);
+
+        try {
+            $githubUser = $this->gitHubClient->getUserByUsername($username);
+
+            $user = new User();
+            $user->setGithubId($githubUser['id']);
+            $user->setAccessToken('');
+            $user->setUsername($githubUser['login']);
+            $user->setLocation($githubUser['location']);
+            $user->setName((string) $githubUser['name']);
+            $user->setOrganization($githubUser['type'] !== 'User');
+            $user->setStatus(User::STATUS_RUNNING);
+
+            $this->manager->persist($user);
+            $this->manager->flush();
+
+            $this->messageBus->dispatch(
+                new ManualUpdateUser($githubUser['id'], $accessToken)
+            );
+
+            return $user;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     public function update(int $githubId, ?string $accessToken = null): ?User
