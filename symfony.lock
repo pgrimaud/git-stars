@@ -142,6 +142,9 @@
     "guzzlehttp/psr7": {
         "version": "1.8.2"
     },
+    "http-interop/http-factory-guzzle": {
+        "version": "1.0.0"
+    },
     "hwi/oauth-bundle": {
         "version": "0.6",
         "recipe": {
@@ -154,6 +157,9 @@
             "config/packages/hwi_oauth.yaml",
             "config/routes/hwi_oauth_routing.yaml"
         ]
+    },
+    "jean85/pretty-package-versions": {
+        "version": "2.0.4"
     },
     "knplabs/github-api": {
         "version": "2.6",
@@ -271,6 +277,24 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "sentry/sdk": {
+        "version": "3.1.0"
+    },
+    "sentry/sentry": {
+        "version": "3.3.0"
+    },
+    "sentry/sentry-symfony": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "9746f0823302d7980e5273ef7a69ef3f5ac80914"
+        },
+        "files": [
+            "config/packages/sentry.yaml"
+        ]
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
@@ -472,6 +496,9 @@
     "symfony/polyfill-php81": {
         "version": "v1.23.0"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.23.0"
+    },
     "symfony/process": {
         "version": "v5.3.0-rc1"
     },
@@ -486,6 +513,9 @@
     },
     "symfony/proxy-manager-bridge": {
         "version": "v5.2.9"
+    },
+    "symfony/psr-http-message-bridge": {
+        "version": "v2.1.0"
     },
     "symfony/redis-messenger": {
         "version": "v5.3.0-rc1"
