@@ -1,5 +1,5 @@
-<div class="col-lg-12">
-    <div class="member d-flex align-items-center w-100 col-lg-12">
+<div class="col-lg-12 mb-2">
+    <div class="member d-flex align-items-center w-100">
         <div class="pic">
             <a href="{{ path('user_show', {'username' : user.username}) }}">
                 <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4" class="img-fluid" alt="">
@@ -20,7 +20,7 @@
         <div class="w-25">
             <p class="text-end">
                 <span class="fw-bold fs-3">#{{ loop.index + 25 * (paginate.current - 1) }}</span><br>
-                <span class="fs-6">{{ stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star"></i></span>
+                <span class="fs-6">{{ stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
             </p>
         </div>
     </div>
