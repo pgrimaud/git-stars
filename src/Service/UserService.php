@@ -137,6 +137,8 @@ class UserService
         $this->manager->persist($user);
         $this->manager->flush();
 
+        sleep(1);
+
         return $user;
     }
 }

@@ -6,6 +6,7 @@ use App\Message\UpdateUser;
 use App\Repository\UserRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -25,21 +26,37 @@ class FetchUserCommand extends Command
         parent::__construct($name);
     }
 
+    protected function configure(): void
+    {
+        $this
+            ->addArgument(
+                'githubId',
+                InputArgument::REQUIRED,
+                'Start from github ID'
+            );
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
-        $latest = $this->userRepository->getHighestGithubId();
+        $githubId = intval($input->getArgument('githubId'));
 
-        $fetchTo = $latest + 5000;
+        if ($githubId == 0) {
+            $io->error('Please enter a valid number above 0');
 
-        for ($i = $latest + 1; $i <= $fetchTo; ++$i) {
+            return Command::FAILURE;
+        }
+
+        $fetchTo = $githubId + 5000;
+
+        for ($i = $githubId; $i < $fetchTo; ++$i) {
             $this->bus->dispatch(
                 new UpdateUser($i)
             );
         }
 
-        $io->success('Users with github ids from ' . ($latest + 1) . ' to ' . $fetchTo . ' have been added to the queue');
+        $io->success('Users with github ids from ' . $githubId . ' to ' . $fetchTo . ' have been added to the queue');
 
         return Command::SUCCESS;
     }
