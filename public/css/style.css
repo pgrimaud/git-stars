@@ -915,7 +915,7 @@ section {
   color: #556270;
 }
 
-.member span {
+.member .span-name {
   display: block;
   font-size: 15px;
   padding-bottom: 10px;
@@ -923,7 +923,7 @@ section {
   font-weight: 500;
 }
 
-.member span::after {
+.member .span-name::after {
   content: '';
   position: absolute;
   display: block;

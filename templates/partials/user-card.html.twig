@@ -1,22 +1,27 @@
 <div class="col-lg-12">
-    <div class="member d-flex align-items-start">
+    <div class="member d-flex align-items-center w-100 col-lg-12">
         <div class="pic">
             <a href="{{ path('user_show', {'username' : user.username}) }}">
                 <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4" class="img-fluid" alt="">
             </a>
         </div>
-        <div class="member-info">
+        <div class="member-info w-75">
             <h4>
                 <a href="{{ path('user_show', {'username' : user.username}) }}">
                     {% if user.name != "" %}{{ user.name }}{% else %}{{ user.username }}{% endif %}
                 </a>
                 {% if user.organization %}<i class="fas fa-building"></i>{% endif %}
             </h4>
-            <span>@{{ user.username }}</span>
-            <p>Rank <b>{{ loop.index + 25 * (paginate.current - 1) }}</b> / {{ stars|number_format(0, '.', ' ') }} <i class="fas fa-star"></i></p>
+            <span class="span-name">@{{ user.username }}</span>
             <div class="social">
                 <a href="https://github.com/{{user.username  }}" target="_blank"><i class="fab fa-github"></i></a>
             </div>
+        </div>
+        <div class="w-25">
+            <p class="text-end">
+                <span class="fw-bold fs-3">#{{ loop.index + 25 * (paginate.current - 1) }}</span><br>
+                <span class="fs-6">{{ stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star"></i></span>
+            </p>
         </div>
     </div>
 </div>
