@@ -1,0 +1,39 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  ci-cd:
+    name: CI/CD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Init repository"
+        uses: actions/checkout@v2
+
+      - name: "Setup PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          tools: composer
+
+      - name: "Install dependencies"
+        run: composer install
+
+      - name: "PHPStan"
+        run: ./vendor/bin/phpstan analyse src --level=max
+
+      - name: "Dependencies security checker"
+        uses: symfonycorp/security-checker-action@v2
+
+      - name: "Deploy to production"
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: ${{ secrets.SSH_SCRIPT }}
