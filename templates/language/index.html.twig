@@ -1,10 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for language in languages %}
-        <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos/src/{{ language.slug }}/{{ language.slug }}_64x64.png">
-        <a href="{{ path('languages_show', {'slug' : language.slug}) }}">{{ language.name }}</a>
-        <br>
-    {% endfor %}
+    <div class="row">
+        {% for language in languages %}
+            {% include 'partials/language-card.html.twig' with {
+                'slug' : language[0].slug,
+                'name': language[0].name,
+                'stars': language.stars
+            } %}
+        {% endfor %}
+    </div>
+
+    {% include 'partials/paginate.html.twig' with {
+        'paginate': paginate,
+        'route': 'languages_index',
+        'route_parameters': {
+        }
+    }  %}
 {% endblock %}
 

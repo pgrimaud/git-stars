@@ -20,13 +20,25 @@ class LanguageRepository extends AbstractBaseRepository
         parent::__construct($registry, Language::class);
     }
 
-    public function findAllByStars(): array
+    public function totalLanguage(): int | string
     {
         return $this->createQueryBuilder('l')
-            ->select('l')
+            ->select('count(distinct(l.id)) as total')
+            ->join('l.userLanguages', 'ul')
+            ->andWhere('ul.stars > 0')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findAllByStars(int $start): array
+    {
+        return $this->createQueryBuilder('l')
+            ->select('l', 'ul.stars')
             ->join('l.userLanguages', 'ul')
             ->groupBy('l.name')
             ->orderBy('sum(ul.stars)', 'DESC')
+            ->setFirstResult($start)
+            ->setMaxResults(25)
             ->getQuery()
             ->getResult();
     }

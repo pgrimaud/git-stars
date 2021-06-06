@@ -1,0 +1,23 @@
+<div class="col-lg-12 mb-2">
+    <div class="member d-flex align-items-center w-100">
+        <div class="pic">
+            <a href="{{ path('languages_show', {'slug' : slug}) }}">
+                <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos/src/{{ slug }}/{{ slug }}_64x64.png">
+            </a>
+        </div>
+        <div class="member-info w-75">
+            <h4>
+                <a href="{{ path('languages_show', {'slug' : slug}) }}">
+                    {{ name }}
+                </a>
+            </h4>
+{#            <span class="span-name">test</span>#}
+        </div>
+        <div class="w-25">
+            <p class="text-end">
+                <span class="fw-bold fs-3">#{{ loop.index + 25 * (paginate.current - 1) }}</span><br>
+                <span class="fs-6">{{ stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
+            </p>
+        </div>
+    </div>
+</div>
