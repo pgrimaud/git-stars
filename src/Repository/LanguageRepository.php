@@ -33,9 +33,9 @@ class LanguageRepository extends AbstractBaseRepository
     public function findAllByStars(int $start): array
     {
         return $this->createQueryBuilder('l')
-            ->select('l', 'ul.stars')
+            ->select('l', 'SUM(ul.stars) as stars')
             ->join('l.userLanguages', 'ul')
-            ->groupBy('l.name')
+            ->groupBy('l.id')
             ->orderBy('sum(ul.stars)', 'DESC')
             ->setFirstResult($start)
             ->setMaxResults(25)
