@@ -1,21 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        {% for language in languages %}
-            {% include 'partials/language-card.html.twig' with {
-                'slug' : language[0].slug,
-                'name': language[0].name,
-                'stars': language.stars
-            } %}
-        {% endfor %}
+    <div class="container">
+        <div class="section-title">
+            <h2>Top languages</h2>
+            <p>Total stargazers</p>
+        </div>
+
+        <div class="row">
+            {% for language in languages %}
+                {% include 'partials/language-card.html.twig' with {
+                    'slug' : language[0].slug,
+                    'name': language[0].name,
+                    'stars': language.stars
+                } %}
+            {% endfor %}
+        </div>
+
+        {% include 'partials/paginate.html.twig' with {
+            'paginate': paginate,
+            'route': 'languages_index',
+            'route_parameters': {
+            }
+        }  %}
     </div>
 
-    {% include 'partials/paginate.html.twig' with {
-        'paginate': paginate,
-        'route': 'languages_index',
-        'route_parameters': {
-        }
-    }  %}
 {% endblock %}
 
