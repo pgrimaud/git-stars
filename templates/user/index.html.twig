@@ -26,11 +26,13 @@
             {% for user in users %}
                 {% include 'partials/user-card.html.twig' with {'user' : user[0], 'stars': user.stars} %}
             {% endfor %}
+
             {% include 'partials/paginate.html.twig' with {
                 'paginate': paginate,
                 'route': 'user_index',
-                'route_parameters': {
-                }
+                'route_parameters': (country ? {
+                    'country' : country.slug
+                } : {})
             }  %}
         </div>
     </div>
