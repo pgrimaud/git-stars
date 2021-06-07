@@ -69,8 +69,6 @@ class UserController extends AbstractController
 
         $userLanguages = $userLanguageRepository->findLanguageByUsers($user);
 
-//        dd($userLanguages);
-
         foreach ($userLanguages as $ul) {
             $language = $languageRepository->findOneBy(['name' => $ul['name']]);
 
@@ -132,34 +130,4 @@ class UserController extends AbstractController
             'status' => $user->getStatus(),
         ]);
     }
-
-//    private function searchForId(int $search_value, array $array)
-//    {
-//        $id_path = ['$'];
-//        // Iterating over main array
-//        foreach ($array as $key1 => $val1) {
-//            $temp_path = $id_path;
-//
-//            // Adding current key to search path
-//            array_push($temp_path, $key1);
-//
-//            // Check if this value is an array
-//            // with at least one element
-//            if (is_array($val1) and count($val1)) {
-//                // Iterating over the nested array
-//                foreach ($val1 as $key2 => $val2) {
-//                    if ($val2 == $search_value) {
-//                        // Adding current key to search path
-//                        array_push($temp_path, $key2);
-//
-//                        return join(' --> ', $temp_path);
-//                    }
-//                }
-//            } elseif ($val1 == $search_value) {
-//                return join(' --> ', $temp_path);
-//            }
-//        }
-//
-//        return null;
-//    }
 }
