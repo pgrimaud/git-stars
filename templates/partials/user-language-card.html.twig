@@ -5,17 +5,28 @@
                 <img src="" class="img-fluid" alt="">
             </a>
         </div>
-        <div class="member-info">
+        <div class="member-info w-25">
             <h4>
                 <a href="{{ path('languages_show', {'slug' : language.slug}) }}">
                     {{ language.name }}
                 </a>
             </h4>
             <span class="span-name">Total: {{ stars|number_format(0, '.', ' ') }}</span>
-            <p>Rank: tbd / {{ stars|number_format(0, '.', ' ') }} <i class="fas fa-star"></i></p>
             <div class="social">
                 <a href="{{ path('languages_show', {'page': '1', 'slug': language.slug}) }}" title="See user ranking for this language"><i class="fas fa-arrow-alt-circle-right"></i></a>
             </div>
+        </div>
+        <div class="w-25">
+            <p class="fw-bold">Ranking:</p>
+            <p>World: {{ language.rank_world }}</p>
+            {% if language.rank_country %}<p>Country: {{ language.rank_country }}</p>{% endif %}
+            {% if language.rank_city %}<p>City: {{ language.rank_city }}</p>{% endif %}
+        </div>
+        <div class="w-25">
+            <p class="text-end">
+                <span class="fw-bold fs-3">#{{ index }}</span><br>
+                <span class="fs-6">{{ stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
+            </p>
         </div>
     </div>
 </div>

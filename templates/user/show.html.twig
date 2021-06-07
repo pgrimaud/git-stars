@@ -27,8 +27,14 @@
         </div>
 
         <div class="row">
+            {% set i = 1 %}
             {% for userLanguage in userLanguages %}
-                {% include 'partials/user-language-card.html.twig' with {'language' : userLanguage, 'stars': userLanguage.stars} %}
+                {% include 'partials/user-language-card.html.twig' with {
+                    'language' : userLanguage,
+                    'stars': userLanguage.stars,
+                    'index': i
+                } %}
+                {% set i = i + 1 %}
             {% endfor %}
         </div>
     </div>
