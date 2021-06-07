@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Message\ManualUpdateUser;
 use App\Repository\CountryRepository;
+use App\Repository\LanguageRepository;
 use App\Repository\UserLanguageRepository;
 use App\Repository\UserRepository;
 use App\Utils\PaginateHelper;
@@ -55,7 +56,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/{username}', name: 'user_show', requirements: ['username' => '[a-zA-Z0-9\-\_]+'], methods: ['GET'])]
-    public function show(UserLanguageRepository $userLanguageRepository, string $username): Response
+    public function show(
+        UserLanguageRepository $userLanguageRepository,
+        LanguageRepository $languageRepository,
+        string $username): Response
     {
         $user = $this->userRepository->findOneBy(['username' => $username]);
 
@@ -64,6 +68,16 @@ class UserController extends AbstractController
         }
 
         $userLanguages = $userLanguageRepository->findLanguageByUsers($user);
+
+//        dd($userLanguages);
+
+        foreach ($userLanguages as $ul) {
+            $language = $languageRepository->findOneBy(['name' => $ul['name']]);
+
+            $totalRanking = $userLanguageRepository->getUserRank($language);
+//            $ul['rank']   = $this->searchForId($user->getId(), $totalRanking);
+            dd($ul);
+        }
 
         return $this->render('user/show.html.twig', [
             'user'          => $user,
@@ -118,4 +132,34 @@ class UserController extends AbstractController
             'status' => $user->getStatus(),
         ]);
     }
+
+//    private function searchForId(int $search_value, array $array)
+//    {
+//        $id_path = ['$'];
+//        // Iterating over main array
+//        foreach ($array as $key1 => $val1) {
+//            $temp_path = $id_path;
+//
+//            // Adding current key to search path
+//            array_push($temp_path, $key1);
+//
+//            // Check if this value is an array
+//            // with at least one element
+//            if (is_array($val1) and count($val1)) {
+//                // Iterating over the nested array
+//                foreach ($val1 as $key2 => $val2) {
+//                    if ($val2 == $search_value) {
+//                        // Adding current key to search path
+//                        array_push($temp_path, $key2);
+//
+//                        return join(' --> ', $temp_path);
+//                    }
+//                }
+//            } elseif ($val1 == $search_value) {
+//                return join(' --> ', $temp_path);
+//            }
+//        }
+//
+//        return null;
+//    }
 }

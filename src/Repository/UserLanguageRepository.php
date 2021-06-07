@@ -55,4 +55,16 @@ class UserLanguageRepository extends AbstractBaseRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getUserRank(?Language $language): array
+    {
+        return $this->createQueryBuilder('ul')
+            ->select('ul', 'rank() OVER(ORDER BY ul.stars) as rank')
+            ->andWhere('ul.language = :language')
+            ->setParameter('language', $language)
+            ->groupBy('ul.user')
+            ->orderBy('ul.stars', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }
