@@ -18,9 +18,9 @@
         </div>
         <div class="w-25">
             <p class="fw-bold">Ranking:</p>
-            <p>World: {{ language.rank_world }}</p>
-            {% if language.rank_country %}<p>Country: {{ language.rank_country }}</p>{% endif %}
-            {% if language.rank_city %}<p>City: {{ language.rank_city }}</p>{% endif %}
+            <p>World: {{ language.rank_world }} / {{ language.total_user_world }}</p>
+            {% if language.rank_country %}<p>Country: {{ language.rank_country }} / {{ language.total_user_country }}</p>{% endif %}
+            {% if language.rank_city %}<p>City: {{ language.rank_city }} / {{ language.total_user_city}}</p>{% endif %}
         </div>
         <div class="w-25">
             <p class="text-end">
