@@ -5,9 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Message\ManualUpdateUser;
 use App\Repository\CountryRepository;
-use App\Repository\LanguageRepository;
-use App\Repository\UserLanguageRepository;
 use App\Repository\UserRepository;
+use App\Service\RankingService;
 use App\Utils\PaginateHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,29 +56,20 @@ class UserController extends AbstractController
 
     #[Route('/user/{username}', name: 'user_show', requirements: ['username' => '[a-zA-Z0-9\-\_]+'], methods: ['GET'])]
     public function show(
-        UserLanguageRepository $userLanguageRepository,
-        LanguageRepository $languageRepository,
-        string $username): Response
-    {
+        RankingService $rankingService,
+        string $username
+    ): Response {
         $user = $this->userRepository->findOneBy(['username' => $username]);
 
         if (!$user instanceof User) {
             throw new NotFoundHttpException('User not found');
         }
 
-        $userLanguages = $userLanguageRepository->findLanguageByUsers($user);
-
-        foreach ($userLanguages as $ul) {
-            $language = $languageRepository->findOneBy(['name' => $ul['name']]);
-
-            $totalRanking = $userLanguageRepository->getUserRank($language);
-//            $ul['rank']   = $this->searchForId($user->getId(), $totalRanking);
-            dd($ul);
-        }
+        $usersLanguages = $rankingService->getRanking($user);
 
         return $this->render('user/show.html.twig', [
             'user'          => $user,
-            'userLanguages' => $userLanguages,
+            'userLanguages' => $usersLanguages,
         ]);
     }
 
