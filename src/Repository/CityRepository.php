@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\City;
 use App\Entity\Country;
+use App\Entity\Language;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,6 +39,37 @@ class CityRepository extends AbstractBaseRepository
 
             $cacheKey->set($cities);
             $cacheKey->expiresAfter(600);
+
+            $this->getCacheAdapter()->save($cacheKey);
+        }
+
+        return $cities;
+    }
+
+    public function findAllCitiesByLanguage(Language $language, ?Country $country): array
+    {
+        $cacheKey = $this->getCacheAdapter()->getItem($language->getSlug() . '-all-cities');
+
+        if ($cacheKey->isHit()) {
+            $cities = $cacheKey->get();
+        } else {
+            $cities = $this->createQueryBuilder('c')
+                ->select('c')
+                ->join('c.users', 'u')
+                ->join('u.userLanguages', 'ul')
+                ->join('c.locations', 'loc')
+                ->andWhere('loc.country = :country')
+                ->setParameter('country', $country)
+                ->andWhere('ul.language = :language')
+                ->setParameter('language', $language)
+                ->andWhere('ul.stars > 0')
+                ->groupBy('c.id')
+                ->orderBy('c.slug')
+                ->getQuery()
+                ->getResult();
+
+            $cacheKey->set($cities);
+            $cacheKey->expiresAfter(1);
 
             $this->getCacheAdapter()->save($cacheKey);
         }

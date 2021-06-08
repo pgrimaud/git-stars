@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Country;
+use App\Entity\Language;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -30,6 +31,34 @@ class CountryRepository extends AbstractBaseRepository
             ]);
             $cacheKey->set($countries);
             $cacheKey->expiresAfter(600);
+
+            $this->getCacheAdapter()->save($cacheKey);
+        }
+
+        return $countries;
+    }
+
+    public function findAllCountriesByLanguage(Language $language): array
+    {
+        $cacheKey = $this->getCacheAdapter()->getItem($language->getSlug() . '-all-countries');
+
+        if ($cacheKey->isHit()) {
+            $countries = $cacheKey->get();
+        } else {
+            $countries = $this->createQueryBuilder('c')
+                ->select('c')
+                ->join('c.users', 'u')
+                ->join('u.userLanguages', 'ul')
+                ->andWhere('ul.language = :language')
+                ->setParameter('language', $language)
+                ->andWhere('ul.stars > 0')
+                ->groupBy('c.id')
+                ->orderBy('c.slug')
+                ->getQuery()
+                ->getResult();
+
+            $cacheKey->set($countries);
+            $cacheKey->expiresAfter(1);
 
             $this->getCacheAdapter()->save($cacheKey);
         }
