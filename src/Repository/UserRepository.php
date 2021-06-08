@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\City;
 use App\Entity\Country;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
@@ -57,7 +58,7 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->getResult();
     }
 
-    public function totalPages(?Country $country): int
+    public function totalPages(?Country $country, ?City $city): int
     {
         $query = $this->createQueryBuilder('u')
                       ->select('count(distinct(u.id)) as total')
@@ -69,11 +70,16 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
                   ->setParameter('country', $country);
         }
 
+        if ($city) {
+            $query->andWhere('u.city = :city')
+                ->setParameter('city', $city);
+        }
+
         return $query->getQuery()
             ->getSingleScalarResult();
     }
 
-    public function findSomeUsers(int $start, ?Country $country): array
+    public function findSomeUsers(int $start, ?Country $country, ?City $city): array
     {
         $query = $this->createQueryBuilder('u')
                       ->select('u', 'SUM(ul.stars) as stars')
@@ -84,6 +90,11 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
         if ($country) {
             $query->andWhere('u.country = :country')
                 ->setParameter('country', $country);
+        }
+
+        if ($city) {
+            $query->andWhere('u.city = :city')
+                ->setParameter('city', $city);
         }
 
         return $query->setFirstResult($start)

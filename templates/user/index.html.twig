@@ -22,6 +22,22 @@
             </div>
         </form>
 
+        {% if country != null %}
+            <form action="#" method="post" class="mb-4">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <select class="form-select city-selector">
+                            <option value="">Whole Country</option>
+                            {% for cityL in cities %}
+                                <option {% if city and city.slug == cityL.slug%}selected{% endif %} value="{{ cityL.slug }}">{{ cityL.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </form>
+        {% endif %}
+
         <div class="row">
             {% for user in users %}
                 {% include 'partials/user-card.html.twig' with {'user' : user[0], 'stars': user.stars} %}
@@ -48,6 +64,16 @@
                 window.location.href = `{{ path('user_index') }}`
             }
         })
+
+        {% if country != null %}
+        document.querySelector('.city-selector').addEventListener('change', function () {
+            if(this.value !== ''){
+                window.location.href = `{{ path('user_index') }}?country={{ country.slug }}&city=${this.value}`
+            } else {
+                window.location.href = `{{ path('user_index') }}?country={{ country.slug }}`
+            }
+        })
+        {% endif %}
     </script>
 {% endblock %}
 

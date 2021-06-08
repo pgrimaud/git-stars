@@ -29,7 +29,7 @@ class CountryRepository extends AbstractBaseRepository
                 'name' => 'ASC',
             ]);
             $cacheKey->set($countries);
-            $cacheKey->expiresAfter(120);
+            $cacheKey->expiresAfter(600);
 
             $this->getCacheAdapter()->save($cacheKey);
         }
