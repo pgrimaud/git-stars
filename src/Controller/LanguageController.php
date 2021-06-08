@@ -19,7 +19,7 @@ class LanguageController extends AbstractController
     {
     }
 
-    #[Route('/languages/{page}', name: 'languages_index', methods: ['GET'])]
+    #[Route('/languages/{page}', name: 'languages_index', requirements: ['page' => '[0-9]+'], methods: ['GET'])]
     public function index(int $page = 1): Response
     {
         $totalLanguages = $this->languageRepository->totalLanguage();
@@ -40,7 +40,7 @@ class LanguageController extends AbstractController
         ]);
     }
 
-    #[Route('/language/{slug}/{page}', name: 'languages_show', requirements: ['slug' => '[a-z0-9\-]+'], methods: ['GET'])]
+    #[Route('/language/{slug}/{page}', name: 'languages_show', requirements: ['slug' => '[a-z0-9\-]+', 'page' => '[0-9]+'], methods: ['GET'])]
     public function show(UserLanguageRepository $userLanguageRepository, string $slug, int $page = 1): Response
     {
         $language = $this->languageRepository->findOneBy(['slug' => $slug]);

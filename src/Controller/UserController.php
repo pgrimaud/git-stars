@@ -21,7 +21,7 @@ class UserController extends AbstractController
     {
     }
 
-    #[Route('/users/{page}', name: 'user_index', methods: ['GET'])]
+    #[Route('/users/{page}', name: 'user_index', requirements: ['page' => '[0-9]+'], methods: ['GET'])]
     public function index(Request $request, CountryRepository $countryRepository, int $page = 1): Response
     {
         if ($countryParam = $request->get('country')) {
