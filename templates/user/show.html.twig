@@ -4,7 +4,7 @@
     <div class="container">
     <a href="{{ path('user_index') }}"><i class="fas fa-arrow-alt-circle-left"></i> Go to users</a>
 
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
                     <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4" alt="{{ user.username }}" class="{% if user.organization == false %}rounded-circle{% endif %}" width="150">
