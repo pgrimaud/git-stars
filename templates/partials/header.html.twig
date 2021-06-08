@@ -1,7 +1,7 @@
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
-        <h1 class="logo me-auto"><a href="{{ path('app_index') }}">GIT Stars (WIP)</a></h1>
+        <h1 class="logo me-auto"><a href="{{ path('app_index') }}"><i class="fas fa-star text-warning"></i> GIT Stars</a></h1>
 
         <nav id="navbar" class="navbar">
             <ul>
@@ -29,7 +29,7 @@
                         </a>
                     {% else %}
                         <a href="{{ hwi_oauth_login_url('github') }}?_destination={{ app.request.pathinfo}}" class="getstarted">
-                            <i class="fab fa-github"></i> Login
+                            <i class="fab fa-github fs-6 m-1"></i> Login
                         </a>
                     {% endif %}
                 </li>

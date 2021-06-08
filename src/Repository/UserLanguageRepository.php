@@ -69,7 +69,7 @@ class UserLanguageRepository extends AbstractBaseRepository
             ->getSingleScalarResult();
     }
 
-    public function findLanguageByUsers(User $user): array
+    public function findLanguageByUser(User $user): array
     {
         return $this->createQueryBuilder('ul')
             ->select('ul.stars', 'l.name', 'l.color', 'l.slug')
