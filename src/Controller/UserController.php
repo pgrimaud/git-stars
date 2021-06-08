@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Message\ManualUpdateUser;
+use App\Repository\CityRepository;
 use App\Repository\CountryRepository;
 use App\Repository\UserRepository;
 use App\Service\RankingService;
@@ -22,17 +23,27 @@ class UserController extends AbstractController
     }
 
     #[Route('/users/{page}', name: 'user_index', requirements: ['page' => '[0-9]+'], methods: ['GET'])]
-    public function index(Request $request, CountryRepository $countryRepository, int $page = 1): Response
+    public function index(
+        Request $request,
+        CountryRepository $countryRepository,
+        CityRepository $cityRepository,
+        int $page = 1): Response
     {
+        $city    = null;
+        $country = null;
+
         if ($countryParam = $request->get('country')) {
             $country = $countryRepository->findOneBy([
                 'slug' => $countryParam,
             ]);
-        } else {
-            $country = null;
-        }
 
-        $totalUsers = $this->userRepository->totalPages($country);
+            if ($cityParam = $request->get('city')) {
+                $city = $cityRepository->findOneBy([
+                    'slug' => $cityParam,
+                ]);
+            }
+        }
+        $totalUsers = $this->userRepository->totalPages($country, $city);
 
         $paginate = PaginateHelper::create($page, $totalUsers);
 
@@ -42,15 +53,19 @@ class UserController extends AbstractController
 
         $start = ($page - 1) * 25;
 
-        $users = $this->userRepository->findSomeUsers($start, $country);
+        $users = $this->userRepository->findSomeUsers($start, $country, $city);
 
         $countries = $countryRepository->findAllCountries();
+
+        $cities = !$country ? null : $cityRepository->findCitiesByCountry($country);
 
         return $this->render('user/index.html.twig', [
             'users'     => $users,
             'paginate'  => $paginate,
             'countries' => $countries,
             'country'   => $country,
+            'cities'    => $cities,
+            'city'      => $city,
         ]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\City;
+use App\Entity\Country;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,32 +19,29 @@ class CityRepository extends AbstractBaseRepository
         parent::__construct($registry, City::class);
     }
 
-    // /**
-    //  * @return City[] Returns an array of City objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findCitiesByCountry(Country $country): array
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $cacheKey = $this->getCacheAdapter()->getItem($country->getSlug() . '-all-cities');
 
-    /*
-    public function findOneBySomeField($value): ?City
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if ($cacheKey->isHit()) {
+            $cities = $cacheKey->get();
+        } else {
+            $cities = $this->createQueryBuilder('c')
+                ->select('c')
+                ->join('c.locations', 'loc')
+                ->andWhere('loc.country = :country')
+                ->setParameter('country', $country)
+                ->groupBy('c.id')
+                ->orderBy('c.slug')
+                ->getQuery()
+                ->getResult();
+
+            $cacheKey->set($cities);
+            $cacheKey->expiresAfter(600);
+
+            $this->getCacheAdapter()->save($cacheKey);
+        }
+
+        return $cities;
     }
-    */
 }
