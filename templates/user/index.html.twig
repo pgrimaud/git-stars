@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <select class="form-select city-selector">
-                            <option value="">Whole Country</option>
+                            <option value="">-</option>
                             {% for cityL in cities %}
                                 <option {% if city and city.slug == cityL.slug%}selected{% endif %} value="{{ cityL.slug }}">{{ cityL.name }}</option>
                             {% endfor %}
@@ -47,7 +47,8 @@
                 'paginate': paginate,
                 'route': 'user_index',
                 'route_parameters': (country ? {
-                    'country' : country.slug
+                    'country' : country.slug,
+                    'city' : (city ? city.slug : null)
                 } : {})
             }  %}
         </div>
