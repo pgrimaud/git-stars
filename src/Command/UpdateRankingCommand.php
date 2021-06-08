@@ -11,7 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:update-ranking',
-    description: 'Add a short description for your command',
+    description: 'Update ranking table',
 )]
 class UpdateRankingCommand extends Command
 {
@@ -74,6 +74,9 @@ class UpdateRankingCommand extends Command
                         
                         ) t4 ON t1.language_id = t4.language_id;';
         $this->em->getConnection()->executeQuery($createTable);
+
+        // add index
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking(user_id) USING HASH ;');
 
         $io->success('Rankings have been updated');
 
