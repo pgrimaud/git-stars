@@ -17,14 +17,18 @@
             </div>
         </div>
         <div class="w-25">
-            <p class="fw-bold">Ranking:</p>
-            <p>World: {{ language.rank_world }} / {{ language.total_user_world }}</p>
-            {% if language.rank_country %}<p>Country: {{ language.rank_country }} / {{ language.total_user_country }}</p>{% endif %}
-            {% if language.rank_city %}<p>City: {{ language.rank_city }} / {{ language.total_user_city}}</p>{% endif %}
+            {% if language.rank_world is defined %}
+                <p class="fw-bold">Ranking:</p>
+                <p>World: {{ language.rank_world }} / {{ language.total_user_world }}</p>
+                {% if language.rank_country %}<p>Country: {{ language.rank_country }} / {{ language.total_user_country }}</p>{% endif %}
+                {% if language.rank_city %}<p>City: {{ language.rank_city }} / {{ language.total_user_city}}</p>{% endif %}
+            {% else %}
+                <p class="fw-bold mt-4">Ranking calculation in progress...</p>
+            {% endif %}
         </div>
         <div class="w-25">
             <p class="text-end">
-                <span class="fw-bold fs-3">#{{ language.rank_world }}</span><br>
+                <span class="fw-bold fs-3">{% if language.rank_world is defined %}#{{ language.rank_world }}{% else %}N/A{% endif %}</span><br>
                 <span class="fs-6">{{ stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
             </p>
         </div>

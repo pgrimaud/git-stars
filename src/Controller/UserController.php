@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Message\ManualUpdateUser;
 use App\Repository\CityRepository;
 use App\Repository\CountryRepository;
+use App\Repository\UserLanguageRepository;
 use App\Repository\UserRepository;
 use App\Service\RankingService;
 use App\Utils\PaginateHelper;
@@ -72,6 +73,7 @@ class UserController extends AbstractController
     #[Route('/user/{username}', name: 'user_show', requirements: ['username' => '[a-zA-Z0-9\-\_]+'], methods: ['GET'])]
     public function show(
         RankingService $rankingService,
+        UserLanguageRepository $userLanguageRepository,
         string $username
     ): Response {
         $user = $this->userRepository->findOneBy(['username' => $username]);
@@ -80,11 +82,16 @@ class UserController extends AbstractController
             throw new NotFoundHttpException('User not found');
         }
 
-        $usersLanguages = $rankingService->getRanking($user);
+        $userLanguages = $rankingService->getRanking($user);
+
+        // user is not ranked yet?
+        if ($userLanguages === []) {
+            $userLanguages = $userLanguageRepository->findLanguageByUser($user);
+        }
 
         return $this->render('user/show.html.twig', [
             'user'          => $user,
-            'userLanguages' => $usersLanguages,
+            'userLanguages' => $userLanguages,
         ]);
     }
 
