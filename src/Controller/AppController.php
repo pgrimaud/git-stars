@@ -12,7 +12,6 @@ use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AppController extends AbstractController
@@ -21,8 +20,7 @@ class AppController extends AbstractController
     public function index(
         Request $request,
         UserRepository $userRepository,
-        UserService $userService,
-        MessageBusInterface $bus
+        UserService $userService
     ): Response {
         $searchError = null;
 

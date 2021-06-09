@@ -38,7 +38,3 @@ services:
     App\Client\GitHub\GitHubClient:
         arguments:
             - '%env(GITHUB_SECRET)%'
-
-    App\Client\Geocode\GeocodeClient:
-        arguments:
-            - '%env(GEOCODE_API_KEY)%'

@@ -5,28 +5,37 @@ declare(strict_types=1);
 namespace App\Client\Geocode;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
 
 class GeocodeClient
 {
-    public const API_ENDPOINT = 'https://geocode.xyz';
+    public const API_ENDPOINT = 'https://photon.komoot.io/api/?limit=1&lang=en&q=';
 
     private Client $client;
 
-    public function __construct(private string $apiKey)
+    public function __construct()
     {
         $this->client = new Client();
     }
 
-    public function findLocation(string $location): array
+    public function findLocation(string $location, int $timeout = 2): array
     {
-        $request = $this->client->request('POST', self::API_ENDPOINT, [
-            'form_params' => [
-                'locate' => $location,
-                'geoit'  => 'json',
-                'auth'   => $this->apiKey,
-            ],
-        ]);
+        try {
+            $request = $this->makeCurlCall($location);
+            $result  = json_decode((string) $request->getBody(), true);
+        } catch (RequestException $e) {
+            sleep($timeout);
 
-        return json_decode((string) $request->getBody(), true);
+            $timeout += 2;
+            $result = $this->findLocation($location, $timeout);
+        }
+
+        return $result;
+    }
+
+    private function makeCurlCall(string $location): ResponseInterface
+    {
+        return $this->client->request('GET', self::API_ENDPOINT . $location);
     }
 }

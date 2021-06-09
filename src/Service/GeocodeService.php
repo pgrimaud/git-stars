@@ -40,19 +40,30 @@ class GeocodeService
             $existingLocation = new Location();
             $existingLocation->setName($location);
 
-            $result = $this->geocodeClient->findLocation($location);
+            $result = $this->geocodeClient->findLocation(urlencode($location));
 
-            if (isset($result['suggestion']['region']) && $result['suggestion']['region'] !== []) {
-                $suggestion = $result['suggestion']['region'];
+            $apiCountry = null;
+            $apiCity    = null;
+
+            if (isset($result['features'][0]['properties']['countrycode'])) {
+                $realResult = $result['features'][0]['properties'];
+
                 $iso        = new ISO3166();
-                $apiCountry = $iso->alpha2($suggestion)['name'];
-                $apiCity    = null;
-            } elseif (!isset($result['standard'])) {
-                $apiCity    = null;
-                $apiCountry = null;
-            } else {
-                $apiCountry = $result['standard']['countryname'];
-                $apiCity    = $result['standard']['city'];
+                $apiCountry = $iso->alpha2($realResult['countrycode'])['name'];
+
+                if (in_array($realResult['osm_value'], ['village', 'city'])) {
+                    $apiCity = $realResult['name'];
+                } elseif (in_array($realResult['osm_value'], ['country', 'state', 'farmland', 'county'])) {
+                    $apiCity = null;
+                } elseif (in_array($realResult['osm_type'], ['N', 'W', 'R'])) {
+                    if (isset($realResult['city'])) {
+                        $apiCity = $realResult['city'];
+                    } else {
+                        $apiCity = $realResult['name'];
+                    }
+                } else {
+                    dd('coucou');
+                }
             }
 
             $existingLocation->setCountry($this->findCountry($apiCountry));
