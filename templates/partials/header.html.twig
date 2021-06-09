@@ -18,10 +18,18 @@
                         <span>Top languages</span> <i class="bi bi-chevron-down"></i>
                     </a>
                 </li>
-                <li><a href="{{ path('user_index') }}"
+                <li>
+                    <a href="{{ path('user_index') }}"
                             {% if app.request.get('_route') == 'user_index' %}
                                 class="active"
-                            {% endif %}>Top users</a></li>
+                            {% endif %}>Top users</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_about') }}"
+                            {% if app.request.get('_route') == 'app_about' %}
+                        class="active"
+                            {% endif %}>About</a>
+                </li>
                 <li>
                     {% if app.user %}
                         <a href="{{ path('security_logout')}}" class="getstarted">

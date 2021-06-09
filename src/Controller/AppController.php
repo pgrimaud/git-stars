@@ -64,4 +64,10 @@ class AppController extends AbstractController
             'search_error' => $searchError,
         ]);
     }
+
+    #[Route('/about', name: 'app_about', methods: ['GET'])]
+    public function about(): Response
+    {
+        return $this->render('app/about.html.twig');
+    }
 }
