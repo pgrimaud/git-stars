@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\City;
+use App\Entity\Country;
 use App\Entity\Language;
 use App\Entity\User;
 use App\Entity\UserLanguage;
@@ -20,27 +22,50 @@ class UserLanguageRepository extends AbstractBaseRepository
         parent::__construct($registry, UserLanguage::class);
     }
 
-    public function findUserByLanguage(Language $language, int $start): array
+    public function findUserByLanguage(Language $language, ?Country $country, ?City $city, int $start): array
     {
-        return $this->createQueryBuilder('ul')
+        $query = $this->createQueryBuilder('ul')
             ->select('ul.stars', 'u.username', 'u.githubId', 'u.name', 'u.organization')
             ->join('ul.user', 'u')
             ->andWhere('ul.language = :language')
             ->setParameter('language', $language)
-            ->orderBy('ul.stars', 'DESC')
-            ->setFirstResult($start)
+            ->orderBy('ul.stars', 'DESC');
+
+        if ($country) {
+            $query->andWhere('u.country = :country')
+                ->setParameter('country', $country);
+        }
+
+        if ($city) {
+            $query->andWhere('u.city = :city')
+                ->setParameter('city', $city);
+        }
+
+        return $query->setFirstResult($start)
             ->setMaxResults(25)
             ->getQuery()
             ->getResult();
     }
 
-    public function totalLanguagePages(Language $language): int
+    public function totalLanguagePages(Language $language, ?Country $country, ?City $city): int
     {
-        return $this->createQueryBuilder('ul')
+        $query = $this->createQueryBuilder('ul')
             ->select('count(ul) as total')
+            ->join('ul.user', 'u')
             ->andWhere('ul.language = :language')
-            ->setParameter('language', $language)
-            ->getQuery()
+            ->setParameter('language', $language);
+
+        if ($country) {
+            $query->andWhere('u.country = :country')
+                ->setParameter('country', $country);
+        }
+
+        if ($city) {
+            $query->andWhere('u.city = :city')
+                ->setParameter('city', $city);
+        }
+
+        return $query->getQuery()
             ->getSingleScalarResult();
     }
 

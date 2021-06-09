@@ -57,24 +57,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script type="text/javascript">
-        document.querySelector('.country-selector').addEventListener('change', function () {
-            if(this.value !== ''){
-                window.location.href = `{{ path('user_index') }}?country=${this.value}`
-            } else {
-                window.location.href = `{{ path('user_index') }}`
-            }
-        })
-
-        {% if country != null %}
-        document.querySelector('.city-selector').addEventListener('change', function () {
-            if(this.value !== ''){
-                window.location.href = `{{ path('user_index') }}?country={{ country.slug }}&city=${this.value}`
-            } else {
-                window.location.href = `{{ path('user_index') }}?country={{ country.slug }}`
-            }
-        })
-        {% endif %}
-    </script>
+    {% include 'partials/location-filter.html.twig' with {'path': path('user_index')} %}
 {% endblock %}
 

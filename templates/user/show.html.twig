@@ -30,6 +30,8 @@
             {% if userLanguages | length > 0 %}
                 {% for userLanguage in userLanguages %}
                     {% include 'partials/user-language-card.html.twig' with {
+                        'city': user.city,
+                        'country': user.country,
                         'language' : userLanguage,
                         'stars': userLanguage.stars
                     } %}

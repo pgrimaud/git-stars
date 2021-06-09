@@ -20,8 +20,18 @@
             {% if language.rank_world is defined %}
                 <p class="fw-bold">Ranking:</p>
                 <p>World: {{ language.rank_world }} / {{ language.total_user_world }}</p>
-                {% if language.rank_country %}<p>Country: {{ language.rank_country }} / {{ language.total_user_country }}</p>{% endif %}
-                {% if language.rank_city %}<p>City: {{ language.rank_city }} / {{ language.total_user_city}}</p>{% endif %}
+                {% if language.rank_country %}
+                    <p>
+                        <a href="{{ path('languages_show', {'slug': language.slug })}}?country={{ country.slug }}">{{ country.name }}:</a>
+                        {{ language.rank_country }} / {{ language.total_user_country }}
+                    </p>
+                {% endif %}
+                {% if language.rank_city %}
+                    <p>
+                        <a href="{{ path('languages_show', {'slug': language.slug })}}?country={{ country.slug }}&city={{ city.slug }}">{{ city.name }}:</a>
+                        {{ language.rank_city }} / {{ language.total_user_city }}
+                    </p>
+                {% endif %}
             {% else %}
                 <p class="fw-bold mt-4">Ranking calculation in progress...</p>
             {% endif %}
