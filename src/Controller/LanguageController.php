@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Language;
+use App\Form\Model\SearchLanguage;
+use App\Form\SearchLanguageType;
 use App\Repository\CityRepository;
 use App\Repository\CountryRepository;
 use App\Repository\LanguageRepository;
@@ -38,9 +40,15 @@ class LanguageController extends AbstractController
 
         $languages = $this->languageRepository->findAllByStars($start);
 
+        $languageArray = $this->languageRepository->getArrayOfNames();
+
+        $searchForm = $this->createForm(SearchLanguageType::class, new SearchLanguage());
+
         return $this->render('language/index.html.twig', [
-            'languages' => $languages,
-            'paginate'  => $paginate,
+            'languages'     => $languages,
+            'paginate'      => $paginate,
+            'languageArray' => json_encode($languageArray),
+            'search_form'   => $searchForm->createView(),
         ]);
     }
 
@@ -99,5 +107,11 @@ class LanguageController extends AbstractController
             'country'       => $country,
             'paginate'      => $paginate,
         ]);
+
+//        #[Route('/language/search', name: 'languages_search', methods: ['GET'])]
+//        public function show()
+//        {
+//
+//        }
     }
 }

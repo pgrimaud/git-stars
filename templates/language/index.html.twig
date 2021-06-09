@@ -1,15 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ asset('css/auto-complete.css') }}
+    <link href="{{ asset('css/auto-complete.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
 <section>
     <div class="container">
-        <div class="section-title">
-            <h2>Top languages</h2>
-            <p>Total stargazers</p>
+
+        <div class="row d-flex align-items-center">
+            <div class="section-title col-lg-6 col-sm-12">
+                <h2>Top languages</h2>
+                <p>Total stargazers</p>
+            </div>
+            <div class="section-title col-lg-6 col-sm-12">
+                <div class="row d-flex justify-content-end">
+                   {{ form_start(search_form, {
+                       'attr' : {
+                               'class' : 'd-flex justify-content-end w-75',
+                               'action' : path('search_language'),
+                               'id' : 'form',
+                       }})
+                   }}
+                        <div class="input-group mb-3">
+                            {{ form_widget(search_form.language, {'attr' : {'class' : 'form-control'}}) }}
+                            <button type="submit" class="btn-git"><i class="fas fa-search"></i></button>
+                        </div>
+                    {{ form_end(search_form) }}
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -34,5 +53,45 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/auto-complete.min.js') }}"></script>
+    <script type="text/javascript">
+        // initialize
+        let input = document.getElementById('search_language_language')
+        let languages = {{ languageArray|raw }}
+            let form = document.getElementById('form')
+
+        let my_autoComplete = new autoComplete({
+            selector: '#search_language_language',
+            minChars: 2,
+            source: function(term, suggest){
+                term = term.toLowerCase()
+                let choices = languages
+                let suggestions = []
+                for (let i = 0; i < choices.length; i++) {
+                    if (~choices[i].toLowerCase().indexOf(term)) {
+                        suggestions.push(choices[i])
+                    }
+                }
+                suggest(suggestions)
+            },
+            cache: true
+        });
+
+        let formSubmit = function(e) {
+            let validated = false
+
+            for (let i = 0; i < languages.length; i++) {
+                if (input.value.toLowerCase() === languages[i].toLowerCase()) {
+                    validated = true
+                }
+            }
+
+            if (!validated) {
+                e.preventDefault()
+                return false;
+            }
+        }
+
+        form.addEventListener("submit", formSubmit, true)
+    </script>
 {% endblock %}
 

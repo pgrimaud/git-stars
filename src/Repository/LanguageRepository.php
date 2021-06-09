@@ -42,4 +42,15 @@ class LanguageRepository extends AbstractBaseRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getArrayOfNames(): array
+    {
+        return array_column($this->createQueryBuilder('l', 'l.name')
+            ->select('l.name')
+            ->join('l.userLanguages', 'ul')
+            ->groupBy('l.id')
+            ->orderBy('sum(ul.stars)', 'DESC')
+            ->getQuery()
+            ->getArrayResult(), 'name');
+    }
 }
