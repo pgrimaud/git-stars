@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\Model\Search;
-use App\Form\SearchType;
+use App\Form\Model\SearchUser;
+use App\Form\SearchUserType;
 use App\Repository\UserRepository;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,14 +21,13 @@ class AppController extends AbstractController
     public function index(
         Request $request,
         UserRepository $userRepository,
-        UserService $userService,
-        MessageBusInterface $bus
+        UserService $userService
     ): Response {
         $searchError = null;
 
-        $search = new Search();
+        $search = new SearchUser();
 
-        $form = $this->createForm(SearchType::class, $search);
+        $form = $this->createForm(SearchUserType::class, $search);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
