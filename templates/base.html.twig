@@ -5,8 +5,8 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
         <title>Git Stars - {% block title %}Welcome!{% endblock %}</title>
-        <meta content="" name="description">
-        <meta content="" name="keywords">
+        <meta content="{% block description %}{% endblock %}" name="description">
+        <meta content="{% block keywords %}{% endblock %}" name="keywords">
 
         <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
