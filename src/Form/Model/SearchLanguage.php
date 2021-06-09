@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Form\Model;
 
 class SearchLanguage
-
 {
     public string $language = '';
 

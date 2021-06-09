@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Form\Model;
 
 class SearchUser
-
 {
     public string $username = '';
 

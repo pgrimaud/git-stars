@@ -19,7 +19,7 @@
                        'attr' : {
                                'class' : 'd-flex justify-content-end w-75',
                                'action' : path('search_language'),
-                               'onSubmit' : 'return formSubmit()',
+                               'id' : 'form',
                        }})
                    }}
                         <div class="input-group mb-3">
@@ -57,6 +57,7 @@
         // initialize
         let input = document.getElementById('search_language_language')
         let languages = {{ languageArray|raw }}
+            let form = document.getElementById('form')
 
         let my_autoComplete = new autoComplete({
             selector: '#search_language_language',
@@ -75,11 +76,11 @@
             cache: true
         });
 
-        function formSubmit(e) {
+        let formSubmit = function(e) {
             let validated = false
 
             for (let i = 0; i < languages.length; i++) {
-                if (input.value === languages[i]) {
+                if (input.value.toLowerCase() === languages[i].toLowerCase()) {
                     validated = true
                 }
             }
@@ -89,6 +90,8 @@
                 return false;
             }
         }
+
+        form.addEventListener("submit", formSubmit, true)
     </script>
 {% endblock %}
 
