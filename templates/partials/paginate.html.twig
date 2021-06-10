@@ -3,7 +3,7 @@
         <ul class="justify-content-center">
         {% if paginate.hasPrevious %}
             <li><a href="{{ path(route, route_parameters|merge({'page': paginate.current - 1})) }}"><i class="fas fa-arrow-left"></i></a></li>
-            {%  if paginate.current >= 3  %}
+            {%  if paginate.current > 3  %}
                 <li><a href="{{ path(route, route_parameters|merge({'page': 1})) }}">1</a></li>
                 {% if paginate.current >= 4 %}
                     <li class="no-bg"><p class="mb-0 mt-2">...</p></li>
@@ -13,17 +13,19 @@
         {% endif %}
 
         {% for page in paginate.range %}
-            <li class="{% if page == paginate.current %}active{% endif %}"><a href="{{ path(route, route_parameters|merge({'page': page})) }}">{{ page }}</a></li>
+                <li class="{% if page == paginate.current %}active{% endif %}">
+                    <a href="{{ path(route, route_parameters|merge({'page': page})) }}">{{ page }}</a>
+                </li>
+
         {% endfor %}
 
         {% if paginate.hasNext %}
-            {%  if paginate.current < paginate.total - 1  %}
+            {%  if paginate.current < paginate.total - 2  %}
                 {% if paginate.current != paginate.total - 2 %}
                     <li class="no-bg"><p class="mb-0 mt-2">...</p></li>
                 {% endif %}
 
                 <li><a href="{{ path(route, route_parameters|merge({'page': paginate.total })) }}">{{ paginate.total }}</a></li>
-
             {% endif %}
             <li><a href="{{ path(route, route_parameters|merge({'page': paginate.current + 1})) }}"><i class="fas fa-arrow-right"></i></a></li>
         {% endif %}
