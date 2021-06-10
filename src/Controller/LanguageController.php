@@ -28,7 +28,7 @@ class LanguageController extends AbstractController
     #[Route('/languages/{page}', name: 'languages_index', requirements: ['page' => '[0-9]+'], methods: ['GET'])]
     public function index(int $page = 1): Response
     {
-        $totalLanguages = $this->languageRepository->totalLanguage();
+        $totalLanguages = $this->languageRepository->totalLanguages();
 
         $paginate = PaginateHelper::create($page, (int) $totalLanguages);
 
@@ -60,8 +60,8 @@ class LanguageController extends AbstractController
         CountryRepository $countryRepository,
         CityRepository $cityRepository,
         string $slug,
-        int $page = 1): Response
-    {
+        int $page = 1
+    ): Response {
         $language = $this->languageRepository->findOneBy(['slug' => $slug]);
 
         $city    = null;
@@ -107,11 +107,5 @@ class LanguageController extends AbstractController
             'country'       => $country,
             'paginate'      => $paginate,
         ]);
-
-//        #[Route('/language/search', name: 'languages_search', methods: ['GET'])]
-//        public function show()
-//        {
-//
-//        }
     }
 }

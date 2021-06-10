@@ -20,9 +20,9 @@ class LanguageRepository extends AbstractBaseRepository
         parent::__construct($registry, Language::class);
     }
 
-    public function totalLanguage(): int | string
+    public function totalLanguages(): int | string
     {
-        return $this->createQueryBuilder('l')
+        return (int) $this->createQueryBuilder('l')
             ->select('count(distinct(l.id)) as total')
             ->join('l.userLanguages', 'ul')
             ->andWhere('ul.stars > 0')
