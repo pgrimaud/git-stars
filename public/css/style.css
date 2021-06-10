@@ -898,7 +898,7 @@ section {
   background: white;
 }
 
-.member .pic {
+.pic {
   overflow: hidden;
   width: 140px;
   border-radius: 4px;
@@ -2091,4 +2091,24 @@ section {
 
 .progress-bar-git{
   background-color: var(--main-color) !important;
+}
+
+.rank-1 {
+  color: gold !important;
+}
+
+.rank-2 {
+  color: silver !important;
+}
+
+.rank-3 {
+  color: saddlebrown !important;
+}
+.list-group-item:hover {
+  transition: 0.5s;
+  background-color: #F1F1F1;
+  transform: scale(1.1);
+  z-index: 99999;
+  border: 1px lightgray;
+  cursor: pointer
 }
