@@ -40,7 +40,6 @@ class UserService
             $user->setGithubId($githubUser['id']);
             $user->setAccessToken('');
             $user->setUsername($githubUser['login']);
-            $user->setLocation($githubUser['location']);
             $user->setName((string) $githubUser['name']);
             $user->setOrganization($githubUser['type'] !== 'User');
             $user->setStatus(User::STATUS_RUNNING);
