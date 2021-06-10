@@ -106,12 +106,11 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
     public function getTopUsers(int $limit, bool $isCorp): array
     {
         return $this->createQueryBuilder('u')
-            ->select('u', 'ul.stars')
+            ->select('u', 'sum(ul.stars) as stars')
             ->join('u.userLanguages', 'ul')
-            ->andWhere('ul.stars > 1000')
             ->andWhere('u.organization = :isCorp')
             ->setParameter('isCorp', $isCorp)
-            ->orderBy('ul.stars', 'DESC')
+            ->orderBy('stars', 'DESC')
             ->groupBy('u.id')
             ->setMaxResults($limit)
             ->getQuery()
