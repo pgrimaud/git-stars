@@ -53,4 +53,16 @@ class LanguageRepository extends AbstractBaseRepository
             ->getQuery()
             ->getArrayResult(), 'name');
     }
+
+    public function getTopLanguages(int $limit): array
+    {
+        return $this->createQueryBuilder('l')
+            ->select('l', 'sum(ul.stars)')
+            ->join('l.userLanguages', 'ul')
+            ->orderBy('sum(ul.stars)', 'DESC')
+            ->groupBy('l.id')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\Model\SearchUser;
 use App\Form\SearchUserType;
+use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +21,7 @@ class AppController extends AbstractController
     public function index(
         Request $request,
         UserRepository $userRepository,
+        LanguageRepository $languageRepository,
         UserService $userService
     ): Response {
         $searchError = null;
@@ -57,9 +59,19 @@ class AppController extends AbstractController
             }
         }
 
+        $topUsers = $userRepository->getTopUsers(3, false);
+        $topCorps = $userRepository->getTopUsers(3, false);
+        $topToday = $userRepository->getTodayTop();
+
+        $topLanguages = $languageRepository->getTopLanguages(3);
+
         return $this->render('app/index.html.twig', [
             'search_form'  => $form->createView(),
             'search_error' => $searchError,
+            'topUsers'     => $topUsers,
+            'topCorps'     => $topCorps,
+            'topToday'     => $topToday,
+            'topLanguages' => $topLanguages,
         ]);
     }
 

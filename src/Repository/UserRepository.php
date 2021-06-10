@@ -61,13 +61,13 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
     public function totalPages(?Country $country, ?City $city): int
     {
         $query = $this->createQueryBuilder('u')
-                      ->select('count(distinct(u.id)) as total')
-                      ->join('u.userLanguages', 'ul')
-                      ->andWhere('ul.stars > 0');
+            ->select('count(distinct(u.id)) as total')
+            ->join('u.userLanguages', 'ul')
+            ->andWhere('ul.stars > 0');
 
         if ($country) {
             $query->andWhere('u.country = :country')
-                  ->setParameter('country', $country);
+                ->setParameter('country', $country);
         }
 
         if ($city) {
@@ -82,10 +82,10 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
     public function findSomeUsers(int $start, ?Country $country, ?City $city): array
     {
         $query = $this->createQueryBuilder('u')
-                      ->select('u', 'SUM(ul.stars) as stars')
-                      ->join('u.userLanguages', 'ul')
-                      ->groupBy('u.id')
-                      ->orderBy('stars', 'DESC');
+            ->select('u', 'SUM(ul.stars) as stars')
+            ->join('u.userLanguages', 'ul')
+            ->groupBy('u.id')
+            ->orderBy('stars', 'DESC');
 
         if ($country) {
             $query->andWhere('u.country = :country')
@@ -101,5 +101,46 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->setMaxResults(25)
             ->getQuery()
             ->getResult();
+    }
+
+    public function getTopUsers(int $limit, bool $isCorp): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u', 'ul.stars')
+            ->join('u.userLanguages', 'ul')
+            ->andWhere('ul.stars > 1000')
+            ->andWhere('u.organization = :isCorp')
+            ->setParameter('isCorp', $isCorp)
+            ->orderBy('ul.stars', 'DESC')
+            ->groupBy('u.id')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTodayTop(): array
+    {
+        $cacheKey = $this->getCacheAdapter()->getItem('top-users-today');
+
+        if ($cacheKey->isHit()) {
+            $topToday = $cacheKey->get();
+        } else {
+            $topToday = $this->createQueryBuilder('u')
+                ->select('u')
+                ->join('u.userLanguages', 'ul')
+                ->andWhere('ul.stars > 1000')
+                ->setMaxResults(3)
+                ->orderBy('RAND()')
+                ->groupBy('u.id')
+                ->getQuery()
+                ->getResult();
+
+            $cacheKey->set($topToday);
+            $cacheKey->expiresAt(new \DateTime('23:59:59'));
+
+            $this->getCacheAdapter()->save($cacheKey);
+        }
+
+        return $topToday;
     }
 }
