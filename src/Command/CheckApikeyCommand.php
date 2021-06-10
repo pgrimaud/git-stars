@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Client\GitHub\GitHubClient;
@@ -10,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'app:check-apikey',
+    name: 'app:check:api-key',
     description: 'Check api key rate limits',
 )]
 class CheckApikeyCommand extends Command

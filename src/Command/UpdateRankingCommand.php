@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'app:update-ranking',
+    name: 'app:update:ranking',
     description: 'Update ranking table',
 )]
 class UpdateRankingCommand extends Command
