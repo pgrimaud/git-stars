@@ -28,4 +28,9 @@ final class Version20210601082352 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE user DROP status');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

@@ -40,4 +40,9 @@ final class Version20210601130533 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_8D93D649F92F3E70 ON user');
         $this->addSql('ALTER TABLE user DROP city_id, DROP country_id');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

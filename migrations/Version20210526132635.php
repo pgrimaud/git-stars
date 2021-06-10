@@ -28,4 +28,9 @@ final class Version20210526132635 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP INDEX user_language_unique ON user_language');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
