@@ -24,8 +24,7 @@ class FetchActiveUsersCommand extends Command
         private UserRepository $userRepository,
         private MessageBusInterface $bus,
         string $name = null
-    )
-    {
+    ) {
         parent::__construct($name);
     }
 
