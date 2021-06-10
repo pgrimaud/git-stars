@@ -125,10 +125,10 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             $topToday = $cacheKey->get();
         } else {
             $topToday = $this->createQueryBuilder('u')
-                ->select('u')
+                ->select('u', 'sum(ul.stars) as stars')
                 ->join('u.userLanguages', 'ul')
                 ->andWhere('ul.stars > 1000')
-                ->setMaxResults(3)
+                ->setMaxResults(4)
                 ->orderBy('RAND()')
                 ->groupBy('u.id')
                 ->getQuery()

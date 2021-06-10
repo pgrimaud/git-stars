@@ -2104,4 +2104,11 @@ section {
 .rank-3 {
   color: saddlebrown !important;
 }
-
+.list-group-item:hover {
+  transition: 0.5s;
+  background-color: #F1F1F1;
+  transform: scale(1.1);
+  z-index: 99999;
+  border: 1px lightgray;
+  cursor: pointer
+}

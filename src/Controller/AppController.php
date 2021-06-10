@@ -59,10 +59,9 @@ class AppController extends AbstractController
             }
         }
 
-        $topUsers = $userRepository->getTopUsers(3, false);
-        $topCorps = $userRepository->getTopUsers(3, true);
-        $topToday = $userRepository->getTodayTop();
-
+        $topUsers     = $userRepository->getTopUsers(3, false);
+        $topCorps     = $userRepository->getTopUsers(3, true);
+        $topToday     = $userRepository->getTodayTop();
         $topLanguages = $languageRepository->getTopLanguages(3);
 
         return $this->render('app/index.html.twig', [
