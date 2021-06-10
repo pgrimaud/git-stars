@@ -11,6 +11,7 @@ framework:
         handler_id: null
         cookie_secure: auto
         cookie_samesite: lax
+        name: GSX
 
     #esi: true
     #fragments: true

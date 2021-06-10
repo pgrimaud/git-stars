@@ -1,6 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}About{% endblock %}
+
 {% block body %}
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row content">
+                <div class="col-lg-6">
+                    <h2>GIT stars</h2>
+                    <h3>Discover your ranking on GitHub</h3>
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0">
+                    <p>
+                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum
+                    </p>
+                    <ul>
+                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequa</li>
+                        <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
+                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in</li>
+                    </ul>
+                    <p class="fst-italic">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="features" class="features">
         <div class="container">
 
@@ -22,10 +51,10 @@
                             <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Pariatur explicabo vel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Nostrum qui quasi</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Technologies & Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Iusto ut expedita aut</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Cookies & Privacy</a>
                         </li>
                     </ul>
                 </div>
@@ -33,61 +62,54 @@
                     <div class="tab-content">
                         <div class="tab-pane active show" id="tab-1">
                             <div class="row">
-                                <div class="col-lg-8 details order-2 order-lg-1">
+                                <div class="col-lg-12 details order-2 order-lg-1">
                                     <h3>Architecto ut aperiam autem id</h3>
                                     <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
                                     <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
-                                </div>
-                                <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    <img src="assets/img/features-1.png" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab-2">
                             <div class="row">
-                                <div class="col-lg-8 details order-2 order-lg-1">
+                                <div class="col-lg-12 details order-2 order-lg-1">
                                     <h3>Et blanditiis nemo veritatis excepturi</h3>
                                     <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
                                     <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
-                                </div>
-                                <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    <img src="assets/img/features-2.png" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab-3">
                             <div class="row">
-                                <div class="col-lg-8 details order-2 order-lg-1">
+                                <div class="col-lg-12 details order-2 order-lg-1">
                                     <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
                                     <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
                                     <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
-                                </div>
-                                <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    <img src="assets/img/features-3.png" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab-4">
                             <div class="row">
-                                <div class="col-lg-8 details order-2 order-lg-1">
-                                    <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
-                                    <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
-                                    <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
-                                </div>
-                                <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    <img src="assets/img/features-4.png" alt="" class="img-fluid">
+                                <div class="col-lg-12 details order-2 order-lg-1">
+                                    <h3>Technologies used to buid this website</h3>
+                                    <p class="fst-italic">We used several technologies to build this website. You can find main below:</p>
+                                    <h4 class="mt-4 mb-4">Technologies:</h4>
+                                    <p>PHP 8 - <a target="_blank" href="https://www.php.net/">https://www.php.net/</a></p>
+                                    <p>Symfony (& components) - <a target="_blank" href="https://symfony.com/">https://symfony.com/</a></p>
+                                    <p>MariaDB - <a target="_blank" href="https://mariadb.org/">https://mariadb.org/</a></p>
+                                    <p>RabbitMQ - <a target="_blank" href="https://www.rabbitmq.com/">https://www.rabbitmq.com/</a></p>
+                                    <h4 class="mt-4 mb-4">Services:</h4>
+                                    <p>GitHub API - <a target="_blank" href="https://docs.github.com/en/rest">https://docs.github.com/en/rest</a></p>
+                                    <p>GCP Big Query dataset by GH Archive - <a target="_blank" href="https://www.gharchive.org/">https://www.gharchive.org/</a></p>
+                                    <p>Photon by <a target="_blank" href="https://www.komoot.de/">Komoot</a> - <a target="_blank" href="https://photon.komoot.io/">https://photon.komoot.io/</a></p>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab-5">
                             <div class="row">
-                                <div class="col-lg-8 details order-2 order-lg-1">
-                                    <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
-                                    <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                                    <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
-                                </div>
-                                <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    <img src="assets/img/features-5.png" alt="" class="img-fluid">
+                                <div class="col-lg-12 details order-2 order-lg-1">
+                                    <h3>Cookies & Privacy</h3>
+                                    <p class="fst-italic">We fetch public data from Github</p>
+                                    <p>@todo blabla</p>
                                 </div>
                             </div>
                         </div>
