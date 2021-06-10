@@ -66,7 +66,7 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
                 ->setParameter('city', $city);
         }
 
-        return $query->getQuery()
+        return (int) $query->getQuery()
             ->getSingleScalarResult();
     }
 
