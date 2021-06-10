@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Client\GitHub\GitHubClient;
@@ -14,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'app:update-user',
+    name: 'app:update:user',
     description: 'Update a user\'s star count',
 )]
 class UpdateUserCommand extends Command

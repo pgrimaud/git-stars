@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\City;
@@ -34,17 +36,6 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
 
         $this->_em->persist($user);
         $this->_em->flush();
-    }
-
-    public function getHighestGithubId(): int
-    {
-        $user = $this->createQueryBuilder('u')
-            ->orderBy('u.githubId', 'DESC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-
-        return !$user ? 0 : $user->getGitHubId();
     }
 
     public function getOldestNonUpdatedUsers(int $limit, \DateTime $dateTime): array
@@ -141,5 +132,16 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
         }
 
         return $topToday;
+    }
+
+    public function findAllId(): array
+    {
+        return array_column(
+            $this->createQueryBuilder('u')
+                 ->select('u.githubId as id')
+                 ->getQuery()
+                 ->getArrayResult(),
+            'id'
+        );
     }
 }

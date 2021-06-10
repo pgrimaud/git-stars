@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Message\UpdateUser;
@@ -13,7 +15,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
-    name: 'app:update-all-users',
+    name: 'app:update:all-users',
     description: 'Update users whose last update happened before specified amount of days',
 )]
 class UpdateAllUsersCommand extends Command

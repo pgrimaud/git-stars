@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Message\UpdateUser;
-use App\Repository\UserRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,13 +14,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
-    name: 'app:fetch-user',
+    name: 'app:fetch:incremental-users',
     description: 'Fetch 5000 new users from github',
 )]
-class FetchUserCommand extends Command
+class FetchIncrementalUsersCommand extends Command
 {
     public function __construct(
-        private UserRepository $userRepository,
         private MessageBusInterface $bus,
         string $name = null
     ) {
