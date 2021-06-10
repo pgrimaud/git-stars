@@ -28,9 +28,15 @@ class CountryRepository extends AbstractBaseRepository
         if ($cacheKey->isHit()) {
             $countries = $cacheKey->get();
         } else {
-            $countries = $this->findBy([], [
-                'name' => 'ASC',
-            ]);
+            $countries = $this->createQueryBuilder('c')
+                ->select('c')
+                ->join('c.users', 'u')
+                ->join('u.userLanguages', 'ul')
+                ->andWhere('ul.stars > 0')
+                ->groupBy('c.id')
+                ->orderBy('c.slug')
+                ->getQuery()
+                ->getResult();
             $cacheKey->set($countries);
             $cacheKey->expiresAfter(600);
 
@@ -60,7 +66,7 @@ class CountryRepository extends AbstractBaseRepository
                 ->getResult();
 
             $cacheKey->set($countries);
-            $cacheKey->expiresAfter(1);
+            $cacheKey->expiresAfter(600);
 
             $this->getCacheAdapter()->save($cacheKey);
         }
