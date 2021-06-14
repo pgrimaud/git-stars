@@ -35,9 +35,9 @@ class UserController extends AbstractController
         $userTypeFilter = null;
         if ($userType = $request->get('type')) {
             match ($userType) {
-                'users'         => $userTypeFilter         = 0,
+                'users'         => $userTypeFilter = 0,
                 'organizations' => $userTypeFilter = 1,
-                default         => $userTypeFilter         = null,
+                default         => $userTypeFilter = null,
             };
         }
 

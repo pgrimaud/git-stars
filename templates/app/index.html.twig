@@ -29,54 +29,51 @@
             <div class="d-flex justify-content-around row mt-5">
                 <div class="col-lg-5 col-sm-12 justify-content-center d-flex row">
                     <div class="section-title">
-                        <p>Our top users️ <i class="fas fa-trophy"></i></p>
+                        <p>Top users️ <i class="fas fa-trophy"></i></p>
                     </div>
-                    <ul class="list-group list-group-flush d-flex align-items-center justify-content-center">
+                    <div class="list-group list-group-flush d-flex align-items-center justify-content-center">
                         {% for topU in topUsers %}
-                            <a href="{{ path('app_index') }}">
-                                <li class="list-group-item d-flex justify-content-around align-items-start col">
-                                    <div class="pic w-25">
-                                        <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
-                                            <img src="https://avatars.githubusercontent.com/u/{{ topU[0].githubId }}?v=4" class="rounded w-50" alt="">
-                                        </a>
+                            <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
+                                <div class="pic w-25">
+                                    <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
+                                        <img src="https://avatars.githubusercontent.com/u/{{ topU[0].githubId }}?v=4" class="rounded w-50 wd-60" alt="">
+                                    </a>
+                                </div>
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">
+                                        {% if topU[0].name != null %}
+                                            <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
+                                                {{ topU[0].name }}
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
+                                                {{ topU[0].username }}
+                                            </a>
+                                        {% endif %}
                                     </div>
-                                    <div class="ms-2 me-auto">
-                                        <div class="fw-bold">
-                                            {% if topU[0].name != null %}
-                                                <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
-                                                    {{ topU[0].name }}
-                                                </a>
-                                            {% else %}
-                                                <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
-                                                    {{ topU[0].username }}
-                                                </a>
-                                            {% endif %}
-                                        </div>
-                                        <p>{{ topU[0].username }}</p>
-                                    </div>
-                                    <div class="w-25">
-                                        <p class="text-end">
-                                            <span class="fw-bold fs-3">#{{ loop.index }} <i class="fas fa-medal rank-{{ loop.index }}"></i></span><br>
-                                            <span class="fs-6">{{ topU.stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
-                                        </p>
-                                    </div>
-                                </li>
-                            </a>
-
+                                    <p class="mb-0">@{{ topU[0].username }}</p>
+                                </div>
+                                <div class="w-25">
+                                    <p class="text-end mb-0">
+                                        <span class="fw-bold fs-3">#{{ loop.index }} <i class="fas fa-medal rank-{{ loop.index }}"></i></span><br>
+                                        <span class="fs-6">{{ topU.stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
+                                    </p>
+                                </div>
+                            </div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 </div>
 
                 <div class="col-lg-5 col-sm-12 justify-content-center d-flex row">
                     <div class="section-title">
                         <p class="w-100">Top organizations  <i class="fas fa-building"></i></p>
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <div class="list-group list-group-flush">
                         {% for topC in topCorps %}
-                            <li class="list-group-item d-flex justify-content-around align-items-start col">
+                            <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
                                 <div class="pic w-25">
                                     <a href="{{ path('user_show', {'username' : topC[0].username}) }}">
-                                        <img src="https://avatars.githubusercontent.com/u/{{ topC[0].githubId }}?v=4" class="rounded w-50" alt="">
+                                        <img src="https://avatars.githubusercontent.com/u/{{ topC[0].githubId }}?v=4" class="rounded w-50 wd-60" alt="">
                                     </a>
                                 </div>
                                 <div class="ms-2 me-auto">
@@ -92,17 +89,17 @@
                                         {% endif %}
 
                                     </div>
-                                    <p>{{ topC[0].username }}</p>
+                                    <p class="mb-0">@{{ topC[0].username }}</p>
                                 </div>
                                 <div class="w-25">
-                                    <p class="text-end">
+                                    <p class="text-end mb-0">
                                         <span class="fw-bold fs-3">#{{ loop.index }} <i class="fas fa-medal rank-{{ loop.index }}"></i></span><br>
                                         <span class="fs-6">{{ topC.stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
                                     </p>
                                 </div>
-                            </li>
+                            </div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 </div>
             </div>
 
@@ -111,30 +108,30 @@
                     <div class="section-title">
                         <p class="w-100">Top languages  <i class="fas fa-code"></i></p>
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <div class="list-group list-group-flush">
                         {% for topL in topLanguages%}
-                            <li class="list-group-item d-flex justify-content-around align-items-start col">
-                                <div class="pic w-25">
-                                    <a href="{{ path('languages_show', {'slug' : topL[0].slug}) }}">
-                                        <div class="rounded-circle" style="background-color: {{ topL[0].color }}; height: 64px; width: 64px"></div>
+                            <div class="list-group-item d-flex justify-content-around align-items-start col mb-1">
+                                <div class="pic w-25 h-100 d-flex">
+                                    <a href="{{ path('languages_show', {'slug' : topL[0].slug}) }}" class="d-flex align-items-center">
+                                        <div class="rounded-circle language-circle" style="background-color: {{ topL[0].color }}"></div>
                                     </a>
                                 </div>
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">
+                                <div class="ms-2 me-auto h-100 d-flex">
+                                    <div class="fw-bold d-flex align-items-center">
                                         <a href="{{ path('languages_show', {'slug' : topL[0].slug}) }}">
                                             {{ topL[0].name }}
                                         </a>
                                     </div>
                                 </div>
                                 <div class="w-25">
-                                    <p class="text-end">
+                                    <p class="text-end mb-0">
                                         <span class="fw-bold fs-3">#{{ loop.index }} <i class="fas fa-medal rank-{{ loop.index }}"></i></span><br>
                                         <span class="fs-6">{{ topL.stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
                                     </p>
                                 </div>
-                            </li>
+                            </div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>
