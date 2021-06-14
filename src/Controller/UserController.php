@@ -35,9 +35,9 @@ class UserController extends AbstractController
         $userTypeFilter = null;
         if ($userType = $request->get('type')) {
             match ($userType) {
-                'users'         => $userTypeFilter = 0,
+                'users'         => $userTypeFilter         = 0,
                 'organizations' => $userTypeFilter = 1,
-                default         => $userTypeFilter = null,
+                default         => $userTypeFilter         = null,
             };
         }
 
@@ -91,6 +91,7 @@ class UserController extends AbstractController
     public function show(
         RankingService $rankingService,
         UserLanguageRepository $userLanguageRepository,
+        CountryRepository $countryRepository,
         string $username
     ): Response {
         $user = $this->userRepository->findOneBy(['username' => $username]);
@@ -98,6 +99,10 @@ class UserController extends AbstractController
         if (!$user instanceof User) {
             throw new NotFoundHttpException('User not found');
         }
+
+//        if ($userCountry = $user->getCountry()) {
+//            $flag = countries($userCountry->getIsoCode())->get
+//        }
 
         $userLanguages = $rankingService->getRanking($user);
 
