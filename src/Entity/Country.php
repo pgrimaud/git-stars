@@ -39,6 +39,11 @@ class Country
      */
     private Collection $locations;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $isoCode;
+
     public function __construct()
     {
         $this->users     = new ArrayCollection();
@@ -130,6 +135,18 @@ class Country
                 $location->setCountry(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsoCode(): ?string
+    {
+        return $this->isoCode;
+    }
+
+    public function setIsoCode(string $isoCode): self
+    {
+        $this->isoCode = $isoCode;
 
         return $this;
     }
