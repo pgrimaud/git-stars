@@ -48,8 +48,10 @@ class GeocodeService
             if (isset($result['features'][0]['properties']['countrycode'])) {
                 $realResult = $result['features'][0]['properties'];
 
+                $countrycode = $realResult['countrycode'];
+
                 $iso        = new ISO3166();
-                $apiCountry = $iso->alpha2($realResult['countrycode'])['name'];
+                $apiCountry = $iso->alpha2($countrycode)['name'];
 
                 if (in_array($realResult['osm_value'], ['village', 'city'])) {
                     $apiCity = $realResult['name'];
@@ -62,11 +64,13 @@ class GeocodeService
                         $apiCity = $realResult['name'];
                     }
                 } else {
-                    dd('coucou');
+                    throw new \Exception('Invalid geocode result');
                 }
+            } else {
+                $countrycode = null;
             }
 
-            $existingLocation->setCountry($this->findCountry($apiCountry));
+            $existingLocation->setCountry($this->findCountry($apiCountry, $countrycode));
             $existingLocation->setCity($this->findCity($apiCity));
 
             $this->manager->persist($existingLocation);
@@ -104,16 +108,17 @@ class GeocodeService
         return $city;
     }
 
-    private function findCountry(?string $apiCountry): ?Country
+    private function findCountry(?string $apiCountry, ?string $countrycode): ?Country
     {
         $country = $this->countryRepository->findOneBy([
             'name' => $apiCountry,
         ]);
 
-        if (!$country instanceof Country && $apiCountry) {
+        if (!$country instanceof Country && $apiCountry && $countrycode) {
             $country = new Country();
             $country->setName($apiCountry);
             $country->setSlug($this->slugger->slug($apiCountry)->lower()->toString());
+            $country->setIsoCode($countrycode);
 
             $this->manager->persist($country);
             $this->manager->flush();
