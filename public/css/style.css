@@ -2112,3 +2112,14 @@ section {
   border: 1px lightgray;
   cursor: pointer
 }
+
+.language-circle{
+  height: 31px;
+  width: 31px;
+  border: 1px solid #d8d8d8;
+}
+
+.wd-60 {
+  width: 60px;
+  height: 60px;
+}
