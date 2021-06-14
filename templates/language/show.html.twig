@@ -17,7 +17,7 @@
                     <select class="form-select country-selector">
                         <option value="">Worldwide</option>
                         {% for countryL in countries %}
-                            <option {% if country and country.slug == countryL.slug%}selected{% endif %} value="{{ countryL.slug }}">{{ countryL.name }}</option>
+                            <option {% if country and country.slug == countryL.slug%}selected{% endif %} value="{{ countryL.slug }}">{{ get_flag(countryL.isoCode) }} {{ countryL.name }}</option>
                         {% endfor %}
                     </select>
                 </div>

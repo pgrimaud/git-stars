@@ -281,6 +281,9 @@
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
+    "rinvex/countries": {
+        "version": "v7.3.2"
+    },
     "sentry/sdk": {
         "version": "3.1.0"
     },

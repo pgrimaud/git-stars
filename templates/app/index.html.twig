@@ -42,9 +42,15 @@
                                     </div>
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">
-                                            <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
-                                                {{ topU[0].name }}
-                                            </a>
+                                            {% if topU[0].name != null %}
+                                                <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
+                                                    {{ topU[0].name }}
+                                                </a>
+                                            {% else %}
+                                                <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
+                                                    {{ topU[0].username }}
+                                                </a>
+                                            {% endif %}
                                         </div>
                                         <p>{{ topU[0].username }}</p>
                                     </div>
@@ -75,9 +81,16 @@
                                 </div>
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold">
-                                        <a href="{{ path('user_show', {'username' : topC[0].username}) }}">
-                                            {{ topC[0].name }}
-                                        </a>
+                                        {% if topC[0].name != null %}
+                                            <a href="{{ path('user_show', {'username' : topC[0].username}) }}">
+                                                {{ topC[0].name }}
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ path('user_show', {'username' : topC[0].username}) }}">
+                                                {{ topC[0].username }}
+                                            </a>
+                                        {% endif %}
+
                                     </div>
                                     <p>{{ topC[0].username }}</p>
                                 </div>

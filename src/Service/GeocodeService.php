@@ -111,7 +111,7 @@ class GeocodeService
     private function findCountry(?string $apiCountry, ?string $countrycode): ?Country
     {
         $country = $this->countryRepository->findOneBy([
-            'name' => $apiCountry,
+            'isoCode' => $countrycode,
         ]);
 
         if (!$country instanceof Country && $apiCountry && $countrycode) {

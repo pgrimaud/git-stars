@@ -22,7 +22,7 @@
                 <p>World: {{ language.rank_world }} / {{ language.total_user_world }}</p>
                 {% if language.rank_country %}
                     <p>
-                        <a href="{{ path('languages_show', {'slug': language.slug })}}?country={{ country.slug }}">{{ country.name }}:</a>
+                        <a href="{{ path('languages_show', {'slug': language.slug })}}?country={{ country.slug }}">{{ get_flag(country.isoCode) }} {{ country.name }}:</a>
                         {{ language.rank_country }} / {{ language.total_user_country }}
                     </p>
                 {% endif %}
