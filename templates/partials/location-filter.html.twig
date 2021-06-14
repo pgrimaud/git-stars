@@ -1,19 +1,73 @@
-<script type="text/javascript">
+<script type='text/javascript'>
+
+    let country = {% if country != null %}'{{ country.slug }}'{% else %}null{% endif %};
+    let city = {% if city != null %}'{{ city.slug }}'{% else %}null{% endif %};
+    let userType = {% if userType is not null %}'{{ userType }}'{% else %}null{% endif %};
+
+    document.querySelector('.type-selector').addEventListener('change', function () {
+        userType = this.value !== '' ? this.value : null
+        redirect()
+    })
+
     document.querySelector('.country-selector').addEventListener('change', function () {
-        if(this.value !== ''){
-            window.location.href = `{{ path }}?country=${this.value}`
-        } else {
-            window.location.href = `{{ path }}`
-        }
+        country = this.value !== '' ? this.value : null
+        city = null
+        redirect()
     })
 
     {% if country != null %}
     document.querySelector('.city-selector').addEventListener('change', function () {
-        if(this.value !== ''){
-            window.location.href = `{{ path }}?country={{ country.slug }}&city=${this.value}`
-        } else {
-            window.location.href = `{{ path }}?country={{ country.slug }}`
-        }
+        city = this.value !== '' ? this.value : null
+        redirect()
     })
     {% endif %}
+
+    function redirect() {
+
+        let endPoint = '{{ path }}'
+        let parameter = false
+
+        if(country) {
+            endPoint += (parameter ? '&' : '?') + 'country=' + country
+            parameter = true
+        }
+
+        if(country && city) {
+            endPoint += (parameter ? '&' : '?') + 'city=' + city
+            parameter = true
+        }
+
+        if(userType !== null) {
+            endPoint += (parameter ? '&' : '?') + 'type=' + userType
+        }
+
+        window.location.href = endPoint
+    }
+
+    {#document.querySelector('.user-selector').addEventListener('change', function () {#}
+    {#    if(this.value !== ''){#}
+    {#        window.location.href =#}
+    {#            `{{ path }}{% if country != null %}?country={{ country.slug }}{% if city != null %}&city={{ city.slug }}{% endif %}&{% else %}?{% endif %}show=${this.value}`#}
+    {#    } else {#}
+    {#        window.location.href = `{{ path }}`#}
+    {#    }#}
+    {#})#}
+
+    {#document.querySelector('.country-selector').addEventListener('change', function () {#}
+    {#    if(this.value !== ''){#}
+    {#        window.location.href = `{{ path }}?country=${this.value}`#}
+    {#    } else {#}
+    {#        window.location.href = `{{ path }}`#}
+    {#    }#}
+    {#})#}
+
+    {#{% if country != null %}#}
+    {#document.querySelector('.city-selector').addEventListener('change', function () {#}
+    {#    if(this.value !== ''){#}
+    {#        window.location.href = `{{ path }}?country={{ country.slug }}&city=${this.value}`#}
+    {#    } else {#}
+    {#        window.location.href = `{{ path }}?country={{ country.slug }}`#}
+    {#    }#}
+    {#})#}
+    {#{% endif %}#}
 </script>

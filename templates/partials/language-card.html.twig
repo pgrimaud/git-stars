@@ -2,7 +2,7 @@
     <div class="member d-flex align-items-center w-100">
         <div class="pic">
             <a href="{{ path('languages_show', {'slug' : slug}) }}">
-                <img src="https://cdn.jsdelivr.net/npm/programming-languages-logos/src/{{ slug }}/{{ slug }}_64x64.png">
+                <div class="rounded-circle" style="background-color: {{ color }}; height: 64px; width: 64px"></div>
             </a>
         </div>
         <div class="member-info w-75">
@@ -11,7 +11,6 @@
                     {{ name }}
                 </a>
             </h4>
-{#            <span class="span-name">test</span>#}
         </div>
         <div class="w-25">
             <p class="text-end">

@@ -32,6 +32,15 @@ class UserController extends AbstractController
         CityRepository $cityRepository,
         int $page = 1): Response
     {
+        $userTypeFilter = null;
+        if ($userType = $request->get('type')) {
+            match ($userType) {
+                'users'         => $userTypeFilter = 0,
+                'organizations' => $userTypeFilter = 1,
+                default         => $userTypeFilter = null,
+            };
+        }
+
         $city    = null;
         $country = null;
 
@@ -46,7 +55,7 @@ class UserController extends AbstractController
                 ]);
             }
         }
-        $totalUsers = $this->userRepository->totalPages($country, $city);
+        $totalUsers = $this->userRepository->totalPages($country, $city, $userTypeFilter);
 
         $paginate = PaginateHelper::create($page, $totalUsers);
 
@@ -56,19 +65,25 @@ class UserController extends AbstractController
 
         $start = ($page - 1) * 25;
 
-        $users = $this->userRepository->findSomeUsers($start, $country, $city);
+        $users = $this->userRepository->findSomeUsers($start, $country, $city, $userTypeFilter);
 
         $countries = $countryRepository->findAllCountries();
 
-        $cities = !$country ? null : $cityRepository->findCitiesByCountry($country);
+        $cities = !$country ? null : $cityRepository->findCitiesByCountry($country, $userTypeFilter);
+
+        $hasUsers         = $this->userRepository->checkUserType($country, $city, false);
+        $hasOrganizations = $this->userRepository->checkUserType($country, $city, true);
 
         return $this->render('user/index.html.twig', [
-            'users'     => $users,
-            'paginate'  => $paginate,
-            'countries' => $countries,
-            'country'   => $country,
-            'cities'    => $cities,
-            'city'      => $city,
+            'users'            => $users,
+            'paginate'         => $paginate,
+            'countries'        => $countries,
+            'country'          => $country,
+            'cities'           => $cities,
+            'city'             => $city,
+            'userType'         => $userType,
+            'hasUsers'         => $hasUsers,
+            'hasOrganizations' => $hasOrganizations,
         ]);
     }
 

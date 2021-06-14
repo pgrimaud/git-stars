@@ -36,6 +36,7 @@
                 {% include 'partials/language-card.html.twig' with {
                     'slug' : language[0].slug,
                     'name': language[0].name,
+                    'color': language[0].color,
                     'stars': language.stars
                 } %}
             {% endfor %}

@@ -49,12 +49,17 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->getResult();
     }
 
-    public function totalPages(?Country $country, ?City $city): int
+    public function totalPages(?Country $country, ?City $city, ?int $userTypeFilter): int
     {
         $query = $this->createQueryBuilder('u')
             ->select('count(distinct(u.id)) as total')
             ->join('u.userLanguages', 'ul')
             ->andWhere('ul.stars > 0');
+
+        if ($userTypeFilter) {
+            $query->andWhere('u.organization = :isOrga')
+                ->setParameter('isOrga', $userTypeFilter);
+        }
 
         if ($country) {
             $query->andWhere('u.country = :country')
@@ -70,13 +75,18 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->getSingleScalarResult();
     }
 
-    public function findSomeUsers(int $start, ?Country $country, ?City $city): array
+    public function findSomeUsers(int $start, ?Country $country, ?City $city, ?int $userTypeFilter): array
     {
         $query = $this->createQueryBuilder('u')
             ->select('u', 'SUM(ul.stars) as stars')
             ->join('u.userLanguages', 'ul')
             ->groupBy('u.id')
             ->orderBy('stars', 'DESC');
+
+        if ($userTypeFilter !== null) {
+            $query->andWhere('u.organization = :isOrga')
+                ->setParameter('isOrga', $userTypeFilter);
+        }
 
         if ($country) {
             $query->andWhere('u.country = :country')
@@ -92,6 +102,29 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->setMaxResults(25)
             ->getQuery()
             ->getResult();
+    }
+
+    public function checkUserType(?Country $country, ?City $city, bool $isOrga): ?User
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u.id')
+            ->andWhere('u.organization = :isOrga')
+            ->setParameter('isOrga', $isOrga);
+
+        if ($country) {
+            $query->andWhere('u.country = :country')
+                ->setParameter('country', $country);
+        }
+
+        if ($city) {
+            $query->andWhere('u.city = :city')
+                ->setParameter('city', $city);
+        }
+
+        return $query->orderBy('u.id')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function getTopUsers(int $limit, bool $isCorp): array
@@ -141,9 +174,9 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
     {
         return array_column(
             $this->createQueryBuilder('u')
-                 ->select('u.githubId as id')
-                 ->getQuery()
-                 ->getArrayResult(),
+                ->select('u.githubId as id')
+                ->getQuery()
+                ->getArrayResult(),
             'id'
         );
     }
