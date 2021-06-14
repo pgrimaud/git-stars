@@ -28,4 +28,9 @@ final class Version20210614101142 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE country DROP iso_code');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
