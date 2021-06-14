@@ -118,7 +118,7 @@ class GeocodeService
             $country = new Country();
             $country->setName($apiCountry);
             $country->setSlug($this->slugger->slug($apiCountry)->lower()->toString());
-            $country->setIsoCode($countrycode);
+            $country->setIsoCode(strtolower($countrycode));
 
             $this->manager->persist($country);
             $this->manager->flush();

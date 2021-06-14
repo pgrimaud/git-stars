@@ -2,12 +2,14 @@
 
     let country = {% if country != null %}'{{ country.slug }}'{% else %}null{% endif %};
     let city = {% if city != null %}'{{ city.slug }}'{% else %}null{% endif %};
-    let userType = {% if userType is not null %}'{{ userType }}'{% else %}null{% endif %};
+    let userType = {% if userType is defined and userType is not null %}'{{ userType }}'{% else %}null{% endif %};
 
-    document.querySelector('.type-selector').addEventListener('change', function () {
-        userType = this.value !== '' ? this.value : null
-        redirect()
-    })
+    if(document.querySelector('.type-selector')) {
+        document.querySelector('.type-selector').addEventListener('change', function () {
+            userType = this.value !== '' ? this.value : null
+            redirect()
+        })
+    }
 
     document.querySelector('.country-selector').addEventListener('change', function () {
         country = this.value !== '' ? this.value : null

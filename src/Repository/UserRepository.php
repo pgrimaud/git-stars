@@ -104,7 +104,7 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->getResult();
     }
 
-    public function checkUserType(?Country $country, ?City $city, bool $isOrga): ?User
+    public function checkUserType(?Country $country, ?City $city, bool $isOrga): ?array
     {
         $query = $this->createQueryBuilder('u')
             ->select('u.id')
