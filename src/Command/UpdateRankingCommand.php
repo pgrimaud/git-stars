@@ -30,7 +30,7 @@ class UpdateRankingCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $dropRanking = 'DROP TABLE IF EXISTs ranking';
+        $dropRanking = 'DROP TABLE IF EXISTS ranking';
         $this->em->getConnection()->executeQuery($dropRanking);
 
         $createTable = 'CREATE TABLE ranking AS
@@ -66,7 +66,7 @@ class UpdateRankingCommand extends Command
                         WHERE u.city_id IS NOT NULL
                         GROUP BY ul.language_id, u.city_id
                          
-                        ) t3 on t1.language_id = t3.language_id and t1.country_id = t3.city_id
+                        ) t3 on t1.language_id = t3.language_id and t1.city_id = t3.city_id
                         
                         INNER JOIN (
                         

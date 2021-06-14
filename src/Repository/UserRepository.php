@@ -121,6 +121,7 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
                 ->leftJoin('u.city', 'ci')
                 ->leftJoin('u.country', 'co')
                 ->andWhere('ul.stars > 1000')
+                ->andWhere('u.organization = 0')
                 ->setMaxResults(4)
                 ->orderBy('RAND()')
                 ->groupBy('u.id')
