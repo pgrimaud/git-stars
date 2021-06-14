@@ -32,6 +32,7 @@ class FetchActiveUsersCommand extends Command
     protected function configure(): void
     {
         $this->addArgument('limit', InputArgument::REQUIRED, 'Limit');
+        $this->addArgument('offset', InputArgument::REQUIRED, 'Offset');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -39,10 +40,15 @@ class FetchActiveUsersCommand extends Command
         $io   = new SymfonyStyle($input, $output);
         $date = new \DateTime('-2 days');
 
-        $limit = intval($input->getArgument('limit'));
+        $limit  = intval($input->getArgument('limit'));
+        $offset = intval($input->getArgument('offset'));
 
         if ($limit <= 0) {
             $io->error('Limit must be superior to zero.');
+
+            return Command::FAILURE;
+        } elseif ($offset < 0) {
+            $io->error('Offset must equal or superior to zero.');
 
             return Command::FAILURE;
         }
@@ -51,7 +57,10 @@ class FetchActiveUsersCommand extends Command
             'keyFile' => json_decode((string) file_get_contents(__DIR__ . '/../../gc-key.json'), true),
         ]);
 
-        $query = 'SELECT actor.id FROM `githubarchive.day.' . $date->format('Ymd') . '` GROUP BY actor.id LIMIT ' . $limit;
+        $query = 'SELECT actor.id FROM `githubarchive.day.' . $date->format('Ymd') . '` 
+                  GROUP BY actor.id
+                  LIMIT ' . $limit . ' 
+                  OFFSET ' . $offset;
 
         $queryJobConfig = $bigQuery->query($query);
         $queryResults   = $bigQuery->runQuery($queryJobConfig);
