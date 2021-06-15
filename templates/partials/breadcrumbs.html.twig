@@ -4,7 +4,13 @@
             <h2></h2>
             <ol>
                 <li><a href="{{ path('app_index') }}">Home</a></li>
-                <li>Title</li>
+                {% for item in links %}
+                    {% if item.link is not null %}
+                        <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+                    {% else %}
+                        <li>{{ item.title }}</li>
+                    {% endif %}
+                {% endfor %}
             </ol>
         </div>
     </div>

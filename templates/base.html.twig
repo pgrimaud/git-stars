@@ -19,7 +19,7 @@
         {% include 'partials/header.html.twig' %}
 
         <main id="main">
-            {% include 'partials/breadcrumbs.html.twig' %}
+            {% block breadcrumb %}{% endblock %}
             {% block body %}{% endblock %}
         </main>
 

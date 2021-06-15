@@ -2104,6 +2104,11 @@ section {
   color: saddlebrown !important;
 }
 
+.list-group-item:hover {
+  transition: 0.3s;
+  background-color: #F1F1F1;
+}
+
 .language-circle{
   height: 31px;
   width: 31px;
