@@ -39,12 +39,12 @@
             <div class="d-flex justify-content-around row mt-4">
                 <div class="col-lg-5 col-sm-12 justify-content-center d-flex row">
                     <h3 class="entry-title text-center mb-5">Top users️ <i class="fas fa-trophy"></i></h3>
-                    <div class="list-group list-group-flush d-flex align-items-center justify-content-center">
+                    <div class="list-group list-group-flush">
                         {% for topU in topUsers %}
                             <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
                                 <div class="pic w-25">
                                     <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
-                                        <img src="https://avatars.githubusercontent.com/u/{{ topU[0].githubId }}?v=4" class="rounded w-50 wd-60" alt="User {{ topU[0].username }}">
+                                        <img src="https://avatars.githubusercontent.com/u/{{ topU[0].githubId }}?v=4" class="rounded wd-60" alt="User {{ topU[0].username }}">
                                     </a>
                                 </div>
                                 <div class="ms-2 me-auto">
@@ -79,7 +79,7 @@
                             <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
                                 <div class="pic w-25">
                                     <a href="{{ path('user_show', {'username' : topC[0].username}) }}">
-                                        <img src="https://avatars.githubusercontent.com/u/{{ topC[0].githubId }}?v=4" class="rounded w-50 wd-60" alt="Organization {{ topC[0].username }}">
+                                        <img src="https://avatars.githubusercontent.com/u/{{ topC[0].githubId }}?v=4" class="rounded wd-60" alt="Organization {{ topC[0].username }}">
                                     </a>
                                 </div>
                                 <div class="ms-2 me-auto">
