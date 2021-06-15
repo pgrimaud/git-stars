@@ -1432,15 +1432,14 @@ section {
   overflow: hidden;
 }
 
-.blog .entry .entry-title {
+.entry-title {
   font-size: 28px;
   font-weight: bold;
-  padding: 0;
   margin: 0 0 20px 0;
+  color: #556270;
 }
 
 .blog .entry .entry-title a {
-  color: #556270;
   transition: 0.3s;
 }
 
@@ -2103,14 +2102,6 @@ section {
 
 .rank-3 {
   color: saddlebrown !important;
-}
-.list-group-item:hover {
-  transition: 0.5s;
-  background-color: #F1F1F1;
-  transform: scale(1.1);
-  z-index: 99999;
-  border: 1px lightgray;
-  cursor: pointer
 }
 
 .language-circle{
