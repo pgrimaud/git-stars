@@ -4,6 +4,18 @@
     <link href="{{ asset('css/auto-complete.css') }}" rel="stylesheet">
 {% endblock %}
 
+{% block breadcrumb %}
+    {% include 'partials/breadcrumbs.html.twig' with {
+        'links' : [
+            {
+                'title': 'Languages',
+                'link': null
+            }
+        ]
+    } %}
+{% endblock %}
+
+
 {% block body %}
 <section>
     <div class="container">

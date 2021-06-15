@@ -2,6 +2,21 @@
 
 {% block title %}{{ language.name }}{% endblock %}
 
+{% block breadcrumb %}
+    {% include 'partials/breadcrumbs.html.twig' with {
+        'links' : [
+            {
+                'title': 'Languages',
+                'link': path('languages_index')
+            },
+            {
+                'title': language.name,
+                'link': null
+            }
+        ]
+    } %}
+{% endblock %}
+
 {% block body %}
 <section>
     <div class="container">

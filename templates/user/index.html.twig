@@ -1,5 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block breadcrumb %}
+    {% include 'partials/breadcrumbs.html.twig' with {
+        'links' : [
+            {
+                'title': 'Users',
+                'link': null
+            }
+        ]
+    } %}
+{% endblock %}
+
 {% block body %}
 <section>
     <div class="container">

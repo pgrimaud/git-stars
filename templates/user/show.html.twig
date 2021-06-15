@@ -1,5 +1,20 @@
 {% extends 'base.html.twig' %}
 
+{% block breadcrumb %}
+    {% include 'partials/breadcrumbs.html.twig' with {
+        'links' : [
+            {
+                'title': 'Users',
+                'link': path('user_index')
+            },
+            {
+                'title': user.username,
+                'link': null
+            }
+        ]
+    } %}
+{% endblock %}
+
 {% block body %}
     <div class="container">
     <a href="{{ path('user_index') }}"><i class="fas fa-arrow-alt-circle-left"></i> Go to users</a>
