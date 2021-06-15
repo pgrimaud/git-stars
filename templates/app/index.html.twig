@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block breadcrumb %}
+    {% include 'partials/breadcrumbs.html.twig' with {
+        'links' : []
+    } %}
+{% endblock %}
+
 {% block body %}
 <section>
     <div class="container">
@@ -28,9 +34,7 @@
         <div class="bg-light rounded-3 mt-5 mb-5 pt-3 pb-5">
             <div class="d-flex justify-content-around row mt-5">
                 <div class="col-lg-5 col-sm-12 justify-content-center d-flex row">
-                    <div class="section-title">
-                        <p>Top users️ <i class="fas fa-trophy"></i></p>
-                    </div>
+                    <h2 class="entry-title text-center">Top users️ <i class="fas fa-trophy"></i></h2>
                     <div class="list-group list-group-flush d-flex align-items-center justify-content-center">
                         {% for topU in topUsers %}
                             <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
@@ -65,9 +69,7 @@
                 </div>
 
                 <div class="col-lg-5 col-sm-12 justify-content-center d-flex row">
-                    <div class="section-title">
-                        <p class="w-100">Top organizations  <i class="fas fa-building"></i></p>
-                    </div>
+                    <h2 class="entry-title text-center">Top organizations  <i class="fas fa-building"></i></h2>
                     <div class="list-group list-group-flush">
                         {% for topC in topCorps %}
                             <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
@@ -105,9 +107,7 @@
 
             <div class="d-flex justify-content-center row mt-5">
                 <div class="col-lg-5 col-sm-12 justify-content-center d-flex row">
-                    <div class="section-title">
-                        <p class="w-100">Top languages  <i class="fas fa-code"></i></p>
-                    </div>
+                    <h2 class="entry-title text-center">Top languages  <i class="fas fa-code"></i></h2>
                     <div class="list-group list-group-flush">
                         {% for topL in topLanguages%}
                             <div class="list-group-item d-flex justify-content-around align-items-start col mb-1">

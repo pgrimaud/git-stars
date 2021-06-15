@@ -2,6 +2,17 @@
 
 {% block title %}About{% endblock %}
 
+{% block breadcrumb %}
+    {% include 'partials/breadcrumbs.html.twig' with {
+        'links' : [
+            {
+                'title': 'About',
+                'link': null
+            }
+        ]
+    } %}
+{% endblock %}
+
 {% block body %}
     <section id="about" class="about">
         <div class="container">
