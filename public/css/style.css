@@ -2130,6 +2130,6 @@ section {
   height: 60px;
 }
 
-#main {
-  min-height: calc(100vh - 193px);
+#error {
+  min-height: calc(100vh - 250px);
 }
