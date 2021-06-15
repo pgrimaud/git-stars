@@ -21,9 +21,7 @@
 
 {% block body %}
     <div class="container">
-    <a href="{{ path('user_index') }}"><i class="fas fa-arrow-alt-circle-left"></i> Go to users</a>
-
-        <div class="card mb-4">
+        <div class="card mb-4 mt-4">
             <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
                     <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4" alt="{{ user.username }}" class="{% if user.organization == false %}rounded-circle{% endif %} user-picture-main">
@@ -49,7 +47,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mb-4">
             {% if userLanguages | length > 0 %}
                 {% for userLanguage in userLanguages %}
                     {% include 'partials/user-language-card.html.twig' with {
