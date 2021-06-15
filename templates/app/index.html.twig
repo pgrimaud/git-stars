@@ -11,7 +11,7 @@
     <div class="container">
         <div class="section-title">
             <h2>Welcome to Git Stars! ✌️</h2>
-            <p>Search user?</p>
+            <p><label for="search_user_username">Search user</label></p>
         </div>
 
         <div class="row justify-content-center">
@@ -19,7 +19,7 @@
                 {{ form_start(search_form) }}
                     <div class="input-group mb-3">
                         {{ form_widget(search_form.username, {'attr' : {'class' : 'form-control'}}) }}
-                        <button type="submit" class="btn-git"><i class="fas fa-search"></i></button>
+                        <button type="submit" class="btn-git" aria-label="Search"><i class="fas fa-search"></i></button>
                     </div>
                 {{ form_end(search_form) }}
             </div>
@@ -32,15 +32,15 @@
         {% endif %}
 
         <div class="bg-light rounded-3 mt-5 mb-5 pt-3 pb-5">
-            <div class="d-flex justify-content-around row mt-5">
+            <div class="d-flex justify-content-around row mt-4">
                 <div class="col-lg-5 col-sm-12 justify-content-center d-flex row">
-                    <h2 class="entry-title text-center">Top users️ <i class="fas fa-trophy"></i></h2>
+                    <h3 class="entry-title text-center mb-5">Top users️ <i class="fas fa-trophy"></i></h3>
                     <div class="list-group list-group-flush d-flex align-items-center justify-content-center">
                         {% for topU in topUsers %}
                             <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
                                 <div class="pic w-25">
                                     <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
-                                        <img src="https://avatars.githubusercontent.com/u/{{ topU[0].githubId }}?v=4" class="rounded w-50 wd-60" alt="">
+                                        <img src="https://avatars.githubusercontent.com/u/{{ topU[0].githubId }}?v=4" class="rounded w-50 wd-60" alt="User {{ topU[0].username }}">
                                     </a>
                                 </div>
                                 <div class="ms-2 me-auto">
@@ -69,13 +69,13 @@
                 </div>
 
                 <div class="col-lg-5 col-sm-12 justify-content-center d-flex row">
-                    <h2 class="entry-title text-center">Top organizations  <i class="fas fa-building"></i></h2>
+                    <h3 class="entry-title text-center mb-5">Top organizations  <i class="fas fa-building"></i></h3>
                     <div class="list-group list-group-flush">
                         {% for topC in topCorps %}
                             <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
                                 <div class="pic w-25">
                                     <a href="{{ path('user_show', {'username' : topC[0].username}) }}">
-                                        <img src="https://avatars.githubusercontent.com/u/{{ topC[0].githubId }}?v=4" class="rounded w-50 wd-60" alt="">
+                                        <img src="https://avatars.githubusercontent.com/u/{{ topC[0].githubId }}?v=4" class="rounded w-50 wd-60" alt="Organization {{ topC[0].username }}">
                                     </a>
                                 </div>
                                 <div class="ms-2 me-auto">
@@ -107,12 +107,12 @@
 
             <div class="d-flex justify-content-center row mt-5">
                 <div class="col-lg-5 col-sm-12 justify-content-center d-flex row">
-                    <h2 class="entry-title text-center">Top languages  <i class="fas fa-code"></i></h2>
+                    <h3 class="entry-title text-center mb-5">Top languages  <i class="fas fa-code"></i></h3>
                     <div class="list-group list-group-flush">
                         {% for topL in topLanguages%}
                             <div class="list-group-item d-flex justify-content-around align-items-start col mb-1">
                                 <div class="pic w-25 h-100 d-flex">
-                                    <a href="{{ path('languages_show', {'slug' : topL[0].slug}) }}" class="d-flex align-items-center">
+                                    <a href="{{ path('languages_show', {'slug' : topL[0].slug}) }}" class="d-flex align-items-center" title="{{ topL[0].name }}">
                                         <div class="rounded-circle language-circle" style="background-color: {{ topL[0].color }}"></div>
                                     </a>
                                 </div>
@@ -137,9 +137,7 @@
         </div>
 
         <div class="col-12 mt-5">
-            <div class="section-title">
-                <p class="w-100">Users of the day <i class="fas fa-heart"></i></p>
-            </div>
+            <h3 class="w-100 entry-title">Users of the day <i class="fas fa-heart"></i></h3>
             <div class="d-flex row">
                 {% for topD in topToday %}
                     <div class="col-lg-6">
@@ -147,7 +145,7 @@
                     </div>
                 {% endfor %}
             </div>
-            <p class="fw-light fs-6 text-center">Users selected at random, we do not affiliate with any of them.</p>
+            <p class="fw-light fs-6 text-center">*Users selected at random, we do not affiliate with any of them.</p>
         </div>
     </div>
 </section>
