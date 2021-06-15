@@ -4,6 +4,10 @@
 
 {% block description %}See the list of all the GitHub users indexed on Git Stars, ordered by their total amount of stargazers.{% endblock %}
 
+{% block canonical %}
+    <link rel="canonical" href="{{ path('user_index') }}" />
+{% endblock %}
+
 {% block breadcrumb %}
     {% include 'partials/breadcrumbs.html.twig' with {
         'links' : [

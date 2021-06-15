@@ -12,5 +12,44 @@
 {% endblock %}
 
 {% block body %}
-    <h1>cc</h1>
+    <section id="error" class="about d-flex align-items-center justify-content-center">
+        <div class="container">
+            <div class="row content">
+                <div class="col-lg-6 col-sm-12 d-flex align-items-start justify-content-center flex-column">
+                    <h2>Well, this is awkward..</h2>
+                    <h3>Looks like there's been a problem on our end, sorry about that</h3>
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0 col-sm-12">
+                    <label for="search_username" class="required">
+                        We've been notified, and the error should be fixed soon enough.<br>
+                        You could refresh the page, or maybe try and look for someone to leave this page ?
+                    </label>
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <form name="search" method="post" action="{{ path('app_index') }}">
+                                <div class="input-group mb-3">
+                                    <input type="text" id="search_username" name="search[username]" required="required" class="form-control"/>
+                                    <button type="submit" class="btn-git" aria-label="Search"><i class="fas fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <p>
+                        While you wait, you could:
+                        <ul>
+                            <li>Leave a star on the website's
+                                <a href="https://www.github.com/pgrimaud/git-stars" target="_blank">GitHub repo</a>
+                            </li>
+                            <li>Send us a nice <a href="https://twitter.com/pgrimaud_" target="_blank">Tweet</a></li>
+                        </ul>
+                    </p>
+                    <p class="fst-italic">
+                        Sorry again, if you're still with us why not check these pages out: <br>
+                        <a href="{{ path('user_index') }}">Top users</a> - <a href="{{ path('languages_index') }}">Top Languages</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
