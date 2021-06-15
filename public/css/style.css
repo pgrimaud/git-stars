@@ -2115,6 +2115,16 @@ section {
   border: 1px solid #d8d8d8;
 }
 
+.user-picture{
+  height: 111px;
+  width: 111px;
+}
+
+.user-picture-main{
+  height: 150px;
+  width: 150px;
+}
+
 .wd-60 {
   width: 60px;
   height: 60px;
