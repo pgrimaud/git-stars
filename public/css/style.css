@@ -2129,3 +2129,7 @@ section {
   width: 60px;
   height: 60px;
 }
+
+#main {
+  min-height: calc(100vh - 193px);
+}

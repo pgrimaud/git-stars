@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    {% include 'partials/breadcrumbs.html.twig' with {
+        'links' : [
+            {
+                'title': 'Oops..',
+                'link': null
+            }
+        ]
+    } %}
+{% endblock %}
+
+{% block body %}
+    <h1>cc</h1>
+{% endblock %}
