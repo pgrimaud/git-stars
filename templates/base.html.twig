@@ -21,7 +21,7 @@
         <meta property="og:title" content="Git Stars - {{ block('title') }}" />
         <meta property="og:description" content="{{ block('description') }}"/>
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="{{ url('app_index') }}" />
+        <meta property="og:url" content="{{ app.request.uri }}" />
         <meta property="og:image" content="{{ url('app_index') ~ ('favicon-original.png') }}" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Git Stars" />
