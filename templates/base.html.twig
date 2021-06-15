@@ -18,6 +18,14 @@
         <meta name="twitter:creator" content="@pgrimaud_">
         <meta name="twitter:image" content="{{ url('app_index') ~ ('favicon-original.png') }}">
 
+        <meta property="og:title" content="Git Stars - {{ block('title') }}" />
+        <meta property="og:description" content="{{ block('description') }}"/>
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ url('app_index') }}" />
+        <meta property="og:image" content="{{ url('app_index') ~ ('favicon-original.png') }}" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Git Stars" />
+
         <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
