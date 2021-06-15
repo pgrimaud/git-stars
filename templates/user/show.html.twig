@@ -29,9 +29,9 @@
                     <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4" alt="{{ user.username }}" class="{% if user.organization == false %}rounded-circle{% endif %} user-picture-main">
                     <div class="mt-3">
                         {% if user.name != null %}
-                            <h4>{{ user.name }}{% if user.organization %} <i class="fas fa-building"></i>{% endif %}</h4>
+                            <h2>{{ user.name }}{% if user.organization %} <i class="fas fa-building"></i>{% endif %}</h2>
                         {% else %}
-                        <h4>{{ user.username }}{% if user.organization %} <i class="fas fa-building"></i>{% endif %}</h4>
+                        <h2>{{ user.username }}{% if user.organization %} <i class="fas fa-building"></i>{% endif %}</h2>
                         {% endif %}
                         <a href="https://github.com/{{ user.username }}" target="_blank" class="link-primary mb-1 font-monospace" rel="noopener noreferrer">@{{ user.username }}</a>
                         <p class="text-secondary mb-1">{{ user.location }} {% if user.country %}{{ get_flag(user.country.isoCode) }}{% endif %}</p>
