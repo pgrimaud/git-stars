@@ -5,7 +5,7 @@
 {% block description %}Here are all the {{ language.name }} contributors from GitHub, ordered by their repository stargazers.{% endblock %}
 
 {% block canonical %}
-    <link rel="canonical" href="{{ path('languages_show') }}" />
+    <link rel="canonical" href="{{ url('languages_show', {'slug' : language.slug}) }}" />
 {% endblock %}
 
 {% block breadcrumb %}
