@@ -15,7 +15,7 @@
     <section id="error" class="about d-flex align-items-center justify-content-center">
         <div class="container">
             <div class="row content">
-                <div class="col-lg-6 col-sm-12">
+                <div class="col-lg-6 col-sm-12 d-flex align-items-start justify-content-center flex-column">
                     <h2>404 Error</h2>
                     <h3>Sorry, we can't find the page you're looking for</h3>
                 </div>
@@ -36,13 +36,18 @@
                     </div>
 
                     <p>
-                        This was made in couple weeks as an exercise in the context of an internship. <br>
-                        We'd love some feedback so don't hesitate to open an issue on the
-                        <a href="https://www.github.com/pgrimaud/git-stars" target="_blank">GitHub repo <i class="fas fa-external-link-alt"></i></a>
-                        or send us a Tweet to tell us about your experience!
+                        You think the error is on out end ?<br>
+                        Tell us what happened by:
+                    <ul>
+                        <li>Opening an issue on the
+                            <a href="https://www.github.com/pgrimaud/git-stars" target="_blank">GitHub repo</a>
+                        </li>
+                        <li>Sending us a <a href="https://twitter.com/pgrimaud_" target="_blank">Tweet</a></li>
+                    </ul>
                     </p>
                     <p class="fst-italic">
-                        Original made by <a href="https://www.github.com/pgrimaud" target="_blank">@pgrimaud</a> and <a href="https://www.github.com/nispeon" target="_blank">@nispeon</a>
+                        Or you could check these pages out, they're pretty cool: <br>
+                        <a href="{{ path('user_index') }}">Top users</a> - <a href="{{ path('languages_index') }}">Top Languages</a>
                     </p>
                 </div>
             </div>

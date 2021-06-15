@@ -4,6 +4,10 @@
 
 {% block description %}Here are all the {{ language.name }} contributors from GitHub, ordered by their repository stargazers.{% endblock %}
 
+{% block canonical %}
+    <link rel="canonical" href="{{ path('languages_show') }}" />
+{% endblock %}
+
 {% block breadcrumb %}
     {% include 'partials/breadcrumbs.html.twig' with {
         'links' : [

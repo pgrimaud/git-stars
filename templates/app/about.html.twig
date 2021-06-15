@@ -4,6 +4,10 @@
 
 {% block description %}Learn about the inner-workings of Git Stars, and about its creators.{% endblock %}
 
+{% block canonical %}
+    <link rel="canonical" href="{{ path('app_about') }}" />
+{% endblock %}
+
 {% block breadcrumb %}
     {% include 'partials/breadcrumbs.html.twig' with {
         'links' : [
