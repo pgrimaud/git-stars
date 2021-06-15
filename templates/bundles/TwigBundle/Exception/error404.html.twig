@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    {% include 'partials/breadcrumbs.html.twig' with {
+        'links' : [
+            {
+                'title': 'Oops..',
+                'link': null
+            }
+        ]
+    } %}
+{% endblock %}
+
+{% block body %}
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row content">
+                <div class="col-lg-6 col-sm-12">
+                    <h2>404 Error</h2>
+                    <h3>Sorry, we can't find the page you're looking for</h3>
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0 col-sm-12">
+                    <label for="search_username" class="required">
+                        Were you trying to find someone ?<br>
+                        Maybe we should try again:
+                    </label>
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <form name="search" method="post">
+                                <div class="input-group mb-3">
+                                    <input type="text" id="search_username" name="search[username]" required="required" class="form-control"/>
+                                    <button type="submit" class="btn-git" aria-label="Search"><i class="fas fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <p>
+                        This was made in couple weeks as an exercise in the context of an internship. <br>
+                        We'd love some feedback so don't hesitate to open an issue on the
+                        <a href="https://www.github.com/pgrimaud/git-stars" target="_blank">GitHub repo <i class="fas fa-external-link-alt"></i></a>
+                        or send us a Tweet to tell us about your experience!
+                    </p>
+                    <p class="fst-italic">
+                        Original made by <a href="https://www.github.com/pgrimaud" target="_blank">@pgrimaud</a> and <a href="https://www.github.com/nispeon" target="_blank">@nispeon</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
