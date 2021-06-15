@@ -18,20 +18,20 @@
         <div class="w-25">
             {% if language.rank_world is defined %}
                 <p class="fw-bold">Ranking:</p>
-                <p>World: {{ language.rank_world }} / {{ language.total_user_world }}</p>
+                <p><i class="fas fa-trophy rank-{{ language.rank_world }}"></i> World: <span class="fw-bold">{{ language.rank_world }}</span> / {{ language.total_user_world }}</p>
                 {% if language.rank_country %}
                     <p>
-                        <a href="{{ path('languages_show', {'slug': language.slug })}}?country={{ country.slug }}">{{ get_flag(country.isoCode) }} {{ country.name }}:</a>
-                        {{ language.rank_country }} / {{ language.total_user_country }}
+                        <i class="fas fa-trophy rank-{{ language.rank_country }}"></i> <a href="{{ path('languages_show', {'slug': language.slug })}}?country={{ country.slug }}">{{ country.name }} {{ get_flag(country.isoCode) }}:</a>
+                        <span class="fw-bold">{{ language.rank_country }}</span> / {{ language.total_user_country }}
                     </p>
                 {% endif %}
                 {% if language.rank_city %}
                     <p>
-                        <a href="{{ path('languages_show', {'slug': language.slug })}}?country={{ country.slug }}&city={{ city.slug }}">{{ city.name }}:</a>
-                        {{ language.rank_city }} / {{ language.total_user_city }}
+                        <i class="fas fa-trophy rank-{{ language.rank_city }}"></i> <a href="{{ path('languages_show', {'slug': language.slug })}}?country={{ country.slug }}&city={{ city.slug }}">{{ city.name }}:</a>
+                        <span class="fw-bold">{{ language.rank_city }}</span> / {{ language.total_user_city }}
                     </p>
                 {% endif %}
-                <p>Repositories: {{ language.repositories }}</p>
+                <p><i class="fas fa-book"></i> {{ language.repositories }} repositor{% if language.repositories == 1 %}y{% else %}ies{% endif %}</p>
             {% else %}
                 <p class="fw-bold mt-4">Ranking calculation in progress...</p>
             {% endif %}
