@@ -14,8 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Language
 {
-    public const DEFAULT_COLOR = '#ffffff';
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

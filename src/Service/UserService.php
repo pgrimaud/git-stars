@@ -13,6 +13,7 @@ use App\Message\GetLocation;
 use App\Message\ManualUpdateUser;
 use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
+use App\Utils\LanguageHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -148,7 +149,7 @@ class UserService
                     $language = new Language();
                     $language->setName($githubLanguage);
                     $language->setSlug($this->slugger->slug($githubLanguage)->lower()->toString());
-                    $language->setColor(Language::DEFAULT_COLOR);
+                    $language->setColor(LanguageHelper::createColor());
                 }
 
                 $newUserLanguage = new UserLanguage();

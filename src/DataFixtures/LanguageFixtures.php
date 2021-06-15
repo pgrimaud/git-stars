@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Language;
+use App\Utils\LanguageHelper;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -28,7 +29,7 @@ class LanguageFixtures extends Fixture implements FixtureGroupInterface
             $language = new Language();
             $language->setName($key);
             $language->setSlug($slug->toString());
-            $language->setColor(strtolower($githubLang['color'] ?? Language::DEFAULT_COLOR));
+            $language->setColor(strtolower($githubLang['color'] ?? LanguageHelper::createColor()));
 
             $manager->persist($language);
         }
