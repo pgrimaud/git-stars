@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block description %}Check out {{ user.username }}'s GitHub stats and see how they rank in stargazers count.{% endblock %}
+
 {% block breadcrumb %}
     {% include 'partials/breadcrumbs.html.twig' with {
         'links' : [
