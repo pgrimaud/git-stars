@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Users{% endblock %}
+
+{% block description %}See the list of all the GitHub users indexed on Git Stars, ordered by their total amount of stargazers.{% endblock %}
+
 {% block breadcrumb %}
     {% include 'partials/breadcrumbs.html.twig' with {
         'links' : [

@@ -2,6 +2,8 @@
 
 {% block title %}{{ language.name }}{% endblock %}
 
+{% block description %}Here are all the {{ language.name }} contributors from GitHub, ordered by their repository stargazers.{% endblock %}
+
 {% block breadcrumb %}
     {% include 'partials/breadcrumbs.html.twig' with {
         'links' : [
