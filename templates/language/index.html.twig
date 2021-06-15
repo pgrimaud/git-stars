@@ -27,7 +27,7 @@
         <div class="row d-flex align-items-center">
             <div class="section-title col-lg-6 col-sm-12">
                 <h2>Top languages</h2>
-                <p>Total stargazers</p>
+                <p><label for="search_language_language">Total stargazers</label></p>
             </div>
             <div class="section-title col-lg-6 col-sm-12">
                 <div class="row d-flex justify-content-end">
@@ -40,7 +40,7 @@
                    }}
                         <div class="input-group mb-3">
                             {{ form_widget(search_form.language, {'attr' : {'class' : 'form-control'}}) }}
-                            <button type="submit" class="btn-git"><i class="fas fa-search"></i></button>
+                            <button type="submit" class="btn-git" aria-label="Search"><i class="fas fa-search"></i></button>
                         </div>
                     {{ form_end(search_form) }}
                 </div>

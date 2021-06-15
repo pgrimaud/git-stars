@@ -145,7 +145,7 @@
             <div class="d-flex row">
                 {% for topD in topToday %}
                     <div class="col-lg-6">
-                        {% include 'partials/user-card.html.twig' with {'user' : topD[0], 'stars': topD.stars} %}
+                        {% include 'partials/user-card.html.twig' with {'user' : topD[0], 'stars': topD.stars, 'hx': 'h4'} %}
                     </div>
                 {% endfor %}
             </div>
