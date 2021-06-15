@@ -2130,6 +2130,6 @@ section {
   height: 60px;
 }
 
-#error {
+#error, #about, #user-page {
   min-height: calc(100vh - 250px);
 }
