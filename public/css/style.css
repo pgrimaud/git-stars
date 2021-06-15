@@ -2120,6 +2120,11 @@ section {
   width: 111px;
 }
 
+.user-picture-main{
+  height: 150px;
+  width: 150px;
+}
+
 .wd-60 {
   width: 60px;
   height: 60px;

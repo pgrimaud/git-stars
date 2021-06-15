@@ -1,7 +1,7 @@
 <div class="col-lg-12 mb-2">
     <div class="member d-flex align-items-center">
         <div class="pic h-100 d-flex justify-content-center">
-            <a href="{{ path('languages_show', {'slug' : language.slug}) }}" class="d-flex">
+            <a href="{{ path('languages_show', {'slug' : language.slug}) }}" class="d-flex" title="{{ language.name }}">
                 <div class="rounded-circle language-circle" style="background-color: {{ language.color }};"></div>
             </a>
         </div>
