@@ -12,7 +12,6 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/share')]
 class ShareController extends AbstractController
@@ -35,9 +34,9 @@ class ShareController extends AbstractController
         if (!$filesystem->exists($imagePath)) {
             $imageData = (string) file_get_contents('https://avatars.githubusercontent.com/u/' . $user->getGithubId() . '?s=150&v=4');
             $filesystem->appendToFile($imagePath, $imageData);
+        } else {
+            $imageData = (string) file_get_contents($imagePath);
         }
-
-        $picture = $this->generateUrl('app_index', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'avatars/' . $user->getGithubId() . '.jpg';
 
         $response = new Response(
             $this->renderView('partials/sharer-svg.html.twig', [
@@ -45,7 +44,7 @@ class ShareController extends AbstractController
                 'globalRanking' => $rankingService->getRankingGlobal($user),
                 'totalUsers'    => $userRepository->countUsers(),
                 'topLanguage'   => $rankingService->getTopLanguage($user),
-                'picture'       => $picture,
+                'picture'       => base64_encode($imageData),
             ])
         );
 
