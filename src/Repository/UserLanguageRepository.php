@@ -24,7 +24,7 @@ class UserLanguageRepository extends AbstractBaseRepository
         parent::__construct($registry, UserLanguage::class);
     }
 
-    public function findUserByLanguage(Language $language, ?Country $country, ?City $city, int $start): array
+    public function findUserByLanguage(Language $language, ?Country $country, ?City $city, int $start, ?int $userTypeFilter): array
     {
         $query = $this->createQueryBuilder('ul')
             ->select('ul.stars', 'u.username', 'u.githubId', 'u.name', 'u.organization')
@@ -32,6 +32,11 @@ class UserLanguageRepository extends AbstractBaseRepository
             ->andWhere('ul.language = :language')
             ->setParameter('language', $language)
             ->orderBy('ul.stars', 'DESC');
+
+        if ($userTypeFilter !== null) {
+            $query->andWhere('u.organization = :isOrga')
+                ->setParameter('isOrga', $userTypeFilter);
+        }
 
         if ($country) {
             $query->andWhere('u.country = :country')
@@ -49,13 +54,18 @@ class UserLanguageRepository extends AbstractBaseRepository
             ->getResult();
     }
 
-    public function totalLanguagePages(Language $language, ?Country $country, ?City $city): int
+    public function totalLanguagePages(Language $language, ?Country $country, ?City $city, ?int $userTypeFilter): int
     {
         $query = $this->createQueryBuilder('ul')
             ->select('count(ul) as total')
             ->join('ul.user', 'u')
             ->andWhere('ul.language = :language')
             ->setParameter('language', $language);
+
+        if ($userTypeFilter) {
+            $query->andWhere('u.organization = :isOrga')
+                ->setParameter('isOrga', $userTypeFilter);
+        }
 
         if ($country) {
             $query->andWhere('u.country = :country')

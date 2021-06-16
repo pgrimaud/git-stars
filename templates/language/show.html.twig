@@ -2,7 +2,7 @@
 
 {% block title %}{{ language.name }}{% endblock %}
 
-{% block description %}Check out the {{ language.name }} contributors from GitHub, ordered by their repository stargazers.{% endblock %}
+{% block description %}Check out the top {{ language.name }} contributors on GitHub, ordered by their repository stargazers.{% endblock %}
 
 {% block canonical %}
     <link rel="canonical" href="{{ url('languages_show', {'slug' : language.slug}) }}" />
@@ -31,6 +31,18 @@
             <p>{{ language.name }}</p>
             <a href="{{ path('languages_index') }}"><i class="fas fa-arrow-alt-circle-left"></i> Back to languages list</a>
         </div>
+
+        <form action="#" method="post" class="mb-4">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <select class="form-select type-selector">
+                        <option value="">All users</option>
+                        {% if hasUsers != null %}<option {% if userType == 'users' %}selected{% endif %} value="users">Only individuals</option>{% endif %}
+                        {% if hasOrganizations != null %}<option {% if userType == 'organizations' %}selected{% endif %} value="organizations">Only organizations</option>{% endif %}
+                    </select>
+                </div>
+            </div>
+        </form>
 
         <form action="#" method="post" class="mb-4">
             <div class="row">
