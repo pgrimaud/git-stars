@@ -309,4 +309,14 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getTotalStars(): int
+    {
+        $totalStars = 0;
+        foreach ($this->getUserLanguages() as $userLanguage) {
+            $totalStars += $userLanguage->getStars();
+        }
+
+        return $totalStars;
+    }
 }
