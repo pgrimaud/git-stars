@@ -26,10 +26,10 @@
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
                         <div class="col-12 d-flex justify-content-end">
-                            <p>
+                            <p class="fs-6">
                                 Share:
-                                <a href="https://twitter.com/intent/tweet?text=Check%20out%20{% if user.twitterHandle is not null %}@{{ user.twitterHandle }}{% else %}{{ user.name }}{% endif %}%27s%20GitHub%20ranking%20on%20Git%20Stars!&url=http%3A%2F%2Fwww.git-stars.com/{{ user.username }}%2F&hashtags=GitHub" target="_blank">
-                                    Twitter
+                                <a href="https://twitter.com/intent/tweet?text=Check%20out%20{% if user.twitterHandle is not null %}@{{ user.twitterHandle }}{% else %}{{ user.name }}{% endif %}%27s%20GitHub%20ranking%20on%20Git%20Stars!&url=https%3A%2F%2Fgit-stars.com/{{ user.username }}%2F&hashtags=GitHub" target="_blank">
+                                    <i class="fab fa-twitter-square text-primary fs-3"></i>
                                 </a>
                             </p>
                         </div>
@@ -38,7 +38,7 @@
                             {% if user.name != null %}
                                 <h2>{{ user.name }}{% if user.organization %} <i class="fas fa-building"></i>{% endif %}</h2>
                             {% else %}
-                            <h2>{{ user.username }}{% if user.organization %} <i class="fas fa-building"></i>{% endif %}</h2>
+                                <h2>{{ user.username }}{% if user.organization %} <i class="fas fa-building"></i>{% endif %}</h2>
                             {% endif %}
                             <a href="https://github.com/{{ user.username }}" target="_blank" class="link-primary mb-1 font-monospace" rel="noopener noreferrer">@{{ user.username }}</a>
                             <p class="text-secondary mb-1">{{ user.location }} {% if user.country %}{{ get_flag(user.country.isoCode) }}{% endif %}</p>
