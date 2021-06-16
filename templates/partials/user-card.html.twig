@@ -15,6 +15,9 @@
             <span class="span-name">@{{ user.username }}</span>
             <div class="social">
                 <a href="https://github.com/{{ user.username }}" target="_blank" title="{{ user.username }}'s GitHub profile" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                {% if user.twitterHandle %}
+                    <a href="https://twitter.com/{{ user.twitterHandle }}" target="_blank" title="{{ user.twitterHandle }}'s Twitter profile" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                {% endif %}
             </div>
         </div>
         <div class="w-25">
