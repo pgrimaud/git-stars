@@ -13,10 +13,10 @@ class RankingService
     {
     }
 
-    public function getRanking(User $user): array
+    public function getRankingLanguage(User $user): array
     {
         $statement = $this->em->getConnection()->executeQuery(
-            'SELECT * FROM ranking r
+            'SELECT * FROM ranking_language r
              LEFT JOIN language l on r.language_id = l.id 
              WHERE user_id=' . $user->getId() . '
              ORDER BY r.stars DESC'

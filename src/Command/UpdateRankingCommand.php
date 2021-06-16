@@ -30,10 +30,9 @@ class UpdateRankingCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $dropRanking = 'DROP TABLE IF EXISTS ranking';
-        $this->em->getConnection()->executeQuery($dropRanking);
+        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_language;');
 
-        $createTable = 'CREATE TABLE ranking AS
+        $createTable = 'CREATE TABLE ranking_language AS
 
                         SELECT t1.*, t4.total_user_world, t2.total_user_country, t3.total_user_city
                         FROM (
@@ -78,9 +77,25 @@ class UpdateRankingCommand extends Command
         $this->em->getConnection()->executeQuery($createTable);
 
         // add index
-        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking(user_id) USING HASH ;');
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_language(user_id) USING HASH;');
 
-        $io->success('Rankings have been updated');
+        $io->success('Ranking language have been updated');
+
+        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_global;');
+
+        $createTableGlobal = 'CREATE TABLE ranking_global AS
+                                SELECT user_id, SUM(stars) as stars, 
+                                ROUND(sum(stars) + (1.0 - 1.0/sum(repositories)), 2) AS score,
+                                row_number() OVER (ORDER BY score DESC) as rank
+                                FROM user_language 
+                                GROUP BY user_id;';
+
+        $this->em->getConnection()->executeQuery($createTableGlobal);
+
+        // add index
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_global(user_id) USING HASH;');
+
+        $io->success('Ranking global have been updated');
 
         return Command::SUCCESS;
     }

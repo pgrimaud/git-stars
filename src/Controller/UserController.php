@@ -99,7 +99,7 @@ class UserController extends AbstractController
             throw new NotFoundHttpException('User not found');
         }
 
-        $userLanguages = $rankingService->getRanking($user);
+        $userLanguages = $rankingService->getRankingLanguage($user);
 
         // user is not ranked yet?
         if ($userLanguages === []) {
