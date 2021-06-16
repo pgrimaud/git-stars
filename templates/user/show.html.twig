@@ -57,7 +57,8 @@
                             'city': user.city,
                             'country': user.country,
                             'language' : userLanguage,
-                            'stars': userLanguage.stars
+                            'stars': userLanguage.stars,
+                            'user': user
                         } %}
                     {% endfor %}
                 {% elseif user.status == 'idle' %}

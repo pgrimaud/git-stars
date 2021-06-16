@@ -11,9 +11,6 @@
                     {{ language.name }}
                 </a>
             </h3>
-            <div class="social">
-                <a href="{{ path('languages_show', {'page': '1', 'slug': language.slug}) }}" title="See user ranking for this language"><i class="fas fa-arrow-alt-circle-right"></i></a>
-            </div>
         </div>
         <div class="w-25">
             {% if language.rank_world is defined %}
@@ -31,7 +28,11 @@
                         <span class="fw-bold">{{ language.rank_city }}</span> / {{ language.total_user_city }}
                     </p>
                 {% endif %}
-                <p><i class="fas fa-book"></i> {{ language.repositories }} repositor{% if language.repositories == 1 %}y{% else %}ies{% endif %}</p>
+                <p>
+                    <i class="fas fa-book"></i> <a href="https://github.com/{{ user.username }}?tab=repositories&q=&type=&language={{ language.slug }}&sort=stargazers" target="_blank" rel="noopener noreferrer">
+                         {{ language.repositories }} repositor{% if language.repositories == 1 %}y{% else %}ies{% endif %}
+                    </a>
+                </p>
             {% else %}
                 <p class="fw-bold mt-4">Ranking calculation in progress...</p>
             {% endif %}
