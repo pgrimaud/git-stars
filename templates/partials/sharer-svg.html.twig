@@ -27,13 +27,13 @@
 
     <text>
         <tspan x="30" y="60">
-            Total Stars : <tspan class="fw-bold">{{ globalRanking.stars|number_format(0, '.', '&nbsp;')|raw }}</tspan>
+            Total Stars : <tspan class="fw-bold">{{ globalRanking.stars|number_format(0, '.', ' ')|raw }}</tspan>
         </tspan>
     </text>
 
     <text>
         <tspan x="30" y="90">
-            World Ranking : <tspan class="fw-bold">{{ globalRanking.rank|number_format(0, '.', '&nbsp;')|raw }}</tspan> / {{ totalUsers|number_format(0, '.', '&nbsp;')|raw }}
+            World Ranking : <tspan class="fw-bold">{{ globalRanking.rank|number_format(0, '.', ' ')|raw }}</tspan> / {{ totalUsers|number_format(0, '.', ' ')|raw }}
         </tspan>
     </text>
 
