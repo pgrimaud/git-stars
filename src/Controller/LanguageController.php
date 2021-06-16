@@ -62,6 +62,15 @@ class LanguageController extends AbstractController
         string $slug,
         int $page = 1
     ): Response {
+        $userTypeFilter = null;
+        if ($userType = $request->get('type')) {
+            match ($userType) {
+                'users'         => $userTypeFilter = 0,
+                'organizations' => $userTypeFilter = 1,
+                default         => $userTypeFilter = null,
+            };
+        }
+
         $language = $this->languageRepository->findOneBy(['slug' => $slug]);
 
         $city    = null;
@@ -83,7 +92,7 @@ class LanguageController extends AbstractController
             throw new NotFoundHttpException('Language not found');
         }
 
-        $totalLanguageUsers = $userLanguageRepository->totalLanguagePages($language, $country, $city);
+        $totalLanguageUsers = $userLanguageRepository->totalLanguagePages($language, $country, $city, $userTypeFilter);
 
         $paginate = PaginateHelper::create($page, $totalLanguageUsers);
 
@@ -93,19 +102,25 @@ class LanguageController extends AbstractController
 
         $start = ($page - 1) * 25;
 
-        $userLanguages = $userLanguageRepository->findUserByLanguage($language, $country, $city, $start);
-        $countries     = $countryRepository->findAllCountriesByLanguage($language);
+        $userLanguages = $userLanguageRepository->findUserByLanguage($language, $country, $city, $start, $userTypeFilter);
+        $countries     = $countryRepository->findAllCountriesByLanguage($language, $userTypeFilter);
 
-        $cities = !$country ? null : $cityRepository->findAllCitiesByLanguage($language, $country);
+        $cities = !$country ? null : $cityRepository->findAllCitiesByLanguage($language, $country, $userTypeFilter);
+
+        $hasUsers         = $userRepository->checkUserType($country, $city, false);
+        $hasOrganizations = $userRepository->checkUserType($country, $city, true);
 
         return $this->render('language/show.html.twig', [
-            'language'      => $language,
-            'userLanguages' => $userLanguages,
-            'countries'     => $countries,
-            'city'          => $city,
-            'cities'        => $cities,
-            'country'       => $country,
-            'paginate'      => $paginate,
+            'language'         => $language,
+            'userLanguages'    => $userLanguages,
+            'countries'        => $countries,
+            'city'             => $city,
+            'cities'           => $cities,
+            'country'          => $country,
+            'paginate'         => $paginate,
+            'userType'         => $userType,
+            'hasUsers'         => $hasUsers,
+            'hasOrganizations' => $hasOrganizations,
         ]);
     }
 }

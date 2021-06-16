@@ -59,14 +59,14 @@ class CityRepository extends AbstractBaseRepository
         return $cities;
     }
 
-    public function findAllCitiesByLanguage(Language $language, ?Country $country): array
+    public function findAllCitiesByLanguage(Language $language, ?Country $country, ?int $userTypeFilter): array
     {
-        $cacheKey = $this->getCacheAdapter()->getItem($language->getSlug() . '-all-cities');
+        $cacheKey = $this->getCacheAdapter()->getItem($language->getSlug() . '-all-cities' . ($userTypeFilter ? '-' . $userTypeFilter : ''));
 
         if ($cacheKey->isHit()) {
             $cities = $cacheKey->get();
         } else {
-            $cities = $this->createQueryBuilder('c')
+            $qb = $this->createQueryBuilder('c')
                 ->select('c')
                 ->join('c.users', 'u')
                 ->join('u.userLanguages', 'ul')
@@ -74,12 +74,20 @@ class CityRepository extends AbstractBaseRepository
                 ->andWhere('loc.country = :country')
                 ->setParameter('country', $country)
                 ->andWhere('ul.language = :language')
-                ->setParameter('language', $language)
-                ->andWhere('ul.stars > 0')
+                ->setParameter('language', $language);
+
+            if ($userTypeFilter) {
+                $qb->andWhere('u.organization = :isOrga')
+                    ->setParameter('isOrga', $userTypeFilter);
+            }
+
+            $qb->andWhere('ul.stars > 0')
                 ->groupBy('c.id')
                 ->orderBy('c.slug')
                 ->getQuery()
                 ->getResult();
+
+            $cities = $qb->getQuery()->getResult();
 
             $cacheKey->set($cities);
             $cacheKey->expiresAfter(1);

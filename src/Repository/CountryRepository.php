@@ -46,24 +46,32 @@ class CountryRepository extends AbstractBaseRepository
         return $countries;
     }
 
-    public function findAllCountriesByLanguage(Language $language): array
+    public function findAllCountriesByLanguage(Language $language, ?int $userTypeFilter): array
     {
-        $cacheKey = $this->getCacheAdapter()->getItem($language->getSlug() . '-all-countries');
+        $cacheKey = $this->getCacheAdapter()->getItem($language->getSlug() . '-all-countries' . ($userTypeFilter ? '-' . $userTypeFilter : ''));
 
         if ($cacheKey->isHit()) {
             $countries = $cacheKey->get();
         } else {
-            $countries = $this->createQueryBuilder('c')
+            $qb = $this->createQueryBuilder('c')
                 ->select('c')
                 ->join('c.users', 'u')
                 ->join('u.userLanguages', 'ul')
                 ->andWhere('ul.language = :language')
-                ->setParameter('language', $language)
-                ->andWhere('ul.stars > 0')
+                ->setParameter('language', $language);
+
+            if ($userTypeFilter) {
+                $qb->andWhere('u.organization = :isOrga')
+                    ->setParameter('isOrga', $userTypeFilter);
+            }
+
+            $qb->andWhere('ul.stars > 0')
                 ->groupBy('c.id')
                 ->orderBy('c.slug')
                 ->getQuery()
                 ->getResult();
+
+            $countries = $qb->getQuery()->getResult();
 
             $cacheKey->set($countries);
             $cacheKey->expiresAfter(600);
