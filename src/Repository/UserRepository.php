@@ -181,4 +181,12 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             'id'
         );
     }
+
+    public function countUsers(): int
+    {
+        return (int) $this->createQueryBuilder('u')
+                 ->select('COUNT(u.id)')
+                 ->getQuery()
+                 ->getSingleScalarResult();
+    }
 }

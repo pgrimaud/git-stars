@@ -111,7 +111,7 @@ class UserController extends AbstractController
         return $this->render('user/show.html.twig', [
             'user'          => $user,
             'userLanguages' => $userLanguages,
-            'worldRank'     => $worldRank[0],
+            'worldRank'     => $worldRank,
         ]);
     }
 

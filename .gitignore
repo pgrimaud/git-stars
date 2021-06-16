@@ -16,3 +16,5 @@
 cghooks.lock
 gc-key.json
 
+!public/avatars/.gitkeep
+public/avatars
