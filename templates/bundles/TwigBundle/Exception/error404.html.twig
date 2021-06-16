@@ -26,12 +26,12 @@
                     </label>
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <form name="search" method="post">
+                            {{ form_start(search_form, {'attr': {'action' : path('app_index')}}) }}
                                 <div class="input-group mb-3">
-                                    <input type="text" id="search_username" name="search[username]" required="required" class="form-control"/>
+                                    {{ form_widget(search_form.username, {'attr' : {'class' : 'form-control'}}) }}
                                     <button type="submit" class="btn-git" aria-label="Search"><i class="fas fa-search"></i></button>
                                 </div>
-                            </form>
+                            {{ form_end(search_form) }}
                         </div>
                     </div>
 
