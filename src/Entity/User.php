@@ -90,6 +90,11 @@ class User implements UserInterface
      */
     private ?string $location = null;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $twitterHandle;
+
     public function __construct()
     {
         $this->userLanguages = new ArrayCollection();
@@ -289,6 +294,18 @@ class User implements UserInterface
     public function setLocation(?string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getTwitterHandle(): ?string
+    {
+        return $this->twitterHandle;
+    }
+
+    public function setTwitterHandle(?string $twitterHandle): self
+    {
+        $this->twitterHandle = $twitterHandle;
 
         return $this;
     }

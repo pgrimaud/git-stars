@@ -102,6 +102,7 @@ class UserService
         $user->setLocation($githubUser['location']);
         $user->setName((string) $githubUser['name']);
         $user->setOrganization($githubUser['type'] !== 'User');
+        $user->setTwitterHandle($githubUser['twitter_username']);
 
         $this->manager->persist($user);
         $this->manager->flush();

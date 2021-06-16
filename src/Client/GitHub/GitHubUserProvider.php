@@ -46,6 +46,7 @@ class GitHubUserProvider extends OAuthUserProvider
             $user->setLocation('');
             $user->setOrganization($response->getData()['type'] !== 'User');
             $user->setStatus(User::STATUS_IDLE);
+            $user->setTwitterHandle($response->getData()['twitter_username']);
         }
 
         $user->setAccessToken($response->getAccessToken());
