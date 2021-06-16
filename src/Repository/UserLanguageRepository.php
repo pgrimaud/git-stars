@@ -27,7 +27,7 @@ class UserLanguageRepository extends AbstractBaseRepository
     public function findUserByLanguage(Language $language, ?Country $country, ?City $city, int $start, ?int $userTypeFilter): array
     {
         $query = $this->createQueryBuilder('ul')
-            ->select('ul.stars', 'u.username', 'u.githubId', 'u.name', 'u.organization')
+            ->select('ul.stars', 'u.username', 'u.githubId', 'u.name', 'u.organization', 'u.twitterHandle')
             ->join('ul.user', 'u')
             ->andWhere('ul.language = :language')
             ->setParameter('language', $language)
