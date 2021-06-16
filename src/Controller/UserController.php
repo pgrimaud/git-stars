@@ -35,9 +35,9 @@ class UserController extends AbstractController
         $userTypeFilter = null;
         if ($userType = $request->get('type')) {
             match ($userType) {
-                'users'         => $userTypeFilter = 0,
+                'users'         => $userTypeFilter         = 0,
                 'organizations' => $userTypeFilter = 1,
-                default         => $userTypeFilter = null,
+                default         => $userTypeFilter         = null,
             };
         }
 
@@ -101,6 +101,8 @@ class UserController extends AbstractController
 
         $userLanguages = $rankingService->getRankingLanguage($user);
 
+        $worldRank = $rankingService->getRankingGlobal($user);
+
         // user is not ranked yet?
         if ($userLanguages === []) {
             $userLanguages = $userLanguageRepository->findLanguageByUser($user);
@@ -109,6 +111,7 @@ class UserController extends AbstractController
         return $this->render('user/show.html.twig', [
             'user'          => $user,
             'userLanguages' => $userLanguages,
+            'worldRank'     => $worldRank[0],
         ]);
     }
 

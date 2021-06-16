@@ -24,4 +24,14 @@ class RankingService
 
         return $statement->fetchAllAssociative();
     }
+
+    public function getRankingGlobal(User $user): array
+    {
+        $statement = $this->em->getConnection()->executeQuery(
+            'SELECT * FROM ranking_global
+             WHERE user_id=' . $user->getId()
+        );
+
+        return $statement->fetchAllAssociative();
+    }
 }

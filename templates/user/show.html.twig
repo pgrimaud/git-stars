@@ -43,8 +43,8 @@
                                 </div>
                             {% endif %}
                             <p class="text-muted font-size-sm mt-3">Last updated : {{ user.updated|date('h:iA')}} UTC, {{ user.updated|date('M jS Y')}}</p>
-                            <p class="h3 fw-bold">{{ user.totalStars }} <i class="fas fa-star text-warning"></i></p>
-                            <p class="h3 fw-bold">#1 🌐</p>
+                            <p class="h3 fw-bold">{{ worldRank.stars }} <i class="fas fa-star text-warning"></i></p>
+                            <p class="h3 fw-bold">#{{ worldRank.rank }} 🌐</p>
                         </div>
                     </div>
                 </div>
