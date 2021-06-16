@@ -39,12 +39,18 @@ class ShareController extends AbstractController
 
         $picture = $this->generateUrl('app_index', [], UrlGeneratorInterface::ABSOLUTE_URL) . 'avatars/' . $user->getGithubId() . '.jpg';
 
-        return $this->render('partials/sharer-svg.html.twig', [
-            'user'          => $user,
-            'globalRanking' => $rankingService->getRankingGlobal($user),
-            'totalUsers'    => $userRepository->countUsers(),
-            'topLanguage'   => $rankingService->getTopLanguage($user),
-            'picture'       => $picture,
-        ]);
+        $response = new Response(
+            $this->renderView('partials/sharer-svg.html.twig', [
+                'user'          => $user,
+                'globalRanking' => $rankingService->getRankingGlobal($user),
+                'totalUsers'    => $userRepository->countUsers(),
+                'topLanguage'   => $rankingService->getTopLanguage($user),
+                'picture'       => $picture,
+            ])
+        );
+
+        $response->headers->set('Content-Type', 'image/svg+xml; charset=utf-8');
+
+        return $response;
     }
 }
