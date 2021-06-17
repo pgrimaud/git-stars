@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="member-info w-25">
-            <h3 class="fs-5 fw-bold">
+            <h3 class="fs-5 fw-bold mb-0">
                 <a href="{{ path('languages_show', {'slug' : language.slug}) }}" title="User ranking for {{ language.name }} language">
                     {{ language.name }}
                 </a>
@@ -34,7 +34,7 @@
                     </a>
                 </p>
             {% else %}
-                <p class="fw-bold mt-4">Ranking calculation in progress...</p>
+                <p class="fw-bold">Ranking calculation in progress...</p>
             {% endif %}
         </div>
         <div class="w-25">
