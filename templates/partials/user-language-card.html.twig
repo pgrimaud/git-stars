@@ -15,7 +15,7 @@
         <div class="w-lg-25">
             {% if language.rank_world is defined %}
                 <p class="fw-bold">Ranking:</p>
-                <p><i class="fas fa-trophy rank-{{ language.rank_world }}"></i> World: <span class="fw-bold">{{ language.rank_world }}</span> / {{ language.total_user_world }}</p>
+                <p><i class="fas fa-trophy rank-{{ language.rank_world }}"></i> <a href="{{ path('languages_show', {'slug': language.slug }) }}">World:</a> <span class="fw-bold">{{ language.rank_world }}</span> / {{ language.total_user_world }}</p>
                 {% if language.rank_country %}
                     <p>
                         <i class="fas fa-trophy rank-{{ language.rank_country }}"></i> <a href="{{ path('languages_show', {'slug': language.slug })}}?country={{ country.slug }}">{{ country.name }} {{ get_flag(country.isoCode) }}:</a>

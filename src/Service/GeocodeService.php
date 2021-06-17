@@ -40,6 +40,11 @@ class GeocodeService
             $existingLocation = new Location();
             $existingLocation->setName($location);
 
+            // quick fix for "US" in location
+            if (strtolower($location) == 'us') {
+                $location = 'United States of America';
+            }
+
             $result = $this->geocodeClient->findLocation(urlencode($location));
 
             $apiCountry = null;
