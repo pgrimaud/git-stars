@@ -6,13 +6,13 @@
     </style>
 
     <g transform="translate(25,40) scale(4.5,4.5)">
-        <path d="M11.5 3L13.4868 6.97862L18 7.58372L14.7153 10.6476L15.517 15L11.5 12.9145L7.48246 15L8.28467 10.6476L5 7.58372L9.51317 6.97862L11.5 3Z" fill="#FFC107"/>
+        <path d="M11.5 3L13.4868 6.97862L18 7.58372L14.7153 10.6476L15.517 15L11.5 12.9145L7.48246 15L8.28467 10.6476L5 7.58372L9.51317 6.97862L11.5 3Z" fill="#FFC107" stroke="none"/>
     </g>
 
-    <text x="120" y="110" class="fw-bold" font-size="70px" fill="black">Git Stars</text>
+    <text x="120" y="110" class="fw-bold" font-size="70px" fill="black" stroke="none">Git Stars</text>
 
-    <text x="120" y="210" font-size="45px" fill="black">Total Stars</text>
-    <text x="205" y="270" class="fw-bold" font-size="40px" fill="black">
+    <text x="120" y="210" font-size="45px" fill="black" stroke="none">Total Stars</text>
+    <text x="205" y="270" class="fw-bold" font-size="40px" fill="black" stroke="none">
         {% if globalRanking.stars is defined %}
             {{ globalRanking.stars|number_format(0, '.', ' ')|raw }}
         {% else %}
@@ -20,9 +20,9 @@
         {% endif %}
     </text>
 
-    <text x="120" y="350" font-size="45px" fill="black">World Ranking</text>
+    <text x="120" y="350" font-size="45px" fill="black" stroke="none">World Ranking</text>
 
-    <text x="210" y="410" font-size="40px" fill="black" class="fw-bold">
+    <text x="210" y="410" font-size="40px" fill="black" class="fw-bold" stroke="none">
         {% if globalRanking.rank is defined %}
             {{ globalRanking.rank|number_format(0, '.', ' ')|raw }} / {{ totalUsers|number_format(0, '.', ' ')|raw }}
         {% else %}
@@ -30,16 +30,16 @@
         {% endif %}
     </text>
 
-    <text x="120" y="490" font-size="45px" fill="black">Top Language</text>
+    <text x="120" y="490" font-size="45px" fill="black" stroke="none">Top Language</text>
 
     {% if topLanguage.color is defined %}
         <circle cx="230" cy="532" r="20" stroke="#d8d8d8" stroke-width="1" fill="{{ topLanguage.color }}" />
     {% endif %}
 
     {% if topLanguage.color is defined %}
-        <text x="265" y="545" class="fw-bold" font-size="40px" fill="black">{{ topLanguage.name }}</text>
+        <text x="265" y="545" class="fw-bold" font-size="40px" fill="black" stroke="none">{{ topLanguage.name }}</text>
     {% else %}
-        <text x="210" y="550" class="fw-bold" font-size="40px" fill="black">Calculation in progress...</text>
+        <text x="210" y="550" class="fw-bold" font-size="40px" fill="black" stroke="none">Calculation in progress...</text>
     {% endif %}
 
     <svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
@@ -52,8 +52,8 @@
 
     <svg viewBox="-625 -460 600 70" width="600" height="70">
         <!--<rect x="0" y="0" width="600" height="70" fill="red"/>-->
-        <text x="50%" y="50%" font-size="35px" class="fw-bold" dominant-baseline="middle" text-anchor="middle">@{{ user.username }}</text>
+        <text x="50%" y="50%" font-size="35px" class="fw-bold" dominant-baseline="middle" text-anchor="middle" stroke="none">@{{ user.username }}</text>
     </svg>
 
-    <text x="1100" y="585" font-size="25px" fill="#d8d8d8" class="fw-bold" dominant-baseline="middle" text-anchor="middle">git-stars.com</text>
+    <text x="1090" y="575" font-size="25px" fill="#d8d8d8" class="fw-bold" dominant-baseline="middle" text-anchor="middle" stroke="none">git-stars.com</text>
 </svg>
