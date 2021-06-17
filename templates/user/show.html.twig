@@ -32,12 +32,12 @@
                         <div class="col-12 d-flex justify-content-end">
                             <p class="fs-6">
                                 Share:
-                                <a href="https://twitter.com/intent/tweet?text=Check%20out%20{% if user.twitterHandle is not null %}@{{ user.twitterHandle }}{% else %}{{ user.name }}{% endif %}%27s%20GitHub%20ranking%20on%20Git%20Stars!&url=https%3A%2F%2Fgit-stars.com/{{ user.username }}%2F&hashtags=GitHub" target="_blank">
+                                <a title="Share on Twitter" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?text=Check%20out%20{% if user.twitterHandle is not null %}@{{ user.twitterHandle }}{% else %}{{ user.name }}{% endif %}%27s%20GitHub%20ranking%20on%20Git%20Stars!&url=https%3A%2F%2Fgit-stars.com/{{ user.username }}%2F&hashtags=GitHub" target="_blank">
                                     <i class="fab fa-twitter-square text-primary fs-3"></i>
                                 </a>
                             </p>
                         </div>
-                        <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4&s=111" alt="{{ user.username }}" class="{% if user.organization == false %}rounded-circle{% endif %} user-picture-main">
+                        <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4&s=150" alt="{{ user.username }}" class="{% if user.organization == false %}rounded-circle{% endif %} user-picture-main">
                         <div class="mt-3">
                             {% if user.name != null %}
                                 <h2>{{ user.name }}{% if user.organization %} <i class="fas fa-building"></i>{% endif %}</h2>
