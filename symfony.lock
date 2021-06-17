@@ -20,6 +20,9 @@
     "composer/xdebug-handler": {
         "version": "2.0.1"
     },
+    "dg/twitter-php": {
+        "version": "v4.1.2"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
