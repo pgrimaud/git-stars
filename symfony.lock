@@ -182,12 +182,6 @@
     "laminas/laminas-code": {
         "version": "4.3.0"
     },
-    "laminas/laminas-eventmanager": {
-        "version": "3.3.1"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.2.0"
-    },
     "league/iso3166": {
         "version": "3.0.0"
     },
