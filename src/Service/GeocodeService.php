@@ -40,9 +40,11 @@ class GeocodeService
             $existingLocation = new Location();
             $existingLocation->setName($location);
 
-            // quick fix for "US" in location
-            if (strtolower($location) == 'us') {
-                $location = 'United States of America';
+            $location = $this->fixLocation($location);
+
+//          Return if location doesn't exist
+            if ($location === null) {
+                return;
             }
 
             $result = $this->geocodeClient->findLocation(urlencode($location));
@@ -130,5 +132,14 @@ class GeocodeService
         }
 
         return $country;
+    }
+
+    private function fixLocation(string $location): ?string
+    {
+        return match (strtolower($location)) {
+            'us'           => 'United States of America',
+            'the internet' => null,
+            default        => $location
+        };
     }
 }
