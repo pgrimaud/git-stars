@@ -4,6 +4,10 @@
 
 {% block description %}Check out {{ user.username }}'s GitHub stats and see how they rank in stargazers count.{% endblock %}
 
+{% block metaImage %}{{ url('share_meta', {'username': user.username}) }}{% endblock %}
+{% block metaSummary %}summary_large_image{% endblock %}
+{% block metaOgImageWidth %}<meta property="og:image:width" content="1200" /><meta property="og:image:height" content="600" />{% endblock %}
+
 {% block breadcrumb %}
     {% include 'partials/breadcrumbs.html.twig' with {
         'links' : [
@@ -51,8 +55,10 @@
                                 </div>
                             {% endif %}
                             <p class="text-muted font-size-sm mt-3">Last updated : {{ user.updated|date('h:iA')}} UTC, {{ user.updated|date('M jS Y')}}</p>
-                            <p class="h3 fw-bold">{{ worldRank.stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></p>
-                            <p class="h3 fw-bold">#{{ worldRank.rank|number_format(0, '.', '&nbsp;')|raw }} 🌍</p>
+                            {% if worldRank.stars is defined %}
+                                <p class="h3 fw-bold">{{ worldRank.stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></p>
+                                <p class="h3 fw-bold">#{{ worldRank.rank|number_format(0, '.', '&nbsp;')|raw }} 🌍</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

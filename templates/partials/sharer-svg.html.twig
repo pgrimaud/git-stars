@@ -27,31 +27,32 @@
 
     <text>
         <tspan x="30" y="60">
-            Total Stars : <tspan class="fw-bold">{{ globalRanking.stars|number_format(0, '.', ' ')|raw }}</tspan>
+            Total Stars : <tspan class="fw-bold">{% if globalRanking.stars is defined %}{{ globalRanking.stars|number_format(0, '.', ' ')|raw }}{% else %}Calculation in progress...{% endif %}</tspan>
         </tspan>
     </text>
 
     <text>
         <tspan x="30" y="90">
-            World Ranking : <tspan class="fw-bold">{{ globalRanking.rank|number_format(0, '.', ' ')|raw }}</tspan> / {{ totalUsers|number_format(0, '.', ' ')|raw }}
+            World Ranking : {% if globalRanking.rank is defined %}<tspan class="fw-bold">{{ globalRanking.rank|number_format(0, '.', ' ')|raw }}</tspan> / {{ totalUsers|number_format(0, '.', ' ')|raw }}{% else %}<tspan class="fw-bold">Calculation in progress...</tspan>{% endif %}
         </tspan>
     </text>
 
     <text>
         <tspan x="30" y="120">
-            Top Language : <tspan class="fw-bold" x="155" y="121">{{ topLanguage.name }}
-        </tspan>
+            Top Language : {% if topLanguage.name is defined %}<tspan class="fw-bold" x="155" y="121">{{ topLanguage.name }}</tspan>{% else %}<tspan class="fw-bold">Calculation in progress...</tspan>{% endif %}
         </tspan>
     </text>
 
+    {% if topLanguage.name is defined %}
     <svg height="20" width="20" x="131" y="106">
         <circle cx="10" cy="10" r="8" stroke="#d8d8d8" stroke-width="1" fill="{{ topLanguage.color }}" />
     </svg>
+    {% endif %}
 
     <svg width="150" height="30" x="295" y="103">
         <rect x="0" y="0" width="150" height="30"/>
         <text x="50%" y="50%" class="fw-bold fs-12" dominant-baseline="middle" text-anchor="middle">@{{ user.username }}</text>
     </svg>
 
-    <image x="325" y="15" href="data:image/png;base64,{{ picture }}" height="90" width="90"/>
+    <image x="325" y="15" href="data:image/jpg;base64,{{ picture }}" height="90" width="90"/>
 </svg>

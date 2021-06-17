@@ -11,20 +11,21 @@
 
         {% block canonical %}{% endblock %}
 
-        <meta name="twitter:card" content="summary">
+        <meta name="twitter:card" content="{% block metaSummary %}summary{% endblock %}">
         <meta name="twitter:site" content="@pgrimaud_">
         <meta name="twitter:title" content="Git Stars - {{ block('title') }}">
         <meta name="twitter:description" content="{{ block('description') }}">
         <meta name="twitter:creator" content="@pgrimaud_">
-        <meta name="twitter:image" content="{{ url('app_index') ~ ('favicon-original.png') }}">
+        <meta name="twitter:image" content="{% block metaImage %}{{ url('app_index') ~ ('favicon-original.png') }}{% endblock %}">
 
         <meta property="og:title" content="Git Stars - {{ block('title') }}" />
         <meta property="og:description" content="{{ block('description') }}"/>
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{{ app.request.uri }}" />
-        <meta property="og:image" content="{{ url('app_index') ~ ('favicon-original.png') }}" />
+        <meta property="og:image" content="{{ block('metaImage') }}" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Git Stars" />
+        {% block metaOgImageWidth %}{% endblock %}
 
         <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
