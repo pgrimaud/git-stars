@@ -9,9 +9,9 @@
 # General
 --------------------------------------------------------------*/
 :root {
-  --main-color: #091EE7;
-  --second-color: #6075E0;
-  --third-color: #6075E0;
+  --main-color: #d9232d;
+  --second-color: #e24d55;
+  --third-color: #e24d55;
 }
 
 body {
@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 5px;
 }
 
-.navbar a:hover, .navbar .active, .navbar li:hover > a {
+.navbar a:hover, .navbar .active, .navbar li:hover > a:not(.getstarted) {
   color: var(--main-color);
 }
 

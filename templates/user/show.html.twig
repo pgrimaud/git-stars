@@ -37,7 +37,7 @@
                                 </a>
                             </p>
                         </div>
-                        <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4" alt="{{ user.username }}" class="{% if user.organization == false %}rounded-circle{% endif %} user-picture-main">
+                        <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4&s=160" alt="{{ user.username }}" class="{% if user.organization == false %}rounded-circle{% endif %} user-picture-main">
                         <div class="mt-3">
                             {% if user.name != null %}
                                 <h2>{{ user.name }}{% if user.organization %} <i class="fas fa-building"></i>{% endif %}</h2>
