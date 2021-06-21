@@ -901,7 +901,6 @@ section {
 .pic {
   overflow: hidden;
   width: 140px;
-  border-radius: 4px;
 }
 
 .member .member-info {
@@ -2118,6 +2117,7 @@ section {
 .user-picture{
   height: 111px;
   width: 111px;
+  border-radius: 4px;
 }
 
 .user-picture-main{
