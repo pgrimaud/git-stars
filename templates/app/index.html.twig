@@ -21,7 +21,7 @@
             <p class="mb-0">
                 <b>Update 2021/06/21</b> :<br> This website was just released and our database is still filling up by fetching data from GitHub.
                 During this process, the website may be a bit slow and the rankings may not be accurate yet.
-                <br><br>We currently have <b>{{ totalUsers |number_format(0, '.', '&nbsp;')|raw  }}</b> users in our database.
+                <br><br>We currently have <b class="users-counter">{{ totalUsers |number_format(0, '.', '&nbsp;')|raw  }}</b> users in our database.
             </p>
         </div>
     </div>
@@ -174,4 +174,19 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        function getStatus() {
+            fetch('{{ path('app_index_count') }}')
+                .then(function (response) {
+                    return response.json()
+                        .then(function (json) {
+                           document.querySelector('.users-counter').innerHTML = json
+                        })
+                })
+        }
+        setInterval(getStatus, 1000)
+    </script>
 {% endblock %}
