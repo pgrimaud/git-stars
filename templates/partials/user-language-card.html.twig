@@ -29,7 +29,12 @@
                     </p>
                 {% endif %}
                 <p>
-                    <i class="fas fa-book"></i> <a href="https://github.com/{{ user.username }}?tab=repositories&q=&type=&language={{ language.slug }}&sort=stargazers" target="_blank" rel="noopener noreferrer">
+                    {% if user.organization %}
+                        {% set reposLink = 'https://github.com/' ~ user.username ~ '?q=&type=&language=' ~ language.slug ~'&sort=stargazers#org-repositories' %}
+                    {% else %}
+                        {% set reposLink = 'https://github.com/' ~ user.username ~ '?tab=repositories&q=&type=&language=' ~ language.slug ~'&sort=stargazers' %}
+                    {% endif %}
+                    <i class="fas fa-book"></i> <a href="" target="_blank" rel="noopener noreferrer">
                          {{ language.repositories }} repositor{% if language.repositories == 1 %}y{% else %}ies{% endif %}
                     </a>
                 </p>

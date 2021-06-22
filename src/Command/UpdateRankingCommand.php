@@ -44,7 +44,7 @@ class UpdateRankingCommand extends Command
         // add index
         $this->em->getConnection()->executeQuery('CREATE INDEX ranks_language_id ON ranking_language(language_id) USING HASH;');
 
-        $io->success('Ranking language have been updated');
+        $io->success('Ranking language has been updated');
 
         $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_user_language;');
 
@@ -95,7 +95,7 @@ class UpdateRankingCommand extends Command
         // add index
         $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_user_language(user_id) USING HASH;');
 
-        $io->success('Ranking language have been updated');
+        $io->success('Ranking language has been updated');
 
         $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_global;');
 
@@ -114,7 +114,7 @@ class UpdateRankingCommand extends Command
         // add index
         $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_global(user_id) USING HASH;');
 
-        $io->success('Ranking global have been updated');
+        $io->success('Ranking global has been updated');
 
         return Command::SUCCESS;
     }
