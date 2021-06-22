@@ -183,7 +183,7 @@
                 .then(function (response) {
                     return response.json()
                         .then(function (json) {
-                           document.querySelector('.users-counter').innerHTML = json
+                           document.querySelector('.users-counter').innerHTML = json.frames[0].text
                         })
                 })
         }

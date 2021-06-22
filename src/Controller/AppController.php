@@ -85,11 +85,19 @@ class AppController extends AbstractController
         return $this->render('app/about.html.twig');
     }
 
-    #[Route('/count.json', name: 'app_index_count', methods: ['GET'])]
+    #[Route('/count-users.json', name: 'app_index_count', methods: ['GET'])]
     public function countUsers(UserRepository $userRepository): Response
     {
         return $this->json(
-            number_format($userRepository->count([]), 0, '', ' ')
+            [
+                'frames' => [
+                    [
+                        'index' => 0,
+                        'text'  => number_format($userRepository->count([]), 0, '', ' '),
+                        'icon'  => null,
+                    ],
+                ],
+            ]
         );
     }
 }
