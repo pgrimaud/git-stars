@@ -66,6 +66,8 @@ class AppController extends AbstractController
         $topToday     = $userRepository->getTodayTop();
         $topLanguages = $languageRepository->getTopLanguages(3);
 
+        $totalUsers = $userRepository->count([]);
+
         return $this->render('app/index.html.twig', [
             'search_form'  => $form->createView(),
             'search_error' => $searchError,
@@ -73,6 +75,7 @@ class AppController extends AbstractController
             'topCorps'     => $topCorps,
             'topToday'     => $topToday,
             'topLanguages' => $topLanguages,
+            'totalUsers'   => $totalUsers,
         ]);
     }
 
