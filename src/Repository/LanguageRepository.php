@@ -56,13 +56,26 @@ class LanguageRepository extends AbstractBaseRepository
 
     public function getTopLanguages(int $limit): array
     {
-        return $this->createQueryBuilder('l')
-            ->select('l', 'sum(ul.stars) as stars')
-            ->join('l.userLanguages', 'ul')
-            ->orderBy('stars', 'DESC')
-            ->groupBy('l.id')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+        $cacheKey = $this->getCacheAdapter()->getItem('top-languages');
+
+        if ($cacheKey->isHit()) {
+            $topLanguages = $cacheKey->get();
+        } else {
+            $topLanguages = $this->createQueryBuilder('l')
+                ->select('l', 'sum(ul.stars) as stars')
+                ->join('l.userLanguages', 'ul')
+                ->orderBy('stars', 'DESC')
+                ->groupBy('l.id')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult();
+
+            $cacheKey->set($topLanguages);
+            $cacheKey->expiresAfter(3600);
+
+            $this->getCacheAdapter()->save($cacheKey);
+        }
+
+        return $topLanguages;
     }
 }
