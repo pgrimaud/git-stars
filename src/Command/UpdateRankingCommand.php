@@ -32,7 +32,23 @@ class UpdateRankingCommand extends Command
 
         $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_language;');
 
-        $createTable = 'CREATE TABLE ranking_language AS
+        $createTableGlobal = 'CREATE TABLE ranking_language AS 
+                                  SELECT l.id as language_id, SUM(ul.stars) as stars
+                                  FROM language l
+                                  INNER JOIN user_language ul ON l.id = ul.language_id 
+                                  GROUP BY l.id 
+                                  ORDER BY sum(ul.stars) DESC;';
+
+        $this->em->getConnection()->executeQuery($createTableGlobal);
+
+        // add index
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_language_id ON ranking_language(language_id) USING HASH;');
+
+        $io->success('Ranking language have been updated');
+
+        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_user_language;');
+
+        $createTable = 'CREATE TABLE ranking_user_language AS
 
                         SELECT t1.*, t4.total_user_world, t2.total_user_country, t3.total_user_city
                         FROM (
@@ -77,7 +93,7 @@ class UpdateRankingCommand extends Command
         $this->em->getConnection()->executeQuery($createTable);
 
         // add index
-        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_language(user_id) USING HASH;');
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_user_language(user_id) USING HASH;');
 
         $io->success('Ranking language have been updated');
 
