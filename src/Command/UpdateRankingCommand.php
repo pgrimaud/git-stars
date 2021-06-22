@@ -84,11 +84,14 @@ class UpdateRankingCommand extends Command
         $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_global;');
 
         $createTableGlobal = 'CREATE TABLE ranking_global AS
-                                SELECT user_id, SUM(stars) as stars, 
-                                ROUND(sum(stars) + (1.0 - 1.0/sum(repositories)), 2) AS score,
+                                SELECT user_id, SUM(user_language.stars) as stars, 
+                                ROUND(sum(user_language.stars) + (1.0 - 1.0/sum(user_language.repositories)), 2) AS score,
+                                user.organization as is_orga,
                                 row_number() OVER (ORDER BY score DESC) as rank
                                 FROM user_language 
-                                GROUP BY user_id;';
+                                RIGHT JOIN user on user_language.user_id = user.id
+                                GROUP BY user_id
+                                ORDER BY rank ASC;';
 
         $this->em->getConnection()->executeQuery($createTableGlobal);
 

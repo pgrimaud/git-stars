@@ -47,23 +47,23 @@
                         {% for topU in topUsers %}
                             <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
                                 <div class="pic w-25">
-                                    <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
-                                        <img src="https://avatars.githubusercontent.com/u/{{ topU[0].githubId }}?v=4&s=60" class="rounded wd-60" alt="User {{ topU[0].username }}">
+                                    <a href="{{ path('user_show', {'username' : topU.username}) }}">
+                                        <img src="https://avatars.githubusercontent.com/u/{{ topU.github_id }}?v=4&s=60" class="rounded wd-60" alt="User {{ topU.username }}">
                                     </a>
                                 </div>
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold">
-                                        {% if topU[0].name != null %}
-                                            <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
-                                                {{ topU[0].name }}
+                                        {% if topU.name != null %}
+                                            <a href="{{ path('user_show', {'username' : topU.username}) }}">
+                                                {{ topU.name }}
                                             </a>
                                         {% else %}
-                                            <a href="{{ path('user_show', {'username' : topU[0].username}) }}">
-                                                {{ topU[0].username }}
+                                            <a href="{{ path('user_show', {'username' : topU.username}) }}">
+                                                {{ topU.username }}
                                             </a>
                                         {% endif %}
                                     </div>
-                                    <p class="mb-0">@{{ topU[0].username }}</p>
+                                    <p class="mb-0">@{{ topU.username }}</p>
                                 </div>
                                 <div class="w-25">
                                     <p class="text-end mb-0">
@@ -83,24 +83,24 @@
                         {% for topC in topCorps %}
                             <div class="list-group-item d-flex justify-content-around align-items-center col mb-1">
                                 <div class="pic w-25">
-                                    <a href="{{ path('user_show', {'username' : topC[0].username}) }}">
-                                        <img src="https://avatars.githubusercontent.com/u/{{ topC[0].githubId }}?v=4&s=60" class="rounded wd-60" alt="Organization {{ topC[0].username }}">
+                                    <a href="{{ path('user_show', {'username' : topC.username}) }}">
+                                        <img src="https://avatars.githubusercontent.com/u/{{ topC.github_id }}?v=4&s=60" class="rounded wd-60" alt="Organization {{ topC.username }}">
                                     </a>
                                 </div>
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold">
-                                        {% if topC[0].name != null %}
-                                            <a href="{{ path('user_show', {'username' : topC[0].username}) }}">
-                                                {{ topC[0].name }}
+                                        {% if topC.name != null %}
+                                            <a href="{{ path('user_show', {'username' : topC.username}) }}">
+                                                {{ topC.name }}
                                             </a>
                                         {% else %}
-                                            <a href="{{ path('user_show', {'username' : topC[0].username}) }}">
-                                                {{ topC[0].username }}
+                                            <a href="{{ path('user_show', {'username' : topC.username}) }}">
+                                                {{ topC.username }}
                                             </a>
                                         {% endif %}
 
                                     </div>
-                                    <p class="mb-0">@{{ topC[0].username }}</p>
+                                    <p class="mb-0">@{{ topC.username }}</p>
                                 </div>
                                 <div class="w-25">
                                     <p class="text-end mb-0">

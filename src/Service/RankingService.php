@@ -50,4 +50,17 @@ class RankingService
 
         return (array) $statement->fetchAssociative();
     }
+
+    public function getTopUsers(int $isOrga): array
+    {
+        $statement = $this->em->getConnection()->executeQuery(
+            'SELECT u.*, rg.stars 
+             FROM ranking_global rg
+             LEFT JOIN user u on rg.user_id = u.id
+             WHERE rg.is_orga = ' . $isOrga . '
+             LIMIT 3'
+        );
+
+        return (array) $statement->fetchAllAssociative();
+    }
 }

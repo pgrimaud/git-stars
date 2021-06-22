@@ -9,6 +9,7 @@ use App\Form\Model\SearchUser;
 use App\Form\SearchUserType;
 use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
+use App\Service\RankingService;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,7 @@ class AppController extends AbstractController
         Request $request,
         UserRepository $userRepository,
         LanguageRepository $languageRepository,
+        RankingService $rankingService,
         UserService $userService
     ): Response {
         $searchError = null;
@@ -59,8 +61,8 @@ class AppController extends AbstractController
             }
         }
 
-        $topUsers     = $userRepository->getTopUsers(3, false);
-        $topCorps     = $userRepository->getTopUsers(3, true);
+        $topUsers     = $rankingService->getTopUsers(0);
+        $topCorps     = $rankingService->getTopUsers(1);
         $topToday     = $userRepository->getTodayTop();
         $topLanguages = $languageRepository->getTopLanguages(3);
 
