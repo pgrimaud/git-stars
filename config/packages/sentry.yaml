@@ -9,4 +9,5 @@ services:
         arguments:
             $options:
                 ignore_exceptions:
-                    - NotFoundHttpException
+                    - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                    - Symfony\Component\Console\Exception\CommandNotFoundException
