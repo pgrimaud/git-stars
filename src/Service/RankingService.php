@@ -92,4 +92,15 @@ class RankingService
 
         return (array) $statement->fetchAllAssociative();
     }
+
+    public function getLanguageNames(): array
+    {
+        $query = 'SELECT l.name
+                    FROM ranking_language rl INNER JOIN language l on rl.language_id = l.id
+                    ORDER BY rl.id ASC';
+
+        $statement = $this->em->getConnection()->executeQuery($query);
+
+        return (array) $statement->fetchAllAssociative();
+    }
 }

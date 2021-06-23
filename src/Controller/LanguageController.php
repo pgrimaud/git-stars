@@ -41,7 +41,7 @@ class LanguageController extends AbstractController
 
         $languages = $rankingService->findAllLanguagesByStars($start);
 
-        $languageArray = $this->languageRepository->getArrayOfNames();
+        $languageArray = $rankingService->getLanguageNames();
 
         $searchForm = $this->createForm(SearchLanguageType::class, new SearchLanguage());
 

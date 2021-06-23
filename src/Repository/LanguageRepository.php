@@ -43,17 +43,6 @@ class LanguageRepository extends AbstractBaseRepository
             ->getResult();
     }
 
-    public function getArrayOfNames(): array
-    {
-        return array_column($this->createQueryBuilder('l', 'l.name')
-            ->select('l.name')
-            ->join('l.userLanguages', 'ul')
-            ->groupBy('l.id')
-            ->orderBy('sum(ul.stars)', 'DESC')
-            ->getQuery()
-            ->getArrayResult(), 'name');
-    }
-
     public function getTopLanguages(int $limit): array
     {
         $cacheKey = $this->getCacheAdapter()->getItem('top-languages');
