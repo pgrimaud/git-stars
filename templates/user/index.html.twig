@@ -71,7 +71,7 @@
 
         <div class="row">
             {% for user in users %}
-                {% include 'partials/user-card.html.twig' with {'user' : user[0], 'stars': user.stars} %}
+                {% include 'partials/user-card.html.twig' with {'user' : user, 'stars': user.stars} %}
             {% endfor %}
 
             {% include 'partials/paginate.html.twig' with {

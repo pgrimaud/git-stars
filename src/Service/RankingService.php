@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\City;
+use App\Entity\Country;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -60,6 +62,21 @@ class RankingService
              WHERE rg.is_orga = ' . $isOrga . '
              LIMIT 3'
         );
+
+        return (array) $statement->fetchAllAssociative();
+    }
+
+    public function findSomeUsers(?Country $country, ?City $city, ?int $userTypeFilter, int $start = 0): array
+    {
+        $query = 'SELECT *, u.github_id as githubId, u.twitter_handle as twitterHandle
+                    FROM ranking_global rl INNER JOIN user u on u.id = rl.user_id '
+                    . ($userTypeFilter ? 'WHERE u.organization = ' . $userTypeFilter . ' ' : '')
+                    . ($country ? ($userTypeFilter ? 'AND ' : 'WHERE ') . 'rl.country_id = ' . $country->getId() . ' ' : '')
+                    . ($city ? 'AND rl.city_id = ' . $city->getId() . ' ' : '')
+                    . 'ORDER BY rl.rank ASC 
+                    LIMIT ' . $start . ', 25';
+
+        $statement = $this->em->getConnection()->executeQuery($query);
 
         return (array) $statement->fetchAllAssociative();
     }

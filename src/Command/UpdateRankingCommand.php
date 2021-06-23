@@ -95,7 +95,7 @@ class UpdateRankingCommand extends Command
         // add index
         $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_user_language(user_id) USING HASH;');
 
-        $io->success('Ranking language has been updated');
+        $io->success('Ranking user_language has been updated');
 
         $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_global;');
 
@@ -103,7 +103,9 @@ class UpdateRankingCommand extends Command
                                 SELECT user_id, SUM(user_language.stars) as stars, 
                                 ROUND(sum(user_language.stars) + (1.0 - 1.0/sum(user_language.repositories)), 2) AS score,
                                 user.organization as is_orga,
-                                row_number() OVER (ORDER BY score DESC) as rank
+                                row_number() OVER (ORDER BY score DESC) as rank,
+                                user.city_id as city_id,
+                                user.country_id as country_id
                                 FROM user_language 
                                 RIGHT JOIN user on user_language.user_id = user.id
                                 GROUP BY user_id
@@ -113,6 +115,8 @@ class UpdateRankingCommand extends Command
 
         // add index
         $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_global(user_id) USING HASH;');
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_country_id ON ranking_global(country_id) USING HASH;');
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_city_id ON ranking_global(city_id) USING HASH;');
 
         $io->success('Ranking global has been updated');
 
