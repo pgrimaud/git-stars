@@ -37,6 +37,19 @@ jobs:
       - name: "Install JS dependencies & build front"
         run: yarn install && yarn encode production
 
+      - name: "Install JS dependencies & build front"
+        run: yarn install && yarn encore production
+
+      - name: "Copy build to production"
+        uses: appleboy/scp-action@master
+        with:
+          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "public/*"
+          target: ${{ secrets.DISTANT_PATH }}
+
       - name: "Deploy to production"
         uses: appleboy/ssh-action@master
         with:
