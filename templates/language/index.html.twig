@@ -30,10 +30,10 @@
         <div class="row d-flex align-items-center">
             <div class="section-title col-lg-6 col-sm-12">
                 <h2>Top languages</h2>
-                <p><label for="search_language_language">Total stargazers</label></p>
+                <p><label for="search_language_language">Total stars</label></p>
             </div>
             <div class="section-title col-lg-6 col-sm-12">
-                <div class="row d-flex justify-content-end">
+                <div class="row d-flex justify-content-md-end justify-content-center">
                    {{ form_start(search_form, {
                        'attr' : {
                                'class' : 'd-flex justify-content-end w-75',
@@ -42,7 +42,7 @@
                        }})
                    }}
                         <div class="input-group mb-3">
-                            {{ form_widget(search_form.language, {'attr' : {'class' : 'form-control'}}) }}
+                            {{ form_widget(search_form.language, {'attr' : {'class' : 'form-control outline-none', 'autocapitalize' : 'off', 'autocomplete': 'off'}}) }}
                             <button type="submit" class="btn-git" aria-label="Search"><i class="fas fa-search"></i></button>
                         </div>
                     {{ form_end(search_form) }}

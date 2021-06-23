@@ -1,18 +1,18 @@
 <div class="col-lg-12 mb-2">
     <div class="member d-flex align-items-center flex-column flex-md-row">
-        <div class="pic h-100 d-flex justify-content-center w-10">
+        <div class="pic h-100 d-flex justify-content-center w-100 w-md-10">
             <a href="{{ path('languages_show', {'slug' : language.slug}) }}" class="d-flex" title="{{ language.name }}">
                 <div class="rounded-circle language-circle" style="background-color: {{ language.color }};"></div>
             </a>
         </div>
-        <div class="member-info w-25 p-0 p-md-3 mt-2 m-md-0">
+        <div class="member-info w-100 w-md-25 p-0 p-md-3 mt-2 m-md-0">
             <h3 class="fs-4 fw-bold mb-0 text-center text-md-start">
                 <a href="{{ path('languages_show', {'slug' : language.slug}) }}" title="User ranking for {{ language.name }} language">
                     {{ language.name }}
                 </a>
             </h3>
         </div>
-        <div class="w-40 d-flex flex-column text-center">
+        <div class="w-100 w-md-40 d-flex flex-column text-center">
             {% if language.rank_world is defined %}
                 <p class="fw-bold fs-5">Ranking:</p>
                 <p><i class="fas fa-trophy rank-{{ language.rank_world }}"></i> <a href="{{ path('languages_show', {'slug': language.slug }) }}">World:</a> <span class="fw-bold">{{ language.rank_world }}</span> / {{ language.total_user_world }}</p>
@@ -42,7 +42,7 @@
                 <p class="fw-bold">Ranking calculation in progress...</p>
             {% endif %}
         </div>
-        <div class="w-25">
+        <div class="w-100 w-md-25">
             <p class="text-md-end text-center">
                 <span class="fw-bold fs-3">{% if language.rank_world is defined %}#{{ language.rank_world }}{% else %}N/A{% endif %}</span><br>
                 <span class="fs-6">{{ stars|number_format(0, '.', '&nbsp;')|raw }}<i class="fas fa-star text-warning"></i></span>

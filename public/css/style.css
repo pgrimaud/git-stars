@@ -2149,8 +2149,17 @@ section {
 }
 
 @media (min-width: 576px) {
+  .w-md-10{
+    width: 10%!important;
+  }
   .w-md-25{
     width: 25%!important;
+  }
+  .w-md-40{
+    width: 40%!important;
+  }
+  .w-md-50{
+    width: 50%!important;
   }
 }
 

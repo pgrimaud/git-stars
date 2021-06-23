@@ -5,7 +5,7 @@
                 <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4&s=111" class="img-fluid user-picture" alt="{% if user.organization %}Organization{% else%}User{% endif%} {{ user.username }}">
             </a>
         </div>
-        <div class="member-info w-50 text-md-start text-center p-0 p-md-3 mt-md-0">
+        <div class="member-info w-100 w-md-50 text-md-start text-center p-0 p-md-3 mt-md-0">
             <{{ hx|default('h3') }} class="fw-bold fs-5 mt-3">
                 <a href="{{ path('user_show', {'username' : user.username}) }}">
                     {% if user.name != "" %}{{ user.name }}{% else %}{{ user.username }}{% endif %}
