@@ -7,9 +7,6 @@
 {% block canonical %}
     <link rel="canonical" href="{{ url('languages_index') }}" />
 {% endblock %}
-{% block stylesheets %}
-    <link href="{{ asset('css/auto-complete.css') }}" rel="stylesheet">
-{% endblock %}
 
 {% block breadcrumb %}
     {% include 'partials/breadcrumbs.html.twig' with {
@@ -72,7 +69,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="{{ asset('js/auto-complete.min.js') }}"></script>
+    {{ parent() }}
     <script type="text/javascript">
         // initialize
         let input = document.getElementById('search_language_language')

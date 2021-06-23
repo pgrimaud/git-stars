@@ -177,6 +177,8 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
+    <!-- temporary dirty refresh -->
     <script type="text/javascript">
         function getStatus() {
             fetch('{{ path('app_index_count') }}')
