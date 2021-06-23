@@ -31,8 +31,8 @@ class UserController extends AbstractController
         CountryRepository $countryRepository,
         CityRepository $cityRepository,
         RankingService $rankingService,
-        int $page = 1): Response
-    {
+        int $page = 1
+    ): Response {
         $userTypeFilter = null;
         if ($userType = $request->get('type')) {
             match ($userType) {
@@ -66,7 +66,6 @@ class UserController extends AbstractController
 
         $start = ($page - 1) * 25;
 
-//        $users = $this->userRepository->findSomeUsers($start, $country, $city, $userTypeFilter);
         $users = $rankingService->findSomeUsers($country, $city, $userTypeFilter, $start);
 
         $countries = $countryRepository->findAllCountries();

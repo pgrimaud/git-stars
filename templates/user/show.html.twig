@@ -56,7 +56,7 @@
                             {% endif %}
                             <p class="text-muted font-size-sm mt-3">Last updated : {{ user.updated|date('h:iA')}} UTC, {{ user.updated|date('M jS Y')}}</p>
                             {% if worldRank.stars is defined %}
-                                <p class="h3 fw-bold">{{ worldRank.stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i> - Rank {{ worldRank.rank|number_format(0, '.', '&nbsp;')|raw }} 🌍</p>
+                                <p class="h3 fw-bold">{{ worldRank.stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i> - Rank {{ worldRank.id|number_format(0, '.', '&nbsp;')|raw }} 🌍</p>
                             {% endif %}
                         </div>
                     </div>
