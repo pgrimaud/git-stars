@@ -75,9 +75,9 @@
     <script type="text/javascript" src="{{ asset('js/auto-complete.min.js') }}"></script>
     <script type="text/javascript">
         // initialize
-        let input = document.getElementById('search_language_language')
-        let languages = {{ languageArray|raw }}
-            let form = document.getElementById('form')
+        let input = document.getElementById('search_language_language');
+        let languages = {{ languageArray|raw }};
+        let form = document.getElementById('form');
 
         let my_autoComplete = new autoComplete({
             selector: '#search_language_language',

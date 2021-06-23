@@ -16,4 +16,5 @@ return [
     Http\HttplugBundle\HttplugBundle::class                           => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     Sentry\SentryBundle\SentryBundle::class                           => ['all' => true],
+    Joli\GifExceptionBundle\GifExceptionBundle::class                 => ['dev' => true, 'test' => true],
 ];
