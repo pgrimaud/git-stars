@@ -137,9 +137,9 @@ class GeocodeService
     private function fixLocation(string $location): ?string
     {
         return match (strtolower($location)) {
-            'us'           => 'United States of America',
-            'the internet' => null,
-            default        => $location
+            'us' => 'United States of America',
+            'the internet', 'everywhere' => null,
+            default => $location
         };
     }
 }
