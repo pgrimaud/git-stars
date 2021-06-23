@@ -46,6 +46,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           source: "public/build/*"
           target: ${{ secrets.DISTANT_PATH }}
+          strip_components: 1
 
       - name: "Deploy to production"
         uses: appleboy/ssh-action@master
