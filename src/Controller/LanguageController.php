@@ -12,6 +12,7 @@ use App\Repository\CountryRepository;
 use App\Repository\LanguageRepository;
 use App\Repository\UserLanguageRepository;
 use App\Repository\UserRepository;
+use App\Service\RankingService;
 use App\Utils\PaginateHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,7 @@ class LanguageController extends AbstractController
     }
 
     #[Route('/languages/{page}', name: 'languages_index', requirements: ['page' => '[0-9]+'], methods: ['GET'])]
-    public function index(int $page = 1): Response
+    public function index(RankingService $rankingService, int $page = 1): Response
     {
         $totalLanguages = $this->languageRepository->totalLanguages();
 
@@ -38,7 +39,7 @@ class LanguageController extends AbstractController
 
         $start = ($page - 1) * 25;
 
-        $languages = $this->languageRepository->findAllByStars($start);
+        $languages = $rankingService->findAllLanguagesByStars($start);
 
         $languageArray = $this->languageRepository->getArrayOfNames();
 

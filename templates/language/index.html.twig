@@ -53,9 +53,9 @@
         <div class="row">
             {% for language in languages %}
                 {% include 'partials/language-card.html.twig' with {
-                    'slug' : language[0].slug,
-                    'name': language[0].name,
-                    'color': language[0].color,
+                    'slug' : language.slug,
+                    'name': language.name,
+                    'color': language.color,
                     'stars': language.stars
                 } %}
             {% endfor %}

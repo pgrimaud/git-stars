@@ -81,4 +81,15 @@ class RankingService
 
         return (array) $statement->fetchAllAssociative();
     }
+
+    public function findAllLanguagesByStars(int $start = 0): array
+    {
+        $query = 'SELECT * 
+                    FROM ranking_language rl INNER JOIN language l on rl.language_id = l.id
+                    WHERE rl.id >= ' . ($start + 1) . ' ' . 'ORDER BY rl.id ASC LIMIT 25';
+
+        $statement = $this->em->getConnection()->executeQuery($query);
+
+        return (array) $statement->fetchAllAssociative();
+    }
 }
