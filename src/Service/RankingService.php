@@ -69,12 +69,13 @@ class RankingService
     public function findSomeUsers(?Country $country, ?City $city, ?int $userTypeFilter, int $start = 0): array
     {
         $query = 'SELECT *, u.github_id as githubId, u.twitter_handle as twitterHandle
-                    FROM ranking_global rl INNER JOIN user u on u.id = rl.user_id '
-                    . ($userTypeFilter ? 'WHERE u.organization = ' . $userTypeFilter . ' ' : '')
-                    . ($country ? ($userTypeFilter ? 'AND ' : 'WHERE ') . 'rl.country_id = ' . $country->getId() . ' ' : '')
+                    FROM ranking_global rl INNER JOIN user u on u.id = rl.user_id 
+                    WHERE rl.id >= ' . ($start + 1) . ' '
+                    . ($userTypeFilter ? 'AND u.organization = ' . $userTypeFilter . ' ' : '')
+                    . ($country ? 'AND rl.country_id = ' . $country->getId() . ' ' : '')
                     . ($city ? 'AND rl.city_id = ' . $city->getId() . ' ' : '')
-                    . 'ORDER BY rl.rank ASC 
-                    LIMIT ' . $start . ', 25';
+                    . 'ORDER BY rl.id ASC 
+                    LIMIT 25';
 
         $statement = $this->em->getConnection()->executeQuery($query);
 

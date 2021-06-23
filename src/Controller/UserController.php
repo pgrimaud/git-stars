@@ -31,8 +31,8 @@ class UserController extends AbstractController
         CountryRepository $countryRepository,
         CityRepository $cityRepository,
         RankingService $rankingService,
-        int $page = 1): Response
-    {
+        int $page = 1
+    ): Response {
         $userTypeFilter = null;
         if ($userType = $request->get('type')) {
             match ($userType) {
