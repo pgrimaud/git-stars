@@ -44,7 +44,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "public/*"
+          source: "public/build/*"
           target: ${{ secrets.DISTANT_PATH }}
 
       - name: "Deploy to production"
