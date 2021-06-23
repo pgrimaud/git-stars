@@ -48,7 +48,7 @@ class LanguageController extends AbstractController
         return $this->render('language/index.html.twig', [
             'languages'     => $languages,
             'paginate'      => $paginate,
-            'languageArray' => json_encode($languageArray),
+            'languageArray' => json_encode(array_column($languageArray, 'name')),
             'search_form'   => $searchForm->createView(),
         ]);
     }

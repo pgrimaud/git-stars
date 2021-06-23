@@ -68,6 +68,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fakerphp/faker": "^1.14",
         "friendsofphp/php-cs-fixer": "^3.0",
+        "jolicode/gif-exception-bundle": "^1.6",
         "phpstan/phpstan": "^0.12.88",
         "symfony/maker-bundle": "^1.31"
     },

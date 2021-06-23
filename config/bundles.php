@@ -17,4 +17,5 @@ return [
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     Sentry\SentryBundle\SentryBundle::class                           => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class            => ['all' => true],
+    Joli\GifExceptionBundle\GifExceptionBundle::class                 => ['dev' => true, 'test' => true],
 ];
