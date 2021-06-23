@@ -20,29 +20,6 @@ class LanguageRepository extends AbstractBaseRepository
         parent::__construct($registry, Language::class);
     }
 
-    public function totalLanguages(): int
-    {
-        return (int) $this->createQueryBuilder('l')
-            ->select('count(distinct(l.id)) as total')
-            ->join('l.userLanguages', 'ul')
-            ->andWhere('ul.stars > 0')
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
-
-    public function findAllByStars(int $start): array
-    {
-        return $this->createQueryBuilder('l')
-            ->select('l', 'SUM(ul.stars) as stars')
-            ->join('l.userLanguages', 'ul')
-            ->groupBy('l.id')
-            ->orderBy('sum(ul.stars)', 'DESC')
-            ->setFirstResult($start)
-            ->setMaxResults(25)
-            ->getQuery()
-            ->getResult();
-    }
-
     public function getTopLanguages(int $limit): array
     {
         $cacheKey = $this->getCacheAdapter()->getItem('top-languages');

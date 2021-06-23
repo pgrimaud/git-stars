@@ -103,4 +103,15 @@ class RankingService
 
         return (array) $statement->fetchAllAssociative();
     }
+
+    public function getTotalLanguagePages(): int
+    {
+        $query = 'SELECT count(id)
+                    FROM ranking_language rl
+                    ORDER BY rl.id ASC';
+
+        $statement = $this->em->getConnection()->executeQuery($query);
+
+        return (int) $statement->fetchOne();
+    }
 }

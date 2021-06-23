@@ -29,7 +29,7 @@ class LanguageController extends AbstractController
     #[Route('/languages/{page}', name: 'languages_index', requirements: ['page' => '[0-9]+'], methods: ['GET'])]
     public function index(RankingService $rankingService, int $page = 1): Response
     {
-        $totalLanguages = $this->languageRepository->totalLanguages();
+        $totalLanguages = $rankingService->getTotalLanguagePages();
 
         $paginate = PaginateHelper::create($page, (int) $totalLanguages);
 

@@ -75,35 +75,6 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->getSingleScalarResult();
     }
 
-    public function findSomeUsers(int $start, ?Country $country, ?City $city, ?int $userTypeFilter): array
-    {
-        $query = $this->createQueryBuilder('u')
-            ->select('u', 'SUM(ul.stars) as stars')
-            ->join('u.userLanguages', 'ul')
-            ->groupBy('u.id')
-            ->orderBy('stars', 'DESC');
-
-        if ($userTypeFilter !== null) {
-            $query->andWhere('u.organization = :isOrga')
-                ->setParameter('isOrga', $userTypeFilter);
-        }
-
-        if ($country) {
-            $query->andWhere('u.country = :country')
-                ->setParameter('country', $country);
-        }
-
-        if ($city) {
-            $query->andWhere('u.city = :city')
-                ->setParameter('city', $city);
-        }
-
-        return $query->setFirstResult($start)
-            ->setMaxResults(25)
-            ->getQuery()
-            ->getResult();
-    }
-
     public function checkUserType(?Country $country, ?City $city, bool $isOrga): ?array
     {
         $query = $this->createQueryBuilder('u')
@@ -125,20 +96,6 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
-    }
-
-    public function getTopUsers(int $limit, bool $isCorp): array
-    {
-        return $this->createQueryBuilder('u')
-            ->select('u', 'sum(ul.stars) as stars')
-            ->join('u.userLanguages', 'ul')
-            ->andWhere('u.organization = :isCorp')
-            ->setParameter('isCorp', $isCorp)
-            ->orderBy('stars', 'DESC')
-            ->groupBy('u.id')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
     }
 
     public function getTodayTop(): array
