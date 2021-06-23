@@ -524,13 +524,15 @@ section {
   font-family: "Poppins", sans-serif;
 }
 
-.section-title h2::after {
-  content: "";
-  width: 120px;
-  height: 1px;
-  display: inline-block;
-  background: var(--third-color);
-  margin: 4px 10px;
+@media (min-width: 576px) {
+  .section-title h2::after {
+    content: "";
+    width: 120px;
+    height: 1px;
+    display: inline-block;
+    background: var(--third-color);
+    margin: 4px 10px;
+  }
 }
 
 .section-title p {
@@ -922,15 +924,17 @@ section {
   font-weight: 500;
 }
 
-.member .span-name::after {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 50px;
-  height: 1px;
-  background: #dee2e6;
-  bottom: 0;
-  left: 0;
+@media (min-width: 576px) {
+  .member .span-name::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 1px;
+    background: #dee2e6;
+    bottom: 0;
+    left: 0;
+  }
 }
 
 .member p {
@@ -2115,9 +2119,9 @@ section {
 }
 
 .user-picture{
-  height: 111px;
-  width: 111px;
+  width: 100%;
   border-radius: 4px;
+  max-width: 111px;
 }
 
 .user-picture-main{
@@ -2131,11 +2135,29 @@ section {
 }
 
 #error, #about, #user-page {
-  min-height: calc(100vh - 250px);
+  min-height: calc(100vh - 285px);
 }
 
 .outline-none:focus{
   outline: none;
   box-shadow: none;
   border-color: rgb(206, 212, 218);
+}
+
+.total-stars{
+  margin-left: 10px;
+}
+
+@media (min-width: 576px) {
+  .w-md-25{
+    width: 25%!important;
+  }
+}
+
+.w-10{
+  width: 10%!important;
+}
+
+.w-40{
+  width: 40%!important;
 }

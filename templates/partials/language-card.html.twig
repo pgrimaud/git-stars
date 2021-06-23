@@ -1,11 +1,11 @@
 <div class="col-lg-12 mb-2">
-    <div class="member d-flex align-items-center w-100">
+    <div class="member d-flex align-items-center w-100 flex-column flex-md-row">
         <div class="pic">
             <a href="{{ path('languages_show', {'slug' : slug}) }}" class="d-flex justify-content-center w-100" title="View {{ name }} language ranking">
                 <div class="rounded-circle language-circle" style="background-color: {{ color }};"></div>
             </a>
         </div>
-        <div class="member-info w-75">
+        <div class="member-info w-75 text-md-start text-center p-0 p-md-3 mt-2 mt-md-0">
             <h3 class="fw-bold fs-5 mb-0">
                 <a href="{{ path('languages_show', {'slug' : slug}) }}" title="View {{ name }} language ranking">
                     {{ name }}
@@ -13,7 +13,7 @@
             </h3>
         </div>
         <div class="w-25">
-            <p class="text-end">
+            <p class="text-md-end text-center">
                 <span class="fw-bold fs-3">#{{ loop.index + 25 * (paginate.current - 1) }}</span><br>
                 <span class="fs-6">{{ stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
             </p>

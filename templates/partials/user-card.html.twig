@@ -1,29 +1,29 @@
 <div class="col-lg-12 mb-2">
-    <div class="member d-flex align-items-center w-100">
-        <div class="pic">
+    <div class="member d-flex align-items-center justify-content-around flex-column flex-md-row w-100">
+        <div class="pic w-auto">
             <a href="{{ path('user_show', {'username' : user.username}) }}">
                 <img src="https://avatars.githubusercontent.com/u/{{ user.githubId }}?v=4&s=111" class="img-fluid user-picture" alt="{% if user.organization %}Organization{% else%}User{% endif%} {{ user.username }}">
             </a>
         </div>
-        <div class="member-info w-75">
-            <{{ hx|default('h3') }} class="fw-bold fs-5">
+        <div class="member-info w-50 text-md-start text-center p-0 p-md-3 mt-md-0">
+            <{{ hx|default('h3') }} class="fw-bold fs-5 mt-3">
                 <a href="{{ path('user_show', {'username' : user.username}) }}">
                     {% if user.name != "" %}{{ user.name }}{% else %}{{ user.username }}{% endif %}
                 </a>
                 {% if user.organization %}<i class="fas fa-building"></i>{% endif %}
             </{{ hx|default('h3') }}>
             <span class="span-name">@{{ user.username }}</span>
-            <div class="social">
+            <div class="social justify-content-center justify-content-md-start">
                 <a href="https://github.com/{{ user.username }}" target="_blank" title="{{ user.username }}'s GitHub profile" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
                 {% if user.twitterHandle %}
                     <a href="https://twitter.com/{{ user.twitterHandle }}" target="_blank" title="{{ user.twitterHandle }}'s Twitter profile" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
                 {% endif %}
             </div>
         </div>
-        <div class="w-25">
-            <p class="text-end">
+        <div class="w-50 w-md-25">
+            <p class="text-md-end text-center">
                 {% if paginate is defined %}<span class="fw-bold fs-3">#{{ loop.index + 25 * (paginate.current - 1) }}</span><br>{% endif %}
-                <span class="fs-6">{{ stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
+                <span class="fs-6 total-stars">{{ stars|number_format(0, '.', '&nbsp;')|raw }} <i class="fas fa-star text-warning"></i></span>
             </p>
         </div>
     </div>
