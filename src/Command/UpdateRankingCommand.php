@@ -33,7 +33,7 @@ class UpdateRankingCommand extends Command
         $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_language;');
 
         $createTableGlobal = 'CREATE TABLE ranking_language AS 
-                                  SELECT l.id as language_id, SUM(ul.stars) as stars
+                                  SELECT row_number() OVER (ORDER BY SUM(ul.stars) DESC) as id, l.id as language_id, SUM(ul.stars) as stars
                                   FROM language l
                                   INNER JOIN user_language ul ON l.id = ul.language_id 
                                   GROUP BY l.id 
@@ -42,6 +42,7 @@ class UpdateRankingCommand extends Command
         $this->em->getConnection()->executeQuery($createTableGlobal);
 
         // add index
+        $this->em->getConnection()->executeQuery('ALTER TABLE ranking_language ADD PRIMARY KEY(id);');
         $this->em->getConnection()->executeQuery('CREATE INDEX ranks_language_id ON ranking_language(language_id) USING HASH;');
 
         $io->success('Ranking language has been updated');
@@ -100,20 +101,20 @@ class UpdateRankingCommand extends Command
         $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_global;');
 
         $createTableGlobal = 'CREATE TABLE ranking_global AS
-                                SELECT user_id, SUM(user_language.stars) as stars, 
+                                SELECT row_number() OVER (ORDER BY score DESC) as id, user_id, SUM(user_language.stars) as stars, 
                                 ROUND(sum(user_language.stars) + (1.0 - 1.0/sum(user_language.repositories)), 2) AS score,
                                 user.organization as is_orga,
-                                row_number() OVER (ORDER BY score DESC) as rank,
                                 user.city_id as city_id,
                                 user.country_id as country_id
                                 FROM user_language 
                                 RIGHT JOIN user on user_language.user_id = user.id
                                 GROUP BY user_id
-                                ORDER BY rank ASC;';
+                                ORDER BY id ASC;';
 
         $this->em->getConnection()->executeQuery($createTableGlobal);
 
         // add index
+        $this->em->getConnection()->executeQuery('ALTER TABLE ranking_global ADD PRIMARY KEY(id);');
         $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_global(user_id) USING HASH;');
         $this->em->getConnection()->executeQuery('CREATE INDEX ranks_country_id ON ranking_global(country_id) USING HASH;');
         $this->em->getConnection()->executeQuery('CREATE INDEX ranks_city_id ON ranking_global(city_id) USING HASH;');

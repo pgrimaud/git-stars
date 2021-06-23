@@ -39,7 +39,7 @@
             <div class="col-12">
                 {{ form_start(search_form) }}
                     <div class="input-group mb-3">
-                        {{ form_widget(search_form.username, {'attr' : {'class' : 'form-control'}}) }}
+                        {{ form_widget(search_form.username, {'attr' : {'class' : 'form-control outline-none'}}) }}
                         <button type="submit" class="btn-git" aria-label="Search"><i class="fas fa-search"></i></button>
                     </div>
                 {{ form_end(search_form) }}
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        <a href="{{ path('user_index') }}">See all ...</a>
+                        <a href="{{ path('user_index') }}" class="text-center mt-3 fw-bold btn-git mb-4">See all</a>
                     </div>
                 </div>
 
@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        <a href="{{ path('user_index') }}?type=organizations">See all ...</a>
+                        <a href="{{ path('user_index') }}?type=organizations" class="text-center mt-3 fw-bold btn-git mb-sm-3 mb-4">See all</a>
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        <a href="{{ path('languages_index') }}">See all ...</a>
+                        <a href="{{ path('languages_index') }}" class="text-center mt-3 fw-bold btn-git">See all</a>
                     </div>
                 </div>
             </div>

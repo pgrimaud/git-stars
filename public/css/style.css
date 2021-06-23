@@ -581,7 +581,7 @@ section {
 
 @media (max-width: 992px) {
   .breadcrumbs {
-    margin-top: 58px;
+    margin-top: 76px;
   }
   .breadcrumbs .d-flex {
     display: block !important;
@@ -2132,4 +2132,10 @@ section {
 
 #error, #about, #user-page {
   min-height: calc(100vh - 250px);
+}
+
+.outline-none:focus{
+  outline: none;
+  box-shadow: none;
+  border-color: rgb(206, 212, 218);
 }
