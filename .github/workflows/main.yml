@@ -35,9 +35,6 @@ jobs:
           node-version: '14'
 
       - name: "Install JS dependencies & build front"
-        run: yarn install && yarn encode production
-
-      - name: "Install JS dependencies & build front"
         run: yarn install && yarn encore production
 
       - name: "Copy build to production"
