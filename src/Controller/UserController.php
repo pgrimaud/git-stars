@@ -66,7 +66,6 @@ class UserController extends AbstractController
 
         $start = ($page - 1) * 25;
 
-//        $users = $this->userRepository->findSomeUsers($start, $country, $city, $userTypeFilter);
         $users = $rankingService->findSomeUsers($country, $city, $userTypeFilter, $start);
 
         $countries = $countryRepository->findAllCountries();
