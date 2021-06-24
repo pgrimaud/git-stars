@@ -2175,3 +2175,16 @@ section {
 .click-me{
     cursor: pointer;
 }
+
+.ml-10{
+    margin-left: 5px;
+}
+
+.color-black{
+    color: #444444 !important;
+}
+
+.embed-copied{
+    transition: 0.3s;
+    opacity: 0;
+}

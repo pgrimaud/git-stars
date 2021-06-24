@@ -29,11 +29,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 d-flex justify-content-end align-content-center">
                             <p class="fs-6">
-                                Share:
-                                <a title="Share on Twitter" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?text=Check%20out%20{% if user.twitterHandle is not null %}@{{ user.twitterHandle }}{% else %}{{ user.name }}{% endif %}%27s%20GitHub%20ranking%20on%20Git%20Stars!&url=https%3A%2F%2Fgit-stars.com/user/{{ user.username }}%2F&hashtags=GitHub" target="_blank">
-                                    <i class="fab fa-twitter-square text-primary fs-3"></i>
+                                Share :
+                            </p>
+                            <p class="fs-6 ml-10">
+                                <a title="Share on Twitter" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?text=Check%20out%20{% if user.twitterHandle is not null %}@{{ user.twitterHandle }}{% else %}{{ user.name }}{% endif %}%27s%20GitHub%20ranking%20on%20Git%20Stars!&url=https%3A%2F%2Fgit-stars.com/user/{{ user.username }}&hashtags=GitHub" target="_blank">
+                                    <i class="fab fa-twitter text-primary fs-3"></i>
+                                </a>
+                            </p>
+                            <p class="fs-6 ml-10">
+                                <a title="Embedded" rel="noopener noreferrer" class="link-embed" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#embedModal">
+                                    <i class="fab fa-github fs-3 color-black"></i>
                                 </a>
                             </p>
                         </div>
@@ -82,9 +89,48 @@
             </div>
         </div>
     </div>
+
+    <!-- modal-backdrop fade show -->
+    <div class="modal fade" id="embedModal" tabindex="-1" aria-labelledby="embedModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="embedModalLabel">Embed Git Stars statistics on you Github profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-5">
+                    <img src="{{ url('share_embed', {'username' : user.username}) }}" class="w-100"/>
+                    <textarea style="resize:none;cursor:pointer;" onclick="this.select()" readonly="readonly" rows="2" class="w-100 mt-3 embed-textarea">[![Git Stars]({{ url('share_embed', {'username' : user.username}) }})]({{ url('user_show', {'username' : user.username}) }})</textarea>
+                    <p class="text-center mt-2 mb-0 embed-copied">Copied to clipboard ✅</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
+
+    {{  parent() }}
+
+    <script>
+        function copy() {
+            let copyText = document.querySelector('.embed-textarea')
+            copyText.select()
+            document.execCommand('copy')
+            document.querySelector('.embed-copied').style.opacity = 1
+
+            setTimeout(() => {
+                document.querySelector('.embed-copied').style.opacity = 0
+            }, 2000)
+        }
+
+        document.querySelector('.embed-textarea').addEventListener('click', copy)
+    </script>
+
     {% if user.status == 'running' %}
     <script type="text/javascript">
         function getStatus() {

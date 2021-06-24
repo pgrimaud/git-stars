@@ -28,20 +28,22 @@ class AppController extends AbstractController
     ): Response {
         $searchError = null;
 
-        $search = new SearchUser();
+        $search           = new SearchUser();
+        $search->username = $request->get('search') ?: '';
 
         $form = $this->createForm(SearchUserType::class, $search);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (($form->isSubmitted() && $form->isValid()) || ($this->getUser() instanceof User && $request->get('search'))) {
             $search = strip_tags($form->getData()->username);
             $user   = $userRepository->findOneBy(['username' => $search]);
 
             if (!$user instanceof User) {
                 if (!$this->getUser()) {
-                    $loginLink   = $this->generateUrl('hwi_oauth_service_redirect', ['service' => 'github']);
+                    $loginLink = $this->generateUrl('hwi_oauth_service_redirect', ['service' => 'github']);
+                    $loginLink .= '?_destination=/%3Fsearch=' . $search;
                     $searchError = 'User ' . $search .
-                        ' was not found in Git Stars. Please <a href="' . $loginLink . '">login</a> to import it.';
+                        ' was not found in Git Stars. Please <a href="' . $loginLink . '">login</a> to import it. 🤓';
                 } else {
                     // @phpstan-ignore-next-line
                     $newUser = $userService->partialFetchUser($search, $this->getUser()->getAccessToken());
@@ -51,7 +53,7 @@ class AppController extends AbstractController
                             'username' => $newUser->getUsername(),
                         ]);
                     } else {
-                        $searchError = 'User ' . $search . ' was not found in GitHub';
+                        $searchError = 'User ' . $search . ' was not found in GitHub. 🥺';
                     }
                 }
             } else {
