@@ -31,7 +31,7 @@ class UpdateRankingCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $createTableGlobal = 'CREATE TABLE ranking_language_tmp AS 
-                                  SELECT row_number() OVER (ORDER BY SUM(ul.stars) DESC) as id, l.id as language_id, SUM(ul.stars) as stars
+                                  SELECT row_number() OVER (ORDER BY SUM(ul.stars) DESC) as id, l.id as language_id, SUM(ul.stars) as stars, COUNT(ul.user_id) as total_users
                                   FROM language l
                                   INNER JOIN user_language ul ON l.id = ul.language_id 
                                   GROUP BY l.id 
