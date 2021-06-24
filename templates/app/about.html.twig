@@ -232,7 +232,8 @@
                 confetti({
                     particleCount: 100,
                     spread: 70,
-                    origin: { y: 0.6 }
+                    gravity: 0.5,
+                    drift: Math.random() * 5 * (Math.random() < 0.5 ? 1 : -1),
                 });
             })
         })
