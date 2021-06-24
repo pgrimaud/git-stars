@@ -56,7 +56,8 @@ class UserController extends AbstractController
                 ]);
             }
         }
-        $totalUsers = $this->userRepository->totalPages($country, $city, $userTypeFilter);
+        $totalUsers = $rankingService->getTotalUserPages($country, $city, $userTypeFilter);
+//        dd($totalUsers);
 
         $paginate = PaginateHelper::create($page, $totalUsers);
 

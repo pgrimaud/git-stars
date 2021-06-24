@@ -114,4 +114,19 @@ class RankingService
 
         return (int) $statement->fetchOne();
     }
+
+    public function getTotalUserPages(?Country $country, ?City $city, ?int $userTypeFilter): int
+    {
+        $query = 'SELECT count(id)
+                    FROM ranking_global rg
+                    WHERE rg.stars >= 1' . ' '
+                    . ($userTypeFilter ? 'AND rg.is_orga = ' . $userTypeFilter . ' ' : '')
+                    . ($country ? 'rg.country_id = ' . $country->getId() . ' ' : '')
+                    . ($city ? 'AND rg.city_id = ' . $city->getId() . ' ' : '')
+                    . 'ORDER BY rg.id ASC';
+
+        $statement = $this->em->getConnection()->executeQuery($query);
+
+        return (int) $statement->fetchOne();
+    }
 }

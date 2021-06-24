@@ -49,32 +49,6 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->getResult();
     }
 
-    public function totalPages(?Country $country, ?City $city, ?int $userTypeFilter): int
-    {
-        $query = $this->createQueryBuilder('u')
-            ->select('count(distinct(u.id)) as total')
-            ->join('u.userLanguages', 'ul')
-            ->andWhere('ul.stars > 0');
-
-        if ($userTypeFilter) {
-            $query->andWhere('u.organization = :isOrga')
-                ->setParameter('isOrga', $userTypeFilter);
-        }
-
-        if ($country) {
-            $query->andWhere('u.country = :country')
-                ->setParameter('country', $country);
-        }
-
-        if ($city) {
-            $query->andWhere('u.city = :city')
-                ->setParameter('city', $city);
-        }
-
-        return (int) $query->getQuery()
-            ->getSingleScalarResult();
-    }
-
     public function checkUserType(?Country $country, ?City $city, bool $isOrga): ?array
     {
         $query = $this->createQueryBuilder('u')
