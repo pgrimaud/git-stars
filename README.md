@@ -1,7 +1,4 @@
 <p align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
     <img width="100" src="https://user-images.githubusercontent.com/1866496/123269537-5f90b480-d4ff-11eb-9c71-ea0c5b6365d4.png"/>
 </p>
 
@@ -9,6 +6,11 @@
 
 <p align="center">
     <img src="https://img.shields.io/static/v1?label=php&message=%3E=8&color=blue">
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<img src='https://img.shields.io/badge/all_contributors-2-orange.svg'/>
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+    
 </p>
 
 ## About
@@ -51,16 +53,6 @@ You can embed your GitHub statistics on your profile thanks to the cards we crea
 - `php bin/console messenger:consume users` : Consume messages on users queue
 
 # Contributors
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-# Feedback
-
-You found a bug? You need a new feature? You can create an issue if needed or contact us on [Twitter](https://twitter.com/pgrimaud_).
-
-# License
-
-Licensed under the terms of the MIT License.
-## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -80,3 +72,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+# Feedback
+
+You found a bug? You need a new feature? You can create an issue if needed or contact us on [Twitter](https://twitter.com/pgrimaud_).
+
+# License
+
+Licensed under the terms of the MIT License.
