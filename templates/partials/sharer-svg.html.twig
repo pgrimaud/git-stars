@@ -34,7 +34,7 @@
 
     <text>
         <tspan x="30" y="90">
-            World Ranking : {% if globalRanking.rank is defined %}<tspan class="fw-bold">{{ globalRanking.rank|number_format(0, '.', ' ')|raw }}</tspan> / {{ totalUsers|number_format(0, '.', ' ')|raw }}{% else %}<tspan class="fw-bold">Calculation in progress...</tspan>{% endif %}
+            World Ranking : {% if globalRanking.id is defined %}<tspan class="fw-bold">{{ globalRanking.id|number_format(0, '.', ' ')|raw }}</tspan> / {{ totalUsers|number_format(0, '.', ' ')|raw }}{% else %}<tspan class="fw-bold">Calculation in progress...</tspan>{% endif %}
         </tspan>
     </text>
 

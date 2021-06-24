@@ -26,9 +26,9 @@
 
     <text x="200" y="340" font-size="35px" fill="black" stroke="none">World Ranking</text>
 
-    {% if globalRanking.rank is defined %}
+    {% if globalRanking.id is defined %}
         <text x="230" y="395" font-size="40px" fill="black" class="fw-bold" stroke="none">
-            {{ globalRanking.rank|number_format(0, '.', ' ')|raw }} / {{ totalUsers|number_format(0, '.', ' ')|raw }}
+            {{ globalRanking.id|number_format(0, '.', ' ')|raw }} / {{ totalUsers|number_format(0, '.', ' ')|raw }}
         </text>
     {% else %}
         <text x="130" y="395" font-size="40px" fill="black" class="fw-bold" stroke="none">
