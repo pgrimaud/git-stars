@@ -2119,10 +2119,9 @@ section {
 }
 
 .user-picture{
-    width: 100%;
     border-radius: 4px;
-    max-width: 111px;
-    max-height: 111px;
+    width: 111px;
+    height: 111px;
 }
 
 .user-picture-main{
