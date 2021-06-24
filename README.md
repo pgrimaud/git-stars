@@ -69,7 +69,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.nispeon.tk"><img src="https://avatars.githubusercontent.com/u/37938250?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julien Cousin-Alliot</b></sub></a><br /><a href="#ideas-Nispeon" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://www.nispeon.tk"><img src="https://avatars.githubusercontent.com/u/37938250?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julien Cousin-Alliot</b></sub></a><br /><a href="#ideas-Nispeon" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/pgrimaud/git-stars/commits?author=Nispeon" title="Code">💻</a> <a href="https://github.com/pgrimaud/git-stars/commits?author=Nispeon" title="Documentation">📖</a></td>
   </tr>
 </table>
 
