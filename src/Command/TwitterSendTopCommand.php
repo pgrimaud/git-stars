@@ -12,7 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:twitter:send-top',
-    description: 'Tweets the users of the day on Twitter',
+    description: 'Posts the users of the day on Twitter',
 )]
 class TwitterSendTopCommand extends Command
 {
@@ -31,7 +31,7 @@ class TwitterSendTopCommand extends Command
         $topUsers = $this->userRepository->getTodayTop();
 
         foreach ($topUsers as $user) {
-            $message = '@' . $user[0]->getTwitterHandle()
+            $message = 'The stars has spoken ✨!' . PHP_EOL . '@' . $user[0]->getTwitterHandle()
                 . ' is one of our lucky users of today!'
                 . PHP_EOL . 'Check them out over at https://git-stars.com/user/'
                 . $user[0]->getUsername()
