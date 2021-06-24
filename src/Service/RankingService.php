@@ -120,7 +120,7 @@ class RankingService
                     FROM ranking_global rg
                     WHERE rg.stars >= 1' . ' '
                     . ($userTypeFilter ? 'AND rg.is_orga = ' . $userTypeFilter . ' ' : '')
-                    . ($country ? 'rg.country_id = ' . $country->getId() . ' ' : '')
+                    . ($country ? 'AND rg.country_id = ' . $country->getId() . ' ' : '')
                     . ($city ? 'AND rg.city_id = ' . $city->getId() . ' ' : '')
                     . 'ORDER BY rg.id ASC';
 

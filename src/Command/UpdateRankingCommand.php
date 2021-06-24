@@ -30,6 +30,10 @@ class UpdateRankingCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_language_tmp;');
+        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_global_tmp;');
+        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_user_language_tmp;');
+
         $createTableGlobal = 'CREATE TABLE ranking_language_tmp AS 
                                   SELECT row_number() OVER (ORDER BY SUM(ul.stars) DESC) as id, l.id as language_id, SUM(ul.stars) as stars, COUNT(ul.user_id) as total_users
                                   FROM language l
