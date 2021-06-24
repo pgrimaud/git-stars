@@ -30,10 +30,8 @@ class UpdateRankingCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_language;');
-
-        $createTableGlobal = 'CREATE TABLE ranking_language AS 
-                                  SELECT row_number() OVER (ORDER BY SUM(ul.stars) DESC) as id, l.id as language_id, SUM(ul.stars) as stars
+        $createTableGlobal = 'CREATE TABLE ranking_language_tmp AS 
+                                  SELECT row_number() OVER (ORDER BY SUM(ul.stars) DESC) as id, l.id as language_id, SUM(ul.stars) as stars, COUNT(ul.user_id) as total_users
                                   FROM language l
                                   INNER JOIN user_language ul ON l.id = ul.language_id 
                                   GROUP BY l.id 
@@ -42,14 +40,17 @@ class UpdateRankingCommand extends Command
         $this->em->getConnection()->executeQuery($createTableGlobal);
 
         // add index
-        $this->em->getConnection()->executeQuery('ALTER TABLE ranking_language ADD PRIMARY KEY(id);');
-        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_language_id ON ranking_language(language_id) USING HASH;');
+        $this->em->getConnection()->executeQuery('ALTER TABLE ranking_language_tmp ADD PRIMARY KEY(id);');
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_language_id ON ranking_language_tmp(language_id) USING HASH;');
+
+        // delete old table
+        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_language;');
+        // rename new table old table
+        $this->em->getConnection()->executeQuery('ALTER TABLE ranking_language_tmp RENAME TO ranking_language;');
 
         $io->success('Ranking language has been updated');
 
-        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_user_language;');
-
-        $createTable = 'CREATE TABLE ranking_user_language AS
+        $createTable = 'CREATE TABLE ranking_user_language_tmp AS
 
                         SELECT t1.*, t4.total_user_world, t2.total_user_country, t3.total_user_city
                         FROM (
@@ -94,13 +95,16 @@ class UpdateRankingCommand extends Command
         $this->em->getConnection()->executeQuery($createTable);
 
         // add index
-        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_user_language(user_id) USING HASH;');
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_user_language_tmp(user_id) USING HASH;');
+
+        // delete old table
+        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_user_language;');
+        // rename new table old table
+        $this->em->getConnection()->executeQuery('ALTER TABLE ranking_user_language_tmp RENAME TO ranking_user_language;');
 
         $io->success('Ranking user_language has been updated');
 
-        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_global;');
-
-        $createTableGlobal = 'CREATE TABLE ranking_global AS
+        $createTableGlobal = 'CREATE TABLE ranking_global_tmp AS
                                 SELECT row_number() OVER (ORDER BY score DESC) as id, user_id, SUM(user_language.stars) as stars, 
                                 ROUND(sum(user_language.stars) + (1.0 - 1.0/sum(user_language.repositories)), 2) AS score,
                                 user.organization as is_orga,
@@ -114,10 +118,15 @@ class UpdateRankingCommand extends Command
         $this->em->getConnection()->executeQuery($createTableGlobal);
 
         // add index
-        $this->em->getConnection()->executeQuery('ALTER TABLE ranking_global ADD PRIMARY KEY(id);');
-        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_global(user_id) USING HASH;');
-        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_country_id ON ranking_global(country_id) USING HASH;');
-        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_city_id ON ranking_global(city_id) USING HASH;');
+        $this->em->getConnection()->executeQuery('ALTER TABLE ranking_global_tmp ADD PRIMARY KEY(id);');
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_user_id ON ranking_global_tmp(user_id) USING HASH;');
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_country_id ON ranking_global_tmp(country_id) USING HASH;');
+        $this->em->getConnection()->executeQuery('CREATE INDEX ranks_city_id ON ranking_global_tmp(city_id) USING HASH;');
+
+        // delete old table
+        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ranking_global;');
+        // rename new table old table
+        $this->em->getConnection()->executeQuery('ALTER TABLE ranking_global_tmp RENAME TO ranking_global;');
 
         $io->success('Ranking global has been updated');
 

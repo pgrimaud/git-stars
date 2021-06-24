@@ -3,7 +3,7 @@
         <ul class="justify-content-center">
         {% if paginate.hasPrevious %}
             <li><a href="{{ path(route, route_parameters|merge({'page': paginate.current - 1})) }}" title="Previous page"><i class="fas fa-arrow-left"></i></a></li>
-            {%  if paginate.current > 3 and paginate.current != 1 %}
+            {%  if paginate.current >= 3 and paginate.current != 1 %}
                 <li><a href="{{ path(route, route_parameters|merge({'page': 1})) }}">1</a></li>
                 {% if paginate.current >= 4 %}
                     <li class="no-bg"><p class="mb-0 mt-2">...</p></li>
@@ -20,7 +20,7 @@
         {% endfor %}
 
         {% if paginate.hasNext %}
-            {%  if paginate.current <= paginate.total - 3 %}
+            {%  if paginate.current <= paginate.total - 2 %}
                 {% if paginate.current != paginate.total - 2 %}
                     <li class="no-bg"><p class="mb-0 mt-2">...</p></li>
                 {% endif %}

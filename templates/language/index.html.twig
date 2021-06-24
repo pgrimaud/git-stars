@@ -71,44 +71,46 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        // initialize
-        let input = document.getElementById('search_language_language');
-        let languages = {{ languageArray|raw }};
-        let form = document.getElementById('form');
+        window.onload = function () {
+            // initialize autocomplete-suggestions autocomplete-suggestion
+            let input = document.getElementById('search_language_language');
+            let languages = {{ languageArray|raw }};
+            let form = document.getElementById('form');
 
-        let my_autoComplete = new autoComplete({
-            selector: '#search_language_language',
-            minChars: 2,
-            source: function(term, suggest){
-                term = term.toLowerCase()
-                let choices = languages
-                let suggestions = []
-                for (let i = 0; i < choices.length; i++) {
-                    if (~choices[i].toLowerCase().indexOf(term)) {
-                        suggestions.push(choices[i])
+            let my_autoComplete = new autoComplete({
+                selector: '#search_language_language',
+                minChars: 2,
+                source: function(term, suggest){
+                    term = term.toLowerCase()
+                    let choices = languages
+                    let suggestions = []
+                    for (let i = 0; i < choices.length; i++) {
+                        if (~choices[i].toLowerCase().indexOf(term)) {
+                            suggestions.push(choices[i])
+                        }
+                    }
+                    suggest(suggestions)
+                },
+                cache: true
+            });
+
+            let formSubmit = function(e) {
+                let validated = false
+
+                for (let i = 0; i < languages.length; i++) {
+                    if (input.value.toLowerCase() === languages[i].toLowerCase()) {
+                        validated = true
                     }
                 }
-                suggest(suggestions)
-            },
-            cache: true
-        });
 
-        let formSubmit = function(e) {
-            let validated = false
-
-            for (let i = 0; i < languages.length; i++) {
-                if (input.value.toLowerCase() === languages[i].toLowerCase()) {
-                    validated = true
+                if (!validated) {
+                    e.preventDefault()
+                    return false;
                 }
             }
 
-            if (!validated) {
-                e.preventDefault()
-                return false;
-            }
+            form.addEventListener("submit", formSubmit, true)
         }
-
-        form.addEventListener("submit", formSubmit, true)
     </script>
 {% endblock %}
 

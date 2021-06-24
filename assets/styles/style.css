@@ -520,7 +520,7 @@ section {
     margin: 0 0 5px 0;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #aaaaaa;
+    color: #757575;
     font-family: "Poppins", sans-serif;
 }
 
@@ -2078,11 +2078,11 @@ section {
     padding-top: 10px;
     text-align: center;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 #footer .credits a {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.9);
     transition: 0.3s;
     font-weight: 600;
 }
