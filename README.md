@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
     <img width="100" src="https://user-images.githubusercontent.com/1866496/123269537-5f90b480-d4ff-11eb-9c71-ea0c5b6365d4.png"/>
 </p>
@@ -70,6 +70,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://www.nispeon.tk"><img src="https://avatars.githubusercontent.com/u/37938250?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julien Cousin-Alliot</b></sub></a><br /><a href="#ideas-Nispeon" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/pgrimaud/git-stars/commits?author=Nispeon" title="Code">💻</a> <a href="https://github.com/pgrimaud/git-stars/commits?author=Nispeon" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/pgrimaud"><img src="https://avatars.githubusercontent.com/u/1866496?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pierre Grimaud</b></sub></a><br /><a href="#ideas-pgrimaud" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/pgrimaud/git-stars/commits?author=pgrimaud" title="Code">💻</a> <a href="https://github.com/pgrimaud/git-stars/commits?author=pgrimaud" title="Documentation">📖</a></td>
   </tr>
 </table>
 
