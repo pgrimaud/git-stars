@@ -32,6 +32,14 @@ You can embed your GitHub statistics on your profile thanks to the cards we crea
 [![Git Stars](https://git-stars.com/share/embed/github.svg)](https://git-stars.com/user/github)
 ```
 
+Or 
+
+```
+<p align="center">
+  <a href="https://git-stars.com/user/github"><img src="https://git-stars.com/share/embed/github.svg"></a>
+</p>
+```
+
 ## Installation
 
 - Fork project, then clone it
