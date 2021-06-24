@@ -2171,3 +2171,7 @@ section {
 .w-40{
     width: 40%!important;
 }
+
+.click-me{
+    cursor: pointer;
+}

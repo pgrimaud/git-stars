@@ -83,7 +83,7 @@
                                     <div class="col-lg-12 details order-2 order-lg-1">
                                         <h3>Who are we?</h3>
                                         <p class="fst-italic">This website was created by <a href="https://github.com/pgrimaud" rel="noopener noreferrer" target="_blank">@pgrimaud</a> and <a href="https://github.com/nispeon" rel="noopener noreferrer" target="_blank">@nispeon</a>.</p>
-                                        <h4 class="mt-4 mb-4">🤠 pgrimaud:</h4>
+                                        <h4 class="mt-4 mb-4"><span class="click-me" title="Click me">🤠 pgrimaud:</span></h4>
                                         <p>
                                             Hola! I'm Pierre, born and raised in Paris 🥖.
                                             I proposed this project to Julien for the beginning of his internship with me.<br>
@@ -92,7 +92,7 @@
                                             For me, the biggest challenge was to get a lot of data from Github, aggregate it and have good performance on our website.<br>
                                             Drop me a message on <a href="https://twitter.com/pgrimaud_" rel="noopener noreferrer" target="_blank">Twitter</a> or feel free to open an issue on the repository. ✌️
                                         </p>
-                                        <h4 class="mt-4 mb-4">🐱 Nispeon:</h4>
+                                        <h4 class="mt-4 mb-4"><span class="click-me" title="Click me">🐱 Nispeon:</span></h4>
                                         <p>
                                             Hi, my name's Julien and I'm a student in web development in Paris.<br>
                                             This website was made during my internship with Pierre in the transition between
@@ -221,4 +221,21 @@
             </div>
         </section>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script>
+        document.querySelectorAll('.click-me').forEach(el => {
+            el.addEventListener('click', e => {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            })
+        })
+    </script>
+
 {% endblock %}
