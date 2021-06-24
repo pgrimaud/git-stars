@@ -38,6 +38,17 @@
                         class="active"
                             {% endif %}>About</a>
                 </li>
+                {% if app.user %}
+                    <li>
+                        <a href="{{ path('user_show', {'username':app.user.username}) }}"
+                        {% if app.request.get('_route') == 'user_show' and user is defined and user.username == app.user.username %}
+                            class="active"
+                        {% endif %}
+                        >
+                            @{{ app.user.username }}
+                        </a>
+                    </li>
+                {% endif %}
                 <li>
                     {% if app.user %}
                         <a href="{{ path('security_logout')}}" class="getstarted">
