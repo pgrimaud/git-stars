@@ -70,7 +70,7 @@ class RankingService
     {
         $query = 'SELECT *, u.github_id as githubId, u.twitter_handle as twitterHandle
                     FROM ranking_global rl INNER JOIN user u on u.id = rl.user_id '
-                    . ($userTypeFilter ? 'AND u.organization = ' . $userTypeFilter . ' ' : '')
+                    . ($userTypeFilter !== null ? 'AND u.organization = ' . $userTypeFilter . ' ' : '')
                     . ($country ? 'AND rl.country_id = ' . $country->getId() . ' ' : '')
                     . ($city ? 'AND rl.city_id = ' . $city->getId() . ' ' : '')
                     . 'ORDER BY rl.id ASC 
