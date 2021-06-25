@@ -189,6 +189,6 @@
                         })
                 })
         }
-        setInterval(getStatus, 1000)
+        setTimeout(function(){setInterval(getStatus, 3000)}, 10000)
     </script>
 {% endblock %}
