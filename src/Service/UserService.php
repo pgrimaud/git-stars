@@ -122,6 +122,16 @@ class UserService
                     $apiLanguages[$repo['language']]['stars'] += $repo['stargazers_count'];
                     ++$apiLanguages[$repo['language']]['repos'];
                 }
+            } elseif ($repo['language'] === null && $repo['stargazers_count'] > 0) {
+                if (!isset($apiLanguages['No language'])) {
+                    $apiLanguages['No language'] = [
+                        'repos' => 1,
+                        'stars' => $repo['stargazers_count'],
+                    ];
+                } else {
+                    $apiLanguages['No language']['stars'] += $repo['stargazers_count'];
+                    ++$apiLanguages['No language']['repos'];
+                }
             }
         }
 
