@@ -89,6 +89,7 @@ class UserService
         } elseif ($user->getUsername() !== $githubUser['login']) {
             // Update username if it changed since last update
             // @TODO Create a 301 Redirection
+
             $user->setUsername($githubUser['login']);
         }
 
