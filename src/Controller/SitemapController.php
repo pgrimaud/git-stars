@@ -6,6 +6,7 @@ use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -117,6 +118,11 @@ class SitemapController extends AbstractController
     #[Route('/sitemap-users-{page}.xml', name: 'sitemap_users')]
     public function users(int $page, UserRepository $userRepository): Response
     {
+        $count = $userRepository->countUsers();
+        if ($page > ceil($count / self::URL_LIMIT) || $page <= 0) {
+            throw new NotFoundHttpException('Page not found');
+        }
+
         $xml = new \SimpleXMLElement('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>');
 
         $start    = ($page - 1) * self::URL_LIMIT;
