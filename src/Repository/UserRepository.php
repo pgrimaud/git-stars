@@ -116,8 +116,19 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
     public function countUsers(): int
     {
         return (int) $this->createQueryBuilder('u')
-                 ->select('COUNT(u.id)')
-                 ->getQuery()
-                 ->getSingleScalarResult();
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getSitemapUsers(int $start): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.username')
+            ->orderBy('u.id', 'ASC')
+            ->setFirstResult($start)
+            ->setMaxResults(50000)
+            ->getQuery()
+            ->getArrayResult();
     }
 }
