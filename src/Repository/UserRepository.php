@@ -121,13 +121,13 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
             ->getSingleScalarResult();
     }
 
-    public function getSitemapUsers(int $start): array
+    public function getSitemapUsers(int $start, int $limit): array
     {
         return $this->createQueryBuilder('u')
             ->select('u.username')
             ->orderBy('u.id', 'ASC')
             ->setFirstResult($start)
-            ->setMaxResults(50000)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getArrayResult();
     }

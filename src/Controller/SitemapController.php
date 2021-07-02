@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SitemapController extends AbstractController
 {
+    public const URL_LIMIT = 20000;
+
     #[Route('/sitemap.xml', name: 'sitemap_index')]
     public function index(UserRepository $userRepository): Response
     {
@@ -28,7 +30,7 @@ class SitemapController extends AbstractController
         ];
 
         $countUsers = $userRepository->countUsers();
-        $userPages  = ceil($countUsers / 50000);
+        $userPages  = ceil($countUsers / self::URL_LIMIT);
 
         for ($i = 1; $i <= $userPages; ++$i) {
             $page = [
@@ -117,8 +119,8 @@ class SitemapController extends AbstractController
     {
         $xml = new \SimpleXMLElement('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>');
 
-        $start    = ($page - 1) * 50000;
-        $userList = $userRepository->getSitemapUsers($start);
+        $start    = ($page - 1) * self::URL_LIMIT;
+        $userList = $userRepository->getSitemapUsers($start, self::URL_LIMIT);
 
         $date = new \DateTime('-7 days');
 
