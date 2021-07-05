@@ -46,30 +46,4 @@
         window.location.href = endPoint
     }
 
-    {#document.querySelector('.user-selector').addEventListener('change', function () {#}
-    {#    if(this.value !== ''){#}
-    {#        window.location.href =#}
-    {#            `{{ path }}{% if country != null %}?country={{ country.slug }}{% if city != null %}&city={{ city.slug }}{% endif %}&{% else %}?{% endif %}show=${this.value}`#}
-    {#    } else {#}
-    {#        window.location.href = `{{ path }}`#}
-    {#    }#}
-    {#})#}
-
-    {#document.querySelector('.country-selector').addEventListener('change', function () {#}
-    {#    if(this.value !== ''){#}
-    {#        window.location.href = `{{ path }}?country=${this.value}`#}
-    {#    } else {#}
-    {#        window.location.href = `{{ path }}`#}
-    {#    }#}
-    {#})#}
-
-    {#{% if country != null %}#}
-    {#document.querySelector('.city-selector').addEventListener('change', function () {#}
-    {#    if(this.value !== ''){#}
-    {#        window.location.href = `{{ path }}?country={{ country.slug }}&city=${this.value}`#}
-    {#    } else {#}
-    {#        window.location.href = `{{ path }}?country={{ country.slug }}`#}
-    {#    }#}
-    {#})#}
-    {#{% endif %}#}
 </script>
