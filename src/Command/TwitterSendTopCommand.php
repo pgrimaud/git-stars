@@ -30,8 +30,15 @@ class TwitterSendTopCommand extends Command
 
         $topUsers = $this->userRepository->getTodayTop();
 
+        $messageIntro = [
+            'The stars has spoken ✨!',
+            'I have had a premonition 🔮!',
+            'The prophecies had foretold us 🗿!',
+            'The voice of space echoes once again 💫!'
+        ];
+
         foreach ($topUsers as $user) {
-            $message = 'The stars has spoken ✨!' . PHP_EOL . '@' . $user[0]->getTwitterHandle()
+            $message = $messageIntro[rand(0, 3)] . PHP_EOL . '@' . $user[0]->getTwitterHandle()
                 . ' is one of our lucky users of today!'
                 . PHP_EOL . 'Check them out over at https://git-stars.com/user/'
                 . $user[0]->getUsername()
