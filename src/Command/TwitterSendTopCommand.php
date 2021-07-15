@@ -31,7 +31,7 @@ class TwitterSendTopCommand extends Command
         $topUsers = $this->userRepository->getTodayTop();
 
         $messageIntro = [
-            'The stars has spoken ✨!',
+            'The stars have spoken ✨!',
             'I have had a premonition 🔮!',
             'The prophecies had foretold us 🗿!',
             'The voice of space echoes once again 💫!'
