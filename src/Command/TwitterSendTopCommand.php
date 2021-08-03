@@ -34,7 +34,7 @@ class TwitterSendTopCommand extends Command
             'The stars have spoken ✨!',
             'I have had a premonition 🔮!',
             'The prophecies had foretold us 🗿!',
-            'The voice of space echoes once again 💫!'
+            'The voice of space echoes once again 💫!',
         ];
 
         foreach ($topUsers as $user) {
