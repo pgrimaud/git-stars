@@ -16,6 +16,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.0",
+        "ext-amqp": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-imagick": "*",

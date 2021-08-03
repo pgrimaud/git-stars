@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Client\AMQP\AMQPClient;
 use App\Message\UpdateUser;
 use App\Repository\UserRepository;
 use Google\Cloud\BigQuery\BigQueryClient;
@@ -24,6 +25,7 @@ class FetchActiveUsersCommand extends Command
     public function __construct(
         private UserRepository $userRepository,
         private MessageBusInterface $bus,
+        private AMQPClient $amqpClient,
         string $name = null
     ) {
         parent::__construct($name);
@@ -39,6 +41,12 @@ class FetchActiveUsersCommand extends Command
     {
         $io   = new SymfonyStyle($input, $output);
         $date = new \DateTime('-2 days');
+
+        if (($messages = $this->amqpClient->getQueueMessages('users')) > 0) {
+            $io->warning('Queue still contains ' . $messages . ' messages. Skipping command.');
+
+            return Command::FAILURE;
+        }
 
         $limit  = intval($input->getArgument('limit'));
         $offset = intval($input->getArgument('offset'));
