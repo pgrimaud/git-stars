@@ -48,6 +48,7 @@ Or
 - Edit credentials on .env.local file
 - Run containers : `docker-compose up -d`
 - `composer install`
+- `yarn && yarn build`
 - Create database : `php bin/console doctrine:database:create`
 - Execute migrations : `php bin/console doctrine:migrations:migrate`
 - Execute languages fixtures : `php bin/console doctrine:fixtures:load --groupe=partial`

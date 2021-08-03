@@ -39,6 +39,10 @@ services:
         arguments:
             - '%env(GITHUB_SECRET)%'
 
+    App\Client\AMQP\AMQPClient:
+        arguments:
+            - '%env(MESSENGER_TRANSPORT_DSN)%'
+
     App\Client\Twitter\TwitterClient:
         arguments:
             - '%env(TWITTER_API_KEY)%'
