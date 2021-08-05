@@ -49,3 +49,6 @@ services:
             - '%env(TWITTER_API_SECRET_KEY)%'
             - '%env(TWITTER_ACCESS_TOKEN)%'
             - '%env(TWITTER_ACCESS_TOKEN_SECRET)%'
+
+    App\Command\CheckApikeyCommand:
+        $tokens: '%env(GITHUB_SECRET)%'

@@ -13,8 +13,9 @@ class GitHubClient
 
     public function __construct(string $generalAccessTokens)
     {
+        $tokens = explode(',', $generalAccessTokens);
+
         $this->client = new Client();
-        $tokens       = explode(',', $generalAccessTokens);
         $this->auth($tokens[rand(0, count($tokens) - 1)]);
     }
 
@@ -36,8 +37,12 @@ class GitHubClient
         return $paginator->fetchAll($userApi, 'repositories', [$username]);
     }
 
-    public function checkApiKey(): array
+    public function checkApiKey(?string $token): array
     {
+        if ($token) {
+            $this->auth($token);
+        }
+
         return $this->client->api('rate_limit')->getResources();
     }
 
