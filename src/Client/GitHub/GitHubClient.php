@@ -15,7 +15,7 @@ class GitHubClient
     {
         $this->client = new Client();
         $tokens       = explode(',', $generalAccessTokens);
-        $this->auth($tokens[rand(0, count($tokens))]);
+        $this->auth($tokens[rand(0, count($tokens) - 1)]);
     }
 
     public function getUserById(int $githubId): array
