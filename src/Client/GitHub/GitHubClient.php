@@ -11,10 +11,11 @@ class GitHubClient
 {
     private Client $client;
 
-    public function __construct(string $generalAccessToken)
+    public function __construct(string $generalAccessTokens)
     {
         $this->client = new Client();
-        $this->auth($generalAccessToken);
+        $tokens       = explode(',', $generalAccessTokens);
+        $this->auth($tokens[rand(0, count($tokens))]);
     }
 
     public function getUserById(int $githubId): array
