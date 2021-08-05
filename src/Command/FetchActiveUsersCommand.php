@@ -8,9 +8,9 @@ use App\Client\AMQP\AMQPClient;
 use App\Message\UpdateUser;
 use App\Repository\UserRepository;
 use Google\Cloud\BigQuery\BigQueryClient;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -22,19 +22,16 @@ use Symfony\Component\Messenger\MessageBusInterface;
 )]
 class FetchActiveUsersCommand extends Command
 {
+    public const FETCH_RESULT = 300000;
+
     public function __construct(
         private UserRepository $userRepository,
         private MessageBusInterface $bus,
         private AMQPClient $amqpClient,
+        private AdapterInterface $cacheAdapter,
         string $name = null
     ) {
         parent::__construct($name);
-    }
-
-    protected function configure(): void
-    {
-        $this->addArgument('limit', InputArgument::REQUIRED, 'Limit');
-        $this->addArgument('offset', InputArgument::REQUIRED, 'Offset');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -48,18 +45,23 @@ class FetchActiveUsersCommand extends Command
             return Command::FAILURE;
         }
 
-        $limit  = intval($input->getArgument('limit'));
-        $offset = intval($input->getArgument('offset'));
+        $cacheKey = $this->cacheAdapter->getItem('gh-offset');
 
-        if ($limit <= 0) {
-            $io->error('Limit must be superior to zero.');
-
-            return Command::FAILURE;
-        } elseif ($offset < 0) {
-            $io->error('Offset must equal or superior to zero.');
-
-            return Command::FAILURE;
+        if ($cacheKey->isHit()) {
+            $offset = $cacheKey->get();
+            $cacheKey->set($offset + self::FETCH_RESULT);
+        } else {
+            $offset = 0;
+            $cacheKey->set(self::FETCH_RESULT);
         }
+
+        $cacheReset = new \DateTime();
+        $cacheReset->setTime(23, 45);
+        $cacheKey->expiresAt($cacheReset);
+
+        $this->cacheAdapter->save($cacheKey);
+
+        $limit = self::FETCH_RESULT;
 
         $bigQuery = new BigQueryClient([
             'keyFile' => json_decode((string) file_get_contents(__DIR__ . '/../../gc-key.json'), true),
