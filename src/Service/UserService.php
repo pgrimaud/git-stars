@@ -62,6 +62,8 @@ class UserService
     {
         if ($accessToken) {
             $this->gitHubClient->auth($accessToken);
+        } else {
+            $this->gitHubClient->randomAuth();
         }
 
         try {

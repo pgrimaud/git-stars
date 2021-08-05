@@ -10,13 +10,12 @@ use Github\ResultPager;
 class GitHubClient
 {
     private Client $client;
+    private array $tokens;
 
     public function __construct(string $generalAccessTokens)
     {
-        $tokens = explode(',', $generalAccessTokens);
-
         $this->client = new Client();
-        $this->auth($tokens[rand(0, count($tokens) - 1)]);
+        $this->tokens = explode(',', $generalAccessTokens);
     }
 
     public function getUserById(int $githubId): array
@@ -49,5 +48,11 @@ class GitHubClient
     public function auth(string $accessToken)
     {
         $this->client->authenticate($accessToken, null, Client::AUTH_ACCESS_TOKEN);
+    }
+
+    public function randomAuth()
+    {
+        $rand = rand(0, count($this->tokens) - 1);
+        $this->auth($this->tokens[$rand]);
     }
 }
