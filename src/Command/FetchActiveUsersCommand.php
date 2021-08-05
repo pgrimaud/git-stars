@@ -22,7 +22,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 )]
 class FetchActiveUsersCommand extends Command
 {
-    public const FETCH_RESULT = 1000;
+    public const FETCH_RESULT = 300000;
 
     public function __construct(
         private UserRepository $userRepository,
