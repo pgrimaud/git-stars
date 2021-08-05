@@ -66,7 +66,7 @@ class CheckApikeyCommand extends Command
 
         $io->newLine(2);
 
-        // sort array by reset timer
+        // sort array by api calls remaining
         $timer = [];
         foreach ($rates as $k => $v) {
             $timer[$k] = $v['remaining'];
