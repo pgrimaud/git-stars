@@ -57,8 +57,7 @@ class GeocodeService
 
                 $countrycode = $realResult['countrycode'];
 
-                $iso        = new ISO3166();
-                $apiCountry = $iso->alpha2($countrycode)['name'];
+                $apiCountry = $this->getCountry($countrycode);
 
                 if (in_array($realResult['osm_value'], ['village', 'city'])) {
                     $apiCity = $realResult['name'];
@@ -140,6 +139,16 @@ class GeocodeService
             'us' => 'United States of America',
             'the internet', 'everywhere' => null,
             default => $location
+        };
+    }
+
+    private function getCountry(string $countryCode): ?string
+    {
+        $iso = new ISO3166();
+
+        return match (strtoupper($countryCode)) {
+            'XK'    => 'Kosovo',
+            default => $iso->alpha2($countryCode)['name']
         };
     }
 }
