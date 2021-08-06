@@ -38,7 +38,7 @@ class CountryRepository extends AbstractBaseRepository
                 ->getQuery()
                 ->getResult();
             $cacheKey->set($countries);
-            $cacheKey->expiresAfter(3600);
+            $cacheKey->expiresAfter(3600 * 24);
 
             $this->getCacheAdapter()->save($cacheKey);
         }
@@ -74,7 +74,7 @@ class CountryRepository extends AbstractBaseRepository
             $countries = $qb->getQuery()->getResult();
 
             $cacheKey->set($countries);
-            $cacheKey->expiresAfter(600);
+            $cacheKey->expiresAfter(3600 * 24);
 
             $this->getCacheAdapter()->save($cacheKey);
         }

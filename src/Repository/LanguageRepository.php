@@ -37,7 +37,7 @@ class LanguageRepository extends AbstractBaseRepository
                 ->getResult();
 
             $cacheKey->set($topLanguages);
-            $cacheKey->expiresAfter(3600);
+            $cacheKey->expiresAfter(3600 * 24);
 
             $this->getCacheAdapter()->save($cacheKey);
         }
