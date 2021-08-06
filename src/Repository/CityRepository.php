@@ -51,7 +51,7 @@ class CityRepository extends AbstractBaseRepository
             $cities = $qb->getQuery()->getResult();
 
             $cacheKey->set($cities);
-            $cacheKey->expiresAfter(600);
+            $cacheKey->expiresAfter(3600 * 24);
 
             $this->getCacheAdapter()->save($cacheKey);
         }
@@ -90,7 +90,7 @@ class CityRepository extends AbstractBaseRepository
             $cities = $qb->getQuery()->getResult();
 
             $cacheKey->set($cities);
-            $cacheKey->expiresAfter(1);
+            $cacheKey->expiresAfter(3600 * 24);
 
             $this->getCacheAdapter()->save($cacheKey);
         }
