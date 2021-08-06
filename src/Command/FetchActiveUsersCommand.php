@@ -67,6 +67,8 @@ class FetchActiveUsersCommand extends Command
             'keyFile' => json_decode((string) file_get_contents(__DIR__ . '/../../gc-key.json'), true),
         ]);
 
+        $io->warning('Starting. Offset is ' . $offset);
+
         $query = 'SELECT actor.id, actor.login FROM `githubarchive.day.' . $date->format('Ymd') . '` 
                   WHERE actor.login NOT LIKE "%[bot]%"
                   GROUP BY actor.id, actor.login ORDER BY actor.id
