@@ -3,12 +3,14 @@
 namespace App\Command;
 
 use App\Client\Twitter\TwitterClient;
+use App\Message\UpdateUser;
 use App\Repository\UserRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
     name: 'app:twitter:send-top',
@@ -19,6 +21,7 @@ class TwitterSendTopCommand extends Command
     public function __construct(
         private TwitterClient $twitterClient,
         private UserRepository $userRepository,
+        private MessageBusInterface $bus,
         string $name = null
     ) {
         parent::__construct($name);
@@ -38,6 +41,9 @@ class TwitterSendTopCommand extends Command
         ];
 
         foreach ($topUsers as $user) {
+            $this->bus->dispatch(
+                new UpdateUser($user[0]->getGithubId())
+            );
             $message = $messageIntro[rand(0, 3)] . PHP_EOL . '@' . $user[0]->getTwitterHandle()
                 . ' is one of our lucky users of today!'
                 . PHP_EOL . 'Check them out over at https://git-stars.com/user/'
