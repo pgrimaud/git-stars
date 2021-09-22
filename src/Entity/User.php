@@ -13,6 +13,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="user",indexes={
+ *     @ORM\Index(name="username_index", columns={"username"}),
+ *     @ORM\Index(name="token_index", columns={"access_token"})
+ * })
  */
 class User implements UserInterface
 {

@@ -19,8 +19,7 @@
     <div class="container">
         <div class="alert alert-secondary mt-0">
             <p class="mb-0">
-                🚧 <b><u>Update 2021/06/24</u></b> :<br> This website was just released and our database is still filling up by fetching data from GitHub.
-                During this process, the website may be a bit slow and the rankings may not be accurate yet.
+                🚧 <b><u>Update 2021/09/22</u></b> :<br> We have passed <b>5</b> million users on the website and are working to update users more frequently.
                 <br><br>We currently have <b class="users-counter">{{ totalUsers |number_format(0, '.', '&nbsp;')|raw  }}</b> users in our database 🎉.
             </p>
         </div>
@@ -174,21 +173,4 @@
     </div>
 </section>
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <!-- temporary dirty refresh -->
-    <script type="text/javascript">
-        function getStatus() {
-            fetch('{{ path('app_index_count') }}')
-                .then(function (response) {
-                    return response.json()
-                        .then(function (json) {
-                           document.querySelector('.users-counter').innerHTML = json.frames[0].text
-                        })
-                })
-        }
-        setTimeout(function(){setInterval(getStatus, 3000)}, 10000)
-    </script>
 {% endblock %}
