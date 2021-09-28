@@ -87,7 +87,7 @@ class UserRepository extends AbstractBaseRepository implements PasswordUpgraderI
                 ->andWhere('u.twitterHandle IS NOT NULL')
                 ->andWhere('u.organization = 0')
                 ->setMaxResults(4)
-                ->having('stars >= 250')
+                ->having('stars >= 1000')
                 ->orderBy('RAND()')
                 ->groupBy('u.id')
                 ->getQuery()
