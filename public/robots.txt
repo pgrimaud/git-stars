@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://git-stars.com.com/sitemap.xml
+Sitemap: https://git-stars.com/sitemap.xml
