@@ -17,6 +17,9 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
     },
+    "composer/pcre": {
+        "version": "3.0.0"
+    },
     "composer/semver": {
         "version": "3.2.5"
     },
@@ -383,9 +386,6 @@
             "config/packages/dev/debug.yaml"
         ]
     },
-    "symfony/debug-pack": {
-        "version": "v1.0.9"
-    },
     "symfony/dependency-injection": {
         "version": "v5.2.9"
     },
@@ -505,9 +505,6 @@
     "symfony/options-resolver": {
         "version": "v5.2.4"
     },
-    "symfony/orm-pack": {
-        "version": "v2.1.0"
-    },
     "symfony/password-hasher": {
         "version": "v5.3.0-rc1"
     },
@@ -537,9 +534,6 @@
     },
     "symfony/process": {
         "version": "v5.3.0-rc1"
-    },
-    "symfony/profiler-pack": {
-        "version": "v1.0.5"
     },
     "symfony/property-access": {
         "version": "v5.3.0-rc1"
@@ -625,9 +619,6 @@
             "config/packages/twig.yaml",
             "templates/base.html.twig"
         ]
-    },
-    "symfony/twig-pack": {
-        "version": "v1.0.1"
     },
     "symfony/var-dumper": {
         "version": "v5.2.8"

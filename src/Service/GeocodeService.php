@@ -138,7 +138,7 @@ class GeocodeService
     {
         return match (strtolower($location)) {
             'us' => 'United States of America',
-            'the internet', 'everywhere' => null,
+            'the internet', 'everywhere', 'global' => null,
             default => $location
         };
     }
