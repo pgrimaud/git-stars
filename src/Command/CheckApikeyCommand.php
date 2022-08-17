@@ -54,7 +54,7 @@ class CheckApikeyCommand extends Command
                         'token'     => $token,
                         'remaining' => $rate->getRemaining(),
                         'timer'     => ($diff->format('%i') < 10 ? '0' . $diff->format('%i') : $diff->format('%i')) . 'm' .
-                            ($diff->format('%s') < 10 ? '0' . $diff->format('%s') : $diff->format('%s')) . 's',
+                            ($diff->format('%s')            < 10 ? '0' . $diff->format('%s') : $diff->format('%s')) . 's',
                     ];
                     break;
                 }

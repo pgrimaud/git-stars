@@ -142,7 +142,7 @@ class UserController extends AbstractController
                 $this->getDoctrine()->getManager()->flush();
 
                 $bus->dispatch(
-                // @phpstan-ignore-next-line
+                    // @phpstan-ignore-next-line
                     new ManualUpdateUser($user->getGithubId(), $this->getUser()->getAccessToken())
                 );
             }
