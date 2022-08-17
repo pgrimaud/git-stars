@@ -16,7 +16,7 @@ class CountryExtension extends AbstractExtension
         ];
     }
 
-    public function getFlag(?string $isoCode = ''): ?string
+    public function getFlag(?string $isoCode): ?string
     {
         /* @phpstan-ignore-next-line */
         return country((string) $isoCode)->getEmoji();

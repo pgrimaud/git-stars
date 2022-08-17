@@ -12,6 +12,7 @@ framework:
         cookie_secure: auto
         cookie_samesite: lax
         name: GSX
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
 
     #esi: true
     #fragments: true
