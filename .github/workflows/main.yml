@@ -20,14 +20,11 @@ jobs:
           php-version: '8.0'
           tools: composer
 
-      - name: "Install dependencies"
-        run: composer install
+      - name: "Install & audit dependencies"
+        run: composer install && composer audit
 
       - name: "PHPStan"
         run: ./vendor/bin/phpstan analyse src --level=max
-
-      - name: "Dependencies security checker"
-        uses: symfonycorp/security-checker-action@v2
 
       - name: "Install node"
         uses: actions/setup-node@v2
